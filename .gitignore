@@ -1,0 +1,5 @@
+*.dll
+TrueFitProjectTracker/bin/EntityFramework.xml
+*.xml
+*.cache
+TrueFitProjectTracker.v11.suo
