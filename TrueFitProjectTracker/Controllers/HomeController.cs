@@ -13,10 +13,7 @@ namespace TrueFitProjectTracker.Controllers
         //
         // GET: /Home/
 
-        public ActionResult Index()
-        {
-            return RedirectToAction("ProjectsList");
-        }
+        public ProjectModel project;
 
         public ActionResult ProjectsList()
         {
@@ -34,5 +31,10 @@ namespace TrueFitProjectTracker.Controllers
             return View(viewModel);
         }
 
+        public ActionResult ReportBug(int id)
+        {
+            BugModel model = new BugModel(project);
+            return View(model);
+        }
     }
 }

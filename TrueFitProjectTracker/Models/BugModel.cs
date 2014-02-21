@@ -5,13 +5,14 @@ using System.Text;
 
 namespace TrueFitProjectTracker.Models
 {
-    public class ProjectsListModel
+    public class BugModel
     {
-        public ProjectsListModel()
-        {
-            // TODO: fetch JIRA project list
-        }
+        
 
+        public BugModel(ProjectModel project)
+        {
+            // TODO: Complete member initialization
+        }
 
     }
 }
