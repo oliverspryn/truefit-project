@@ -29,3 +29,34 @@ C:\Users\VanDykeJD1\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\S
 C:\Users\VanDykeJD1\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.csprojResolveAssemblyReference.cache
 C:\Users\VanDykeJD1\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.dll
 C:\Users\VanDykeJD1\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.pdb
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\TrueFitProjectTracker.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\TrueFitProjectTracker.pdb
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\Antlr3.Runtime.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\EntityFramework.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\Newtonsoft.Json.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Net.Http.Formatting.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Http.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Http.WebHost.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Mvc.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Optimization.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Providers.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Razor.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.Deployment.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.Razor.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\WebGrease.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\EntityFramework.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\Newtonsoft.Json.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Net.Http.Formatting.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Http.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Http.WebHost.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Mvc.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.Razor.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.Deployment.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\bin\System.Web.WebPages.Razor.xml
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.csprojResolveAssemblyReference.cache
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.dll
+C:\Users\lehmanad1\Desktop\LEHMANAD1 (Ticket 19614)\Documents\GitHub\truefit-project\TrueFitProjectTracker\obj\Debug\TrueFitProjectTracker.pdb
