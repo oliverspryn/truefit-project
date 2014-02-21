@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrueFitProjectTracker.ViewModels;
+using TrueFitProjectTracker.Models;
 
 namespace TrueFitProjectTracker.Controllers
 {
@@ -13,9 +15,23 @@ namespace TrueFitProjectTracker.Controllers
 
         public ActionResult Index()
         {
+            return RedirectToAction("ProjectsList");
+        }
 
-            int number = 9000;
-            return View(number);
+        public ActionResult ProjectsList()
+        {
+            ProjectsListModel projectsList = new ProjectsListModel();
+            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList);
+
+            return View(viewModel);
+        }
+
+        public ActionResult Project(int id)
+        {
+            ProjectModel project = new ProjectModel(id);
+            ProjectViewModel viewModel = new ProjectViewModel(project);
+
+            return View(viewModel);
         }
 
     }
