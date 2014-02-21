@@ -8,6 +8,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <header>
+        <h1>TrueFit Project Tracker</h1>
+        
+        @RenderSection("MenuSection", false);
+    </header>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
