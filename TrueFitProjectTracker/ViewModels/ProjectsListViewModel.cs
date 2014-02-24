@@ -14,6 +14,10 @@ namespace TrueFitProjectTracker.ViewModels
             // TODO: Load Data from JIRA
 
             this.projectsList.Add(new ProjectEntry(1, "Tree Project", "Reforesters United"));
+            this.projectsList.Add(new ProjectEntry(5, "Tree Project", "Reforesters United"));
+            this.projectsList.Add(new ProjectEntry(7, "Tree Project", "Reforesters United"));
+            this.projectsList.Add(new ProjectEntry(20, "Tree Project", "Reforesters United"));
+            this.projectsList.Add(new ProjectEntry(21, "Tree Project", "Reforesters United"));
         }
 
         public List<ProjectEntry> projectsList = new List<ProjectEntry>();
@@ -33,9 +37,29 @@ namespace TrueFitProjectTracker.ViewModels
             this.clientName = clientName;
         }
 
-        public int id = 0;
-        public string name = "";
-        public string clientName;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string ClientName
+        {
+            get { return clientName; }
+            set { clientName = value; }
+        }
+        
+
+        int id = 0;
+        string name = "";
+        string clientName;
 
     }
 }
