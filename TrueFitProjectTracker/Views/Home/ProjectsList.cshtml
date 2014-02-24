@@ -7,3 +7,9 @@
 <h2>ProjectsList</h2>
 
 
+<ul id="projects-list">
+    @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
+    {
+        <li>@(entry.Id): @(entry.Name) - @(entry.ClientName)</li>
+    }
+</ul>
