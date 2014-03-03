@@ -175,6 +175,8 @@
     <Content Include="Views\Home\ProjectsList.cshtml" />
     <Content Include="Views\Home\Project.cshtml" />
     <Content Include="Views\Home\ReportBug.cshtml" />
+    <Content Include="Views\Shared\LayoutViews\_Styles.cshtml" />
+    <Content Include="Views\Shared\LayoutViews\_Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

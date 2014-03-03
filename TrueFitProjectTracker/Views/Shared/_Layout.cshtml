@@ -4,9 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>@ViewBag.Title</title>
-@Styles.Render("~/Content/css")
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+@Html.Partial("LayoutViews/_Styles")
+@RenderSection("styles", required: false)
 </head>
 
 <body>
@@ -20,13 +19,8 @@
 @RenderBody()
 </section>
 
-
-<footer class="main">
-    <p>This... is my footer</p>
-</footer>
-@Scripts.Render("~/bundles/jquery")
+@Html.Partial("LayoutViews/_Footer")
+@Html.Partial("LayoutViews/_Scripts")
 @RenderSection("scripts", required: false)
-@*<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>*@
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>
