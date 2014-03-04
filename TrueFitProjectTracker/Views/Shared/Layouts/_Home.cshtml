@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    @Styles.Render("~/Content/Home.css")
+}
+<section class="jumbotron" id="start">
+<a class="logo" href="@Url.Content("~")"></a>
+
+<nav>
+<ul>
+<li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
+<li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
+</ul>
+</nav>
+
+<h2>Let's get started&hellip;</h2>
+
+<div class="row">
+<div class="col-md-3"></div>
+
+<div class="col-md-6">
+<div class="input-group">
+<input class="form-control" placeholder="Search for your project" type="text">
+
+<div class="input-group-btn">
+<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">By Project Name <span class="caret"></span></button>
+<ul class="dropdown-menu pull-right">
+<li><a href="#">By Project Name</a></li>
+<li><a href="#">By Client Name</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="col-md-3"></div>
+</div>
+</section>
+
+<section class="container">
+@RenderBody()
+</section>

@@ -1,12 +1,8 @@
 ﻿@model TrueFitProjectTracker.ViewModels.ProjectsListViewModel
-
 @{
-    ViewBag.Title = "ProjectsList";
+    Layout = "~/Views/Shared/Layouts/_Home.cshtml";
+    ViewBag.Title = "TrueFit Innovations Project Tracker";
 }
-
-<h2>ProjectsList</h2>
-
-
 <ul id="projects-list">
     @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
     {

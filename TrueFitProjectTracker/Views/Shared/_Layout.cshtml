@@ -3,24 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="@Url.Content("~/Images/logos/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
 <title>@ViewBag.Title</title>
-@Html.Partial("LayoutViews/_Styles")
-@RenderSection("styles", required: false)
+@Html.Partial("PartialViews/_Styles")
+@RenderSection("styles", false)
 </head>
 
 <body>
-<section class="container">
-<header>
-<h1>@ViewBag.Title</h1>
-
-@RenderSection("MenuSection", false)
-</header>
-
 @RenderBody()
-</section>
 
-@Html.Partial("LayoutViews/_Footer")
-@Html.Partial("LayoutViews/_Scripts")
-@RenderSection("scripts", required: false)
+@Html.Partial("PartialViews/_Footer")
+@Html.Partial("PartialViews/_Scripts")
+@RenderSection("scripts", false)
 </body>
 </html>
