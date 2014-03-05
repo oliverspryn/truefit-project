@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+    @RenderSection("Styles", required: false)
+}
+<section class="jumbotron" id="start">
+<a class="logo" href="@Url.Content("~")"></a>
+
+<nav>
+<ul>
+<li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
+<li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
+</ul>
+</nav>
+
+<div class="row">
+<div class="col-md-2"></div>
+
+<div class="col-md-8">
+<h2>Where we're at&hellip;</h2>
+@RenderSection("ProgressBar")
+</div>
+
+<div class="col-md-2"></div>
+</div>
+</section>
+
+<section class="container">
+@RenderBody()
+</section>

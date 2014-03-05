@@ -8,6 +8,89 @@
 }
 
 /*
+ * Jumbotron
+ * -------------------------------------
+*/
+
+section#start {
+    color: #FFFFFF;
+    padding: 48px 110px;
+}
+
+section#start a.logo {
+    -moz-opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -ms-opacity: 1;
+    -o-opacity: 1;
+    -webkit-opacity: 1;
+    filter: alpha(opacity=100);
+    opacity: 1;
+
+    -moz-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+
+    background: url('../Images/logos/full-logo.png');
+    background-position: -10px -11px;
+    background-size: 100%;
+    display: inline-block;
+    height: 36px;
+    width: 173px;
+}
+
+section#start a.logo:hover {
+    -moz-opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    -ms-opacity: 0.5;
+    -o-opacity: 0.5;
+    -webkit-opacity: 0.5;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+section#start nav {
+    height: 36px;
+    position: absolute;
+    right: 10%;
+    top: 48px;
+}
+
+section#start nav ul {
+    height: 36px;
+	list-style: none;
+	margin: 0px;
+}
+
+section#start nav ul li {
+    display: inline-block;
+	height: 36px;
+	padding-left: 30px;
+}
+
+section#start nav ul li a {
+    -moz-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+	
+    color: #666666;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+section#start nav ul li a:hover {
+	color: #444444;
+}
+
+/*
  * Footer
  * -------------------------------------------
 */

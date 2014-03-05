@@ -1,0 +1,45 @@
+﻿/*
+ * Jumbotron
+ * -------------------------------------
+*/
+
+section#start {
+    background: url('../Images/banners/stardust.png');
+}
+
+section#start h2 {
+    font-weight: 100;
+    margin-top: 70px;
+    text-align: center;
+}
+
+section#start div.row div.progress {
+    margin-top: 20px;
+}
+
+/*
+ * Charting panels
+ * -------------------------------------
+*/
+
+article.task-burndown div.panel div.panel-heading {
+    background-color: #77E38C;
+    background-image: none;
+    border-bottom: none;
+    text-align: center;
+}
+
+article.task-burndown div.panel div.panel-body {
+    padding: 0px;
+}
+
+article.bug-burndown div.panel div.panel-heading {
+    background-color: #00D2FF;
+    background-image: none;
+    border-bottom: none;
+    text-align: center;
+}
+
+article.bug-burndown div.panel div.panel-body {
+    padding: 0px;
+}
