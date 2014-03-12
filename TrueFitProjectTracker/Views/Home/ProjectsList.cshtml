@@ -3,9 +3,20 @@
     Layout = "~/Views/Shared/Layouts/_Home.cshtml";
     ViewBag.Title = "TrueFit Innovations Project Tracker";
 }
-<ul id="projects-list">
-    @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
-    {
-        <li>@(entry.Id): @(entry.Name) - @(entry.ClientName)</li>
-    }
-</ul>
+<div class="col-sm-12">
+  <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Project List</h3>
+            </div>
+            <div class="panel-body">
+
+        <div class="list-group">
+            @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
+            {
+            
+                <a href="#" class="list-group-item">@(entry.Id): @(entry.Name) - @(entry.ClientName)</a>
+            }
+      </div>
+    </div>
+  </div>
+</div>
