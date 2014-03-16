@@ -17,6 +17,75 @@ section#start div.row div.progress {
     margin-top: 20px;
 }
 
+/**
+ * Content area styles
+ * ----------------------------------
+*/
+
+section.container {
+    margin: 0px;
+    overflow: hidden;
+    padding: 0px;
+    width: 100%;
+}
+
+article.content, section.content {
+	background: #FFFFFF;
+	border-top: 1px solid #DDDDDD;
+	padding: 65px 10% 65px 10%;
+}
+
+article.content.even, section.content.even, article.content.no-splash, section.content.no-splash {
+	background: #F5F5F5;
+}
+
+article.content.no-border, section.content.no-border, article.content.no-border, section.content.no-border {
+	border-bottom: none;
+	border-top: none;
+}
+
+article.content > h1, section.content h1, article.content h2, section.content h2, article.content header h1, section.content header h1, article.content header h2, section.content header h2 {
+	color: #303030;
+	font-size: 24px !important;
+	font-weight: 300;
+	line-height: normal !important;
+	margin: 0px 0px 20px 0px;
+	padding-bottom: 10px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+article.content > h1::after, section.content h1::after, article.content h2::after, section.content h2::after, article.content header h1::after, section.content header h1::after, article.content header h2::after, section.content header h2::after {
+	border-top: 2px solid #303030;
+	content: ' ';
+	display: block;
+	margin: 7px auto 0px auto;
+	padding: 0px;
+	text-align: center;
+	width: 300px;
+}
+
+article.content p, section.content p {
+	color: #777777;
+	margin: 10px 0px 10px 0px;
+}
+
+article.content.center p, section.content.center p {
+	margin: 15px auto 15px auto;
+	max-width: 850px;
+	text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+	article.content, section.content {
+		padding: 15px 10% 15px 10%;
+	}
+    
+    article.content > h1::after, section.content > h1::after, article.content > h2::after, section.content > h2::after, article.content header h1::after, section.content header h1::after, article.content header h2::after, section.content header h2::after {
+        content: none;
+    }
+}
+
 /*
  * Charting panels
  * -------------------------------------
@@ -42,4 +111,70 @@ article.bug-burndown div.panel div.panel-heading {
 
 article.bug-burndown div.panel div.panel-body {
     padding: 0px;
+}
+
+/*
+ * Bug logging
+ * -------------------------------------
+*/
+
+section.bug {
+    text-align: center;
+}
+
+section.bug a.btn {
+    margin: 50px 0px 20px 0px;
+}
+
+/*
+ * Task list
+ * -------------------------------------
+*/
+
+section.tasks div header {
+    background-color: #181818;
+    padding: 50px 0px;
+}
+
+section.tasks div header h3 {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 0px;
+    padding-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+section.tasks div header h4 {
+    color: #FFFFFF;
+    font-size: 100px;
+    font-weight: 100;
+    margin: 0px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+section.tasks div header h5 {
+    color: #999999;
+    font-style: italic;
+    margin: 0px;
+    text-align: center;
+}
+
+section.tasks div ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+section.tasks div ul li {
+    background: #F7F7F7;
+    border-bottom: 1px solid #E9E9E9;
+    padding: 10px 15px;
+}
+
+section.tasks div ul li:last-child {
+    border-bottom: none;
 }

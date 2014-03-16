@@ -1,6 +1,8 @@
 ﻿@{
+    string ProjectName = "Project X";
+    
     Layout = "~/Views/Shared/Layouts/_Project.cshtml";
-    ViewBag.Title = "Project X";
+    ViewBag.Title = ProjectName;
 }
 @section Scripts {
 <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
@@ -101,7 +103,7 @@
 </div>
 </div>
 }
-<div class="row">
+<section class="content no-border row">
 <div class="col-md-6">
 <article class="task-burndown">
 <div class="panel panel-default">
@@ -125,4 +127,87 @@
 </div>
 </article>
 </div>
+</section>
+
+<section class="bug center content even row">
+<div class="col-lg-12">
+<h2>Found a bug?</h2>
+<p>We're sorry to hear that @ProjectName has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
+<a href="#" class="btn btn-default btn-lg" role="button">
+<span class="glyphicon glyphicon-warning-sign"></span> Report a Bug
+</a>
 </div>
+</section>
+
+<section class="center content row tasks">
+<h2>Upcoming Tasks</h2>
+
+<div class="col-md-4">
+<header>
+<h3>In progress</h3>
+<h4>23</h4>
+<h5>Tasks currently in execution</h5>
+</header>
+
+<ul>
+<li>Funsauce!</li>
+<li>Lamesauce!</li>
+<li>Examplesauce!</li>
+<li>Saucesauce!</li>
+<li>Tiredsauce!</li>
+<li>1:30AMsauce!</li>
+<li>Lehmansauce!</li>
+<li>Goehringsauce!</li>
+<li>VanDyksauce!</li>
+<li>Sprynsauce!</li>
+<li>Anything is fun if you add sauce on the end sauce!</li>
+<li>BOOMSAUCE!</li>
+</ul>
+</div>
+
+<div class="col-md-4">
+<header>
+<h3>Starting soon</h3>
+<h4>15</h4>
+<h5>Tasks scheduled within one week</h5>
+</header>
+
+<ul>
+<li>Funsauce!</li>
+<li>Lamesauce!</li>
+<li>Examplesauce!</li>
+<li>Saucesauce!</li>
+<li>Tiredsauce!</li>
+<li>1:30AMsauce!</li>
+<li>Lehmansauce!</li>
+<li>Goehringsauce!</li>
+<li>VanDyksauce!</li>
+<li>Sprynsauce!</li>
+<li>Anything is fun if you add sauce on the end sauce!</li>
+<li>BOOMSAUCE!</li>
+</ul>
+</div>
+
+<div class="col-md-4">
+<header>
+<h3>Distant future</h3>
+<h4>67</h4>
+<h5>Tasks scheduled in greater than one week</h5>
+</header>
+
+<ul>
+<li>Funsauce!</li>
+<li>Lamesauce!</li>
+<li>Examplesauce!</li>
+<li>Saucesauce!</li>
+<li>Tiredsauce!</li>
+<li>1:30AMsauce!</li>
+<li>Lehmansauce!</li>
+<li>Goehringsauce!</li>
+<li>VanDyksauce!</li>
+<li>Sprynsauce!</li>
+<li>Anything is fun if you add sauce on the end sauce!</li>
+<li>BOOMSAUCE!</li>
+</ul>
+</div>
+</section>
