@@ -87,30 +87,113 @@ article.content.center p, section.content.center p {
 }
 
 /*
- * Charting panels
+ * Charting section
  * -------------------------------------
 */
 
-article.task-burndown div.panel div.panel-heading {
-    background-color: #77E38C;
+p.description {
+    margin-bottom: 80px !important;
+}
+
+article div.panel {
+    -moz-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+
+    border: none;
+}
+
+article div.panel div.panel-heading {
+    background-color: #323A45;
     background-image: none;
-    border-bottom: none;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 15px;
     text-align: center;
 }
 
-article.task-burndown div.panel div.panel-body {
+article div.panel div.panel-body {
+    background-color: #EAEDF1;
     padding: 0px;
-}
-
-article.bug-burndown div.panel div.panel-heading {
-    background-color: #00D2FF;
-    background-image: none;
-    border-bottom: none;
     text-align: center;
 }
 
-article.bug-burndown div.panel div.panel-body {
-    padding: 0px;
+article div.panel div.panel-body div.item-progress {
+    margin: 40px auto;
+    width: 250px;
+}
+
+article div.panel div.panel-body div.row {
+    border-bottom: 1px solid #CCCCCC;
+    margin: 20px 0px;
+}
+
+article div.panel div.panel-body div.row:last-child {
+    border-bottom: none;
+}
+
+article div.panel div.panel-body div.recent {
+    padding-bottom: 20px;
+}
+
+article div.panel div.panel-body div.recent h3 {
+    font-weight: 300;
+    margin: 5px 0px 20px 0px;
+}
+
+article div.panel div.panel-body div.recent div.recent-chart {
+    height: 80px;
+    padding-right: 0px;
+}
+
+article div.panel div.panel-body div.recent div.recent-chart h5 {
+    height: 110px;
+    padding-left: 0px;
+    vertical-align: middle;
+}
+
+article div.panel div.panel-body div.recent div h4 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0px;
+    padding: 19px 0px 6px 0px;
+}
+
+article div.panel div.panel-body div.task-recent div h4 {
+    color: #77E38C;
+}
+
+article div.panel div.panel-body div.bug-recent div h4 {
+    color: #00D2FF;
+}
+
+article div.panel div.panel-body div.recent div h5 {
+    color: #999999;
+    font-size: 14px;
+    margin: 0px;
+    text-transform: uppercase;
+}
+
+article div.panel div.panel-body div.stats div h4 {
+    color: #00D2FF;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+article div.panel div.panel-body div.task-stats div h4 {
+    color: #77E38C;
+}
+
+article div.panel div.panel-body div.bug-stats div h4 {
+    color: #00D2FF;
+}
+
+article div.panel div.panel-body div.stats div h5 {
+    color: #999999;
+    font-size: 14px;
 }
 
 /*
@@ -172,9 +255,31 @@ section.tasks div ul {
 section.tasks div ul li {
     background: #F7F7F7;
     border-bottom: 1px solid #E9E9E9;
+    font-weight: 700;
     padding: 10px 15px;
 }
 
 section.tasks div ul li:last-child {
     border-bottom: none;
+}
+section.tasks div ul li span {
+    color: #999999;
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    padding-top: 5px;
+}
+
+section.tasks div ul li.more {
+    text-align: center;
+}
+
+section.tasks div ul li.more span {
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 100;
+    position: relative;
+    line-height: 0.3;
+    top: -38px;
 }

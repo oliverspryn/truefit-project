@@ -4,14 +4,72 @@
     Layout = "~/Views/Shared/Layouts/_Project.cshtml";
     ViewBag.Title = ProjectName;
 }
+@section Breadcrumb {
+<li>
+<a href="#">@ViewBag.Title</a>
+</li>
+}
 @section Scripts {
 <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
 <script>
-    $(function () {
-        $('#container').highcharts({
+    $(function() {
+        var percent = 79.0;
+
+        $('#task-progress').highcharts({
+            chart: {
+                backgroundColor: null,
+                height: 250,
+                spacing: [0, 0, 0, 0],
+                width: 250
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    animation: false,
+                    borderWidth: 0,
+                    dataLabels: { enabled: false },
+                    states: { hover: { enabled: false } }
+                }
+            },
+            series: [{
+                data: [{
+                    color: '#77E38C',
+                    y: percent
+                }, {
+                    color: '#FFFFFF',
+                    y: 100.0 - percent
+                }],
+                innerSize: '80%',
+                type: 'pie'
+            }, {
+                data: [{
+                    color: '#323A45',
+                    y: 100.0
+                }],
+                size: '80%',
+                type: 'pie'
+            }],
+            title: {
+                align: 'center',
+                text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
+                verticalAlign: 'middle',
+                y: 20
+            },
+            tooltip: { enabled: false }
+        });
+    });
+
+    $(function() {
+        $('#task-burndown').highcharts({
             chart: {
                 backgroundColor: '#77E38C',
-                borderRadius: 0
+                borderRadius: 0,
+                spacing: [40, 10, 40, 10]
             },
             colors: ['#FFFFFF'],
             credits: {
@@ -40,28 +98,28 @@
                 }
             },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+                enabled: false
             },
             series: [{
-                name: 'Tokyo',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                name: 'Remaining',
+                data: [100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6]
             }]
         });
+    });
 
-        $('#container1').highcharts({
-            chart: {
-                backgroundColor: '#00D2FF',
-                borderRadius: 0
+    $(function() {
+        $('#bug-burndown').highcharts({
+            chart : {
+                backgroundColor : '#00D2FF',
+                borderRadius: 0,
+                spacing : [40, 10, 40, 10]
             },
-            colors: ['#FFFFFF'],
-            credits: {
-                enabled: false
+            colors : ['#FFFFFF'],
+            credits : {
+                enabled : false
             },
-            exporting: {
-                enabled: false
+            exporting : {
+                enabled : false
             },
             title: {
                 text: null
@@ -83,14 +141,159 @@
                 }
             },
             legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+                enabled : false
             },
             series: [{
-                name: 'Tokyo',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                name: 'Remaining',
+                data: [100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6]
+            }]
+        });
+    });
+
+    $(function() {
+        var percent = 76.0;
+
+        $('#bug-progress').highcharts({
+            chart: {
+                backgroundColor : null,
+                height: 250,
+                spacing: [0, 0, 0, 0],
+                width: 250
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    animation: false,
+                    borderWidth: 0,
+                    dataLabels: { enabled: false },
+                    states: { hover: { enabled: false } }
+                }
+            },
+            series: [{
+                data: [{
+                    color: '#00D2FF',
+                    y: percent
+                }, {
+                    color: '#FFFFFF',
+                    y: 100.0 - percent
+                }],
+                innerSize: '80%',
+                type: 'pie'
+            }, {
+                data: [{
+                    color: '#323A45',
+                    y: 100.0
+                }],
+                size: '80%',
+                type: 'pie'
+            }],
+            title: {
+                align: 'center',
+                text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
+                verticalAlign: 'middle',
+                y: 20
+            },
+            tooltip: { enabled: false }
+        });
+    });
+
+    $(function() {
+        var max = 10;
+
+        $('#bug-recent-chart').highcharts({
+            chart: {
+                backgroundColor: null,
+                spacing: [0, 0, 0, 0],
+                type: 'column'
+            },
+            credits: { enabled: false },
+            exporting: { enabled: false },
+            legend: { enabled: false },
+            title: { text: null },
+            tooltip: { enabled: false },
+            xAxis: {
+                categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                gridLineColor: 'transparent',
+                lineWidth: 0,
+                minorGridLineWidth: 0,
+                labels: { style: { 'color': '#999999', 'font-size' : '14px' } },
+                tickColor: 'transparent'
+            },
+            yAxis: {
+                gridLineColor: 'transparent',
+                labels: { enabled: false },
+                lineWidth: 0,
+                minorGridLineWidth: 0,
+                title: { text: null }
+            },
+            plotOptions: {
+                column: {
+                    animation: false,
+                    borderColor: 'transparent',
+                    borderWidth: 0,
+                    stacking: 'normal',
+                    states: { hover: { enabled: false } }
+                }
+            },
+            series: [{
+                color: ['#DDDDDD'],
+                data: [5, 3, 4, 7, 2, 1, 6]
+            }, {
+                color: ['#00D2FF'],
+                data: [5, 7, 6, 3, 8, 9, 4]
+            }]
+        });
+    });
+
+    $(function () {
+        var max = 10;
+
+        $('#task-recent-chart').highcharts({
+            chart: {
+                backgroundColor: null,
+                spacing: [0, 0, 0, 0],
+                type: 'column'
+            },
+            credits: { enabled: false },
+            exporting: { enabled: false },
+            legend: { enabled: false },
+            title: { text: null },
+            tooltip: { enabled: false },
+            xAxis: {
+                categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                gridLineColor: 'transparent',
+                lineWidth: 0,
+                minorGridLineWidth: 0,
+                labels: { style: { 'color': '#999999', 'font-size': '14px' } },
+                tickColor: 'transparent'
+            },
+            yAxis: {
+                gridLineColor: 'transparent',
+                labels: { enabled: false },
+                lineWidth: 0,
+                minorGridLineWidth: 0,
+                title: { text: null }
+            },
+            plotOptions: {
+                column: {
+                    animation: false,
+                    borderColor: 'transparent',
+                    borderWidth: 0,
+                    stacking: 'normal',
+                    states: { hover: { enabled: false } }
+                }
+            },
+            series: [{
+                color: ['#DDDDDD'],
+                data: [5, 3, 4, 7, 2, 1, 6]
+            }, {
+                color: ['#77E38C'],
+                data: [5, 7, 6, 3, 8, 9, 4]
             }]
         });
     });
@@ -98,31 +301,78 @@
 }
 @section ProgressBar {
 <div class="progress">
-<div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" style="width: 20%">
-<span>20%</span>
+<div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="78" role="progressbar" style="width: 78%">
+<span>78%</span>
 </div>
 </div>
 }
-<section class="content no-border row">
+<section class="center content no-border row">
+<h2>Progress Overview</h2>
+<p class="description">The overall progress on @ViewBag.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
+
 <div class="col-md-6">
-<article class="task-burndown">
+<article class="tasks">
 <div class="panel panel-default">
-<div class="panel-heading">Panel heading without title</div>
+<div class="panel-heading">Our To-Do List</div>
+
 <div class="panel-body">
-<div id="container"></div>
-<div id="daily-handlers"><p>More exciting things and stuff like that!</p></div>
+<div id="task-progress" class="item-progress"></div>
+<div id="task-burndown" class="burndown"></div>
+
+<div class="recent row task-recent">
+<h3>Tasks completed this past week</h3>
+
+<div class="col-md-8 recent-chart" id="task-recent-chart"></div>
+<div class="task-recent-total col-md-4 recent-total">
+<h4>42</h4>
+<h5>Tasks Completed</h5>
+</div>
+</div>
+
+<div class="row stats task-stats">
+<div class="col-md-6 task-stats-complete">
+<h5>Total Completed</h5>
+<h4>392</h4>
+</div>
+<div class="col-md-6 task-stats-remain">
+<h5>Total Remaining</h5>
+<h4>105</h4>
+</div>
+</div>
 </div>
 </div>
 </article>
 </div>
 
 <div class="col-md-6">
-<article class="bug-burndown">
+<article class="bugs">
 <div class="panel panel-default">
-<div class="panel-heading">Panel heading without title</div>
+<div class="panel-heading">Software Bugs</div>
+
 <div class="panel-body">
-<div id="container1"></div>
-<div id="daily-handlers"><p>More exciting things and stuff like that!</p></div>
+<div id="bug-progress" class="item-progress"></div>
+<div id="bug-burndown" class="burndown"></div>
+
+<div class="bug-recent recent row">
+<h3>Bugs closed this past week</h3>
+
+<div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
+<div class="bug-recent-total col-md-4 recent-total">
+<h4>42</h4>
+<h5>Bugs Closed</h5>
+</div>
+</div>
+
+<div class="bug-stats row stats">
+<div class="bug-stats-complete col-md-6">
+<h5>Total Closed</h5>
+<h4>267</h4>
+</div>
+<div class="bug-stats-remain col-md-6">
+<h5>Total Remaining</h5>
+<h4>83</h4>
+</div>
+</div>
 </div>
 </div>
 </article>
@@ -150,18 +400,17 @@
 </header>
 
 <ul>
-<li>Funsauce!</li>
-<li>Lamesauce!</li>
-<li>Examplesauce!</li>
-<li>Saucesauce!</li>
-<li>Tiredsauce!</li>
-<li>1:30AMsauce!</li>
-<li>Lehmansauce!</li>
-<li>Goehringsauce!</li>
-<li>VanDyksauce!</li>
-<li>Sprynsauce!</li>
-<li>Anything is fun if you add sauce on the end sauce!</li>
-<li>BOOMSAUCE!</li>
+<li>Task 1! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 2! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 3! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 4! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 5! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 6! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 7! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 8! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 9! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 10! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li class="more"><span>&hellip;</span></li>
 </ul>
 </div>
 
@@ -173,18 +422,17 @@
 </header>
 
 <ul>
-<li>Funsauce!</li>
-<li>Lamesauce!</li>
-<li>Examplesauce!</li>
-<li>Saucesauce!</li>
-<li>Tiredsauce!</li>
-<li>1:30AMsauce!</li>
-<li>Lehmansauce!</li>
-<li>Goehringsauce!</li>
-<li>VanDyksauce!</li>
-<li>Sprynsauce!</li>
-<li>Anything is fun if you add sauce on the end sauce!</li>
-<li>BOOMSAUCE!</li>
+<li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li class="more"><span>&hellip;</span></li>
 </ul>
 </div>
 
@@ -196,18 +444,17 @@
 </header>
 
 <ul>
-<li>Funsauce!</li>
-<li>Lamesauce!</li>
-<li>Examplesauce!</li>
-<li>Saucesauce!</li>
-<li>Tiredsauce!</li>
-<li>1:30AMsauce!</li>
-<li>Lehmansauce!</li>
-<li>Goehringsauce!</li>
-<li>VanDyksauce!</li>
-<li>Sprynsauce!</li>
-<li>Anything is fun if you add sauce on the end sauce!</li>
-<li>BOOMSAUCE!</li>
+<li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+<li class="more"><span>&hellip;</span></li>
 </ul>
 </div>
 </section>
