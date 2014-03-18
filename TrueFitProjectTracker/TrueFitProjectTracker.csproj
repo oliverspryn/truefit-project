@@ -148,6 +148,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\banners\php.jpg" />
+    <Content Include="Images\banners\stardust.png" />
+    <Content Include="Images\banners\stressed_linen.png" />
+    <Content Include="Images\logos\favicon.ico" />
+    <Content Include="Images\logos\full-logo.png" />
+    <Content Include="Images\logos\small-logo.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -187,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\logos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -211,7 +216,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>12088</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:55371/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
