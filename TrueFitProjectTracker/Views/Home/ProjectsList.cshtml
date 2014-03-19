@@ -3,9 +3,23 @@
     Layout = "~/Views/Shared/Layouts/_Home.cshtml";
     ViewBag.Title = "TrueFit Innovations Project Tracker";
 }
-<ul id="projects-list">
-    @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
-    {
-        <li class="list-group-item">@(entry.Id): @(entry.Name) - @(entry.ClientName)</li>
-    }
-</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Select a project</h3>
+    </div>
+    <div class="panel panel-text">
+        <div id="projects-list">
+            @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
+            {
+                <a href ="http://www.lmgtfy.com/?q= @(entry.Name)" class="list-group-item">
+                    <h4 class=" list-group-item-heading">@(entry.Name) </h4>
+                    <p class="list-group-item-text">Project Number: @(entry.Id) </p>
+                    <p class="list-group-item-text">Client: @(entry.ClientName) </p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@(entry.TotalProgress)" aria-valuemin="0" aria-valuemax="100" style="width: @(entry.TotalProgress)%;"><span class="sr-only">@(entry.TotalProgress)% Complete</span></div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
