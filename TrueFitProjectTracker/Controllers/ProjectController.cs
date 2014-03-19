@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TrueFitProjectTracker.Controllers {
     public class ProjectController : Controller {
-        public ActionResult Index() {
+        public ActionResult Index(int id) {
 
 
             return View();

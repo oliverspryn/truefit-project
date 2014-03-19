@@ -13,15 +13,7 @@ namespace TrueFitProjectTracker
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-        //Project
-            routes.MapRoute(
-                "Project",
-                "project/{id}/{name}",
-                new { controller = "Project", action = "Index", id = UrlParameter.Optional },
-                new { id = @"\d+" }
-            );
-
-        //Home page
+        //Default
             routes.MapRoute(
                 name: "Home",
                 url: "{controller}/{action}/{id}",
