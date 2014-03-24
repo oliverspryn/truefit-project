@@ -129,8 +129,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BugController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Models\BugModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\JIRAInterface.cs" />
@@ -170,6 +168,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Project.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -184,15 +183,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ProjectsList.cshtml" />
-    <Content Include="Views\Home\Project.cshtml" />
-    <Content Include="Views\Home\ReportBug.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Styles.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Scripts.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Footer.cshtml" />
-    <Content Include="Views\Shared\Layouts\_Home.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\Shared\Layouts\_Project.cshtml" />
-    <Content Include="Views\Bug\Index.cshtml" />
+    <Content Include="Views\Home\Project.cshtml" />
+    <Content Include="Views\Home\ReportBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

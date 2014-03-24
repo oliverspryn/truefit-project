@@ -15,10 +15,10 @@ namespace TrueFitProjectTracker.Models
 
         public ProjectModel(int id)
         {
-            // TODO: Complete member initialization
-        
+            Title = "New Project";
         }
 
+        public string Title { get; set; }
         
     }
 }

@@ -9,10 +9,10 @@ namespace TrueFitProjectTracker.ViewModels
     {
         public ProjectViewModel(Models.ProjectModel project)
         {
-            // TODO: Complete member initialization
+            Title = project.Title;
         }
-
-        public string title = "Default";
         
+        public string Title { get; set; }
+
     }
 }

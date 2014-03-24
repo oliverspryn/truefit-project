@@ -25,9 +25,17 @@ namespace TrueFitProjectTracker.Controllers
 
         public ActionResult Project(int id)
         {
-            ProjectModel project = new ProjectModel(id);
-            ProjectViewModel viewModel = new ProjectViewModel(project);
 
+            // no viewbags allowed! (except for page title with layout)  :)  -Jefff
+            ProjectModel project = new ProjectModel(id);
+
+            //follow 'Go To Definition' on these models to get the pattern.
+
+            //demo:
+            project.Title = "Project X";
+
+            ProjectViewModel viewModel = new ProjectViewModel(project);
+            
             return View(viewModel);
         }
 

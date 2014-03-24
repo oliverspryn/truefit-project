@@ -1,19 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="en-us">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link href="@Url.Content("~/Images/logos/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-<title>@ViewBag.Title</title>
-@Html.Partial("PartialViews/_Styles")
-@RenderSection("styles", false)
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="@Url.Content("~/Images/logos/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+    @Html.Partial("PartialViews/_Styles")
+    @RenderSection("styles", false)
 </head>
 
 <body>
-@RenderBody()
 
-@Html.Partial("PartialViews/_Footer")
-@Html.Partial("PartialViews/_Scripts")
-@RenderSection("scripts", false)
+
+    @RenderBody()
+
+
+    @Html.Partial("PartialViews/_Footer")
+    @Html.Partial("PartialViews/_Scripts")
+    @RenderSection("scripts", false)
 </body>
 </html>

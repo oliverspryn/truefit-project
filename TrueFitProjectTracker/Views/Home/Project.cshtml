@@ -1,7 +1,203 @@
-﻿@model TrueFitProjectTracker.Models.ProjectModel
-
+﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
 @{
-    ViewBag.Title = "Project";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Project</h2>
+@section Scripts {
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+    <script src="~/Scripts/Project.js"></script>
+}
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+}
+<section class="jumbotron" id="start">
+    <nav class="main-breadcrumb">
+        <ul>
+            <li>
+                <a class="logo" href="@Url.Action("Index", "Home", null)"></a>
+            </li>
+            <li>
+                <a href="#">@Model.Title</a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav class="links">
+        <ul>
+            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
+            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+            <h2>@Model.Title</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="78" role="progressbar" style="width: 78%">
+                    <span>78%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+</section>
+
+<section class="container">
+    <section class="center content no-border row">
+        <h2>Progress Overview</h2>
+        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
+
+        <div class="col-md-6">
+            <article class="tasks">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Our To-Do List</div>
+
+                    <div class="panel-body">
+                        <div id="task-progress" class="item-progress"></div>
+                        <div id="task-burndown" class="burndown"></div>
+
+                        <div class="recent row task-recent">
+                            <h3>Tasks completed this past week</h3>
+
+                            <div class="col-md-8 recent-chart" id="task-recent-chart"></div>
+                            <div class="task-recent-total col-md-4 recent-total">
+                                <h4>42</h4>
+                                <h5>Tasks Completed</h5>
+                            </div>
+                        </div>
+
+                        <div class="row stats task-stats">
+                            <div class="col-md-6 task-stats-complete">
+                                <h5>Total Completed</h5>
+                                <h4>392</h4>
+                            </div>
+                            <div class="col-md-6 task-stats-remain">
+                                <h5>Total Remaining</h5>
+                                <h4>105</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-md-6">
+            <article class="bugs">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Software Bugs</div>
+
+                    <div class="panel-body">
+                        <div id="bug-progress" class="item-progress"></div>
+                        <div id="bug-burndown" class="burndown"></div>
+
+                        <div class="bug-recent recent row">
+                            <h3>Bugs closed this past week</h3>
+
+                            <div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
+                            <div class="bug-recent-total col-md-4 recent-total">
+                                <h4>42</h4>
+                                <h5>Bugs Closed</h5>
+                            </div>
+                        </div>
+
+                        <div class="bug-stats row stats">
+                            <div class="bug-stats-complete col-md-6">
+                                <h5>Total Closed</h5>
+                                <h4>267</h4>
+                            </div>
+                            <div class="bug-stats-remain col-md-6">
+                                <h5>Total Remaining</h5>
+                                <h4>83</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="bug center content even row">
+        <div class="col-lg-12">
+            <h2>Found a bug?</h2>
+            <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
+            <a href="@Url.Action("ReportBug", "Home", new { id = 1 })" class="btn btn-default btn-lg" role="button">
+                <span class="glyphicon glyphicon-warning-sign"></span>Report a Bug
+            </a>
+        </div>
+    </section>
+
+
+    <section class="center content row tasks">
+        <h2>Upcoming Tasks</h2>
+
+        <div class="col-md-4">
+            <header>
+                <h3>In progress</h3>
+                <h4>23</h4>
+                <h5>Tasks currently in execution</h5>
+            </header>
+
+            <ul>
+                <li>Task 1! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 2! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 3! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 4! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 5! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 6! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 7! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 8! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 9! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 10! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li class="more"><span>&hellip;</span></li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <header>
+                <h3>Starting soon</h3>
+                <h4>15</h4>
+                <h5>Tasks scheduled within one week</h5>
+            </header>
+
+            <ul>
+                <li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li class="more"><span>&hellip;</span></li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <header>
+                <h3>Distant future</h3>
+                <h4>67</h4>
+                <h5>Tasks scheduled in greater than one week</h5>
+            </header>
+
+            <ul>
+                <li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
+                <li class="more"><span>&hellip;</span></li>
+            </ul>
+        </div>
+    </section>
+
+</section>
