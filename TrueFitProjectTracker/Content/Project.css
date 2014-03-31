@@ -95,7 +95,7 @@ p.description {
     margin-bottom: 80px !important;
 }
 
-article div.panel {
+article div.tasks div.jumbotron {
     -moz-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -ms-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -o-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
@@ -105,93 +105,78 @@ article div.panel {
     border: none;
 }
 
-article div.panel div.panel-heading {
-    background-color: #323A45;
-    background-image: none;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-weight: bolder;
-    padding: 15px;
-    text-align: center;
-}
 
-article div.panel div.panel-body {
-    background-color: #EAEDF1;
-    padding: 0px;
-    text-align: center;
-}
-
-article div.panel div.panel-body div.item-progress {
+article div.item-progress {
     margin: 40px auto;
     width: 250px;
 }
 
-article div.panel div.panel-body div.row {
+article div.row {
     border-bottom: 1px solid #CCCCCC;
     margin: 20px 0px;
 }
 
-article div.panel div.panel-body div.row:last-child {
+article div.row:last-child {
     border-bottom: none;
 }
 
-article div.panel div.panel-body div.recent {
+article div.recent {
     padding-bottom: 20px;
 }
 
-article div.panel div.panel-body div.recent h3 {
+article div.recent h3 {
     font-weight: 300;
     margin: 5px 0px 20px 0px;
 }
 
-article div.panel div.panel-body div.recent div.recent-chart {
+article div.recent-chart {
     height: 80px;
     padding-right: 0px;
 }
 
-article div.panel div.panel-body div.recent div.recent-chart h5 {
+article div.recent-chart h5 {
     height: 110px;
     padding-left: 0px;
     vertical-align: middle;
 }
 
-article div.panel div.panel-body div.recent div h4 {
+article div.recent div h4 {
     font-size: 36px;
     font-weight: 700;
     margin: 0px;
     padding: 19px 0px 6px 0px;
 }
 
-article div.panel div.panel-body div.task-recent div h4 {
+article div.task-recent div h4 {
     color: #77E38C;
 }
 
-article div.panel div.panel-body div.bug-recent div h4 {
+article div.bug-recent div h4 {
     color: #00D2FF;
 }
 
-article div.panel div.panel-body div.recent div h5 {
+article div.recent div h5 {
     color: #999999;
     font-size: 14px;
     margin: 0px;
     text-transform: uppercase;
 }
 
-article div.panel div.panel-body div.stats div h4 {
+article div.stats div h4 {
     color: #00D2FF;
     font-size: 36px;
     font-weight: 700;
 }
 
-article div.panel div.panel-body div.task-stats div h4 {
+article div.task-stats div h4 {
     color: #77E38C;
 }
 
-article div.panel div.panel-body div.bug-stats div h4 {
+article div.bug-stats div h4 {
     color: #00D2FF;
 }
 
-article div.panel div.panel-body div.stats div h5 {
+article div.stats div h5 {
     color: #999999;
     font-size: 14px;
 }
