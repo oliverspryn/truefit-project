@@ -129,6 +129,11 @@ article div.recent h3 {
     margin: 5px 0px 20px 0px;
 }
 
+article div.recent h3 {
+    font-weight: 300;
+    margin: 5px 0px 20px 0px;
+}
+
 article div.recent-chart {
     height: 80px;
     padding-right: 0px;
