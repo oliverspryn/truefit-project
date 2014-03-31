@@ -32,35 +32,39 @@
 
         <div class="col-md-6">
             <div class="input-group">
-                <input class="form-control" placeholder="Search for your project" type="text">
+                <input class="form-control" placeholder="Search for your project here..." type="text">
 
                 <div class="input-group-btn">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">By Project Name <span class="caret"></span></button>
+                    <button class="btn btn-default dropdown-toggle" onclick="function()" id="choice" data-toggle="dropdown"> By Project Name <span class="caret"></span></button>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="#">By Project Name</a></li>
-                        <li><a href="#">By Client Name</a></li>
+                        <li><a href="#" onclick="choose1()">By Project Name</a></li>
+                        <li><a href="#" onclick="choose2()">By Client Name</a></li>
+                        <script>
+                            function choose1() { document.getElementById("choice").innerHTML = "By Project Name"; }
+                            function choose2() { document.getElementById("choice").innerHTML = "By Client Name"; }
+                        </script>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3"></div>
+        <div class="col-md-12"><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
     </div>
 </section>
 
 <section class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Select a project</h3>
+            <h3 class="panel-title">...or select your project:</h3>
         </div>
         <div class="panel panel-text">
             <div id="projects-list">
                 @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
                 {
                     <a href ="@Url.Action("Project", "Home", new { id = entry.Id, name = entry.ClientName })" class="list-group-item">
-                        <h4 class=" list-group-item-heading">@(entry.Name) </h4>
-                        <p class="list-group-item-text">Project Number: @(entry.Id) </p>
-                        <p class="list-group-item-text">Client: @(entry.ClientName) </p>
+                        <h4 class=" list-group-item-heading" id="entry-name">@(entry.Name) </h4>
+                        <p class="list-group-item-text" id="project-number">Project Number: @(entry.Id) </p>
+                        <p class="list-group-item-text" id="client-name">Client: @(entry.ClientName) </p>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="@(entry.TotalProgress)" aria-valuemin="0" aria-valuemax="100" style="width: @(entry.TotalProgress)%;"><span class="sr-only">@(entry.TotalProgress)% Complete</span></div>
                         </div>
