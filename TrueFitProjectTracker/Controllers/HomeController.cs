@@ -19,7 +19,7 @@ namespace TrueFitProjectTracker.Controllers
         {
             ProjectsListModel projectsList = new ProjectsListModel();
             ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList);
-
+            
             return View(viewModel);
         }
 
