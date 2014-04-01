@@ -33,7 +33,7 @@
             <h2>@Model.Title</h2>
             <div class="progress">
                 <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="78" role="progressbar" style="width: 78%">
-                    <span>78%</span>
+                    <span>@Model.ProjectCompletion%</span>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
 
                             <div class="col-md-8 recent-chart" id="task-recent-chart"></div>
                             <div class="task-recent-total col-md-4 recent-total">
-                                <h4>42</h4>
+                                <h4>@Model.RecentTasksCompletedCount</h4>
                                 <h5>Tasks Completed</h5>
                             </div>
                         </div>
@@ -69,11 +69,11 @@
                         <div class="row stats task-stats">
                             <div class="col-md-6 task-stats-complete">
                                 <h5>Total Completed</h5>
-                                <h4>392</h4>
+                                <h4>@Model.TasksCompletedCount</h4>
                             </div>
                             <div class="col-md-6 task-stats-remain">
                                 <h5>Total Remaining</h5>
-                                <h4>105</h4>
+                                <h4>@Model.RemainingTasksCount</h4>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
 
                             <div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
                             <div class="bug-recent-total col-md-4 recent-total">
-                                <h4>42</h4>
+                                <h4>@Model.RecentBugsCompletedCount</h4>
                                 <h5>Bugs Closed</h5>
                             </div>
                         </div>
@@ -103,11 +103,11 @@
                         <div class="bug-stats row stats">
                             <div class="bug-stats-complete col-md-6">
                                 <h5>Total Closed</h5>
-                                <h4>267</h4>
+                                <h4>@Model.BugsCompletedCount</h4>
                             </div>
                             <div class="bug-stats-remain col-md-6">
                                 <h5>Total Remaining</h5>
-                                <h4>83</h4>
+                                <h4>@Model.RemainingBugsCount</h4>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
         <div class="col-md-4">
             <header>
                 <h3>In progress</h3>
-                <h4>23</h4>
+                <h4>@Model.UpcomingTasks.Count()</h4>
                 <h5>Tasks currently in execution</h5>
             </header>
 
@@ -155,7 +155,7 @@
         <div class="col-md-4">
             <header>
                 <h3>Starting soon</h3>
-                <h4>15</h4>
+                <h4>@Model.OneWeekTasks.Count()</h4>
                 <h5>Tasks scheduled within one week</h5>
             </header>
 
@@ -177,7 +177,7 @@
         <div class="col-md-4">
             <header>
                 <h3>Distant future</h3>
-                <h4>67</h4>
+                <h4>@Model.DistantTasks.Count()</h4>
                 <h5>Tasks scheduled in greater than one week</h5>
             </header>
 
