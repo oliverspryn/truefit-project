@@ -44,28 +44,34 @@
 
 <section class="container">
     <section class="center content no-border row">
-        <h2>Progress Overview</h2>
+        <h3>
+            <center>Progress Overview</center>
+        </h3>
         <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <article class="tasks">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Our To-Do List</div>
-
-                    <div class="panel-body">
-                        <div id="task-progress" class="item-progress"></div>
+                <div class="jumbotron">
+                    <h2>Our to-do list</h2>
+                    <div class="col-md-8">
                         <div id="task-burndown" class="burndown"></div>
-
-                        <div class="recent row task-recent">
-                            <h3>Tasks completed this past week</h3>
-
-                            <div class="col-md-8 recent-chart" id="task-recent-chart"></div>
-                            <div class="task-recent-total col-md-4 recent-total">
+                    </div>
+                    <div class="col-md-4">
+                        <div id="task-progress" class="item-progress"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="recent center row task-recent">
+                            <h3>
+                                <center>Tasks completed this past week</center>
+                            </h3>
+                            <div class="col-md-10 recent-chart" id="task-recent-chart"></div>
+                            <div class="task-recent-total col-md-2 recent-total">
                                 <h4>@Model.RecentTasksCompletedCount</h4>
                                 <h5>Tasks Completed</h5>
                             </div>
                         </div>
-
+                    </div>
+                    `
                         <div class="row stats task-stats">
                             <div class="col-md-6 task-stats-complete">
                                 <h5>Total Completed</h5>
@@ -76,31 +82,36 @@
                                 <h4>@Model.RemainingTasksCount</h4>
                             </div>
                         </div>
-                    </div>
                 </div>
             </article>
         </div>
-
-        <div class="col-md-6">
+    </section>
+    <section class="center content even no-border row">
+        <div class="col-md-12">
             <article class="bugs">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Software Bugs</div>
-
-                    <div class="panel-body">
-                        <div id="bug-progress" class="item-progress"></div>
+                <div class="jumbotron">
+                    <h2>
+                        <center>Software Bugs</center>
+                    </h2>
+                    <div class="col-md-8">
                         <div id="bug-burndown" class="burndown"></div>
-
+                    </div>
+                    <div class="col-md-4">
+                        <div id="bug-progress" class="item-progress"></div>
+                    </div>
+                    
                         <div class="bug-recent recent row">
-                            <h3>Bugs closed this past week</h3>
-
+                        <div class="col-md-12">
+                            <h3><center>Bugs closed this past week</center></h3>
+                        </div>
                             <div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
                             <div class="bug-recent-total col-md-4 recent-total">
                                 <h4>@Model.RecentBugsCompletedCount</h4>
                                 <h5>Bugs Closed</h5>
                             </div>
-                        </div>
+                </div>
 
-                        <div class="bug-stats row stats">
+                <div class="bug-stats row stats">
                             <div class="bug-stats-complete col-md-6">
                                 <h5>Total Closed</h5>
                                 <h4>@Model.BugsCompletedCount</h4>
@@ -111,7 +122,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </article>
         </div>
     </section>
@@ -198,6 +208,8 @@
     </section>
 
 </section>
+<<<<<<< HEAD
+=======
 
 
 
@@ -504,3 +516,4 @@
         });
     </script>
 }
+>>>>>>> b6abbefdd5dc1ca09704a9ce9b18aefc3b2217f9
