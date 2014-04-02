@@ -26,9 +26,32 @@ namespace TrueFitProjectTracker.ViewModels
 
             // tasks
 
+            UpcomingTasks = new List<TaskEntryViewModel>();
+            OneWeekTasks = new List<TaskEntryViewModel>();
+            DistantTasks = new List<TaskEntryViewModel>();
+
+            // for testing, in production, use only uncompleted tasks?
+
+            for (int i = 4; i < 6; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    UpcomingTasks.Add(new TaskEntryViewModel("Task " + j + "!", new DateTime(2014, i, j * 3 + 1)));
+                }
+            }
+
+            OneWeekTasks = UpcomingTasks.Where(task =>
+                DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) < 0
+                && DateTime.Compare(task.CompletionDate, DateTime.Now) > 0
+                ).OrderBy(task => task.CompletionDate).ToList();
             
+            DistantTasks = UpcomingTasks.Where(task =>
+                DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) > 0
+                ).OrderBy(task => task.CompletionDate).ToList();
+
 
         }
+
         
         public string Title { get; set; }
         public int ProjectCompletion { get; set; } // percentage
@@ -53,6 +76,12 @@ namespace TrueFitProjectTracker.ViewModels
 
     public class TaskEntryViewModel
     {
+        public TaskEntryViewModel(string title, DateTime completionDate){
+            Title = title;
+            CompletionDate = completionDate;
+        }
+
+
         public string Title { get; set; }
         public DateTime CompletionDate { get; set; }
     }

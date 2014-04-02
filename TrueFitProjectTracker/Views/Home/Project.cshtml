@@ -148,17 +148,11 @@
             </header>
 
             <ul>
-                <li>Task 1! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 2! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 3! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 4! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 5! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 6! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 7! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 8! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 9! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 10! <span>Expected completion: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li class="more"><span>&hellip;</span></li>
+                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.UpcomingTasks.Take(10) ) {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.UpcomingTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
 
@@ -170,17 +164,12 @@
             </header>
 
             <ul>
-                <li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li class="more"><span>&hellip;</span></li>
+                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Take(10))
+                {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.OneWeekTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
 
@@ -192,25 +181,17 @@
             </header>
 
             <ul>
-                <li>Task 1! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 2! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 3! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 4! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 5! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 6! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 7! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 8! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 9! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li>Task 10! <span>Beginning: <time datetime="2014-04-01">April, 1<sup>st</sup> 2014</time></span></li>
-                <li class="more"><span>&hellip;</span></li>
+                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Take(10))
+                {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
     </section>
 
 </section>
-<<<<<<< HEAD
-=======
-
 
 
 
@@ -516,4 +497,3 @@
         });
     </script>
 }
->>>>>>> b6abbefdd5dc1ca09704a9ce9b18aefc3b2217f9
