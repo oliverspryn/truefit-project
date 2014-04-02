@@ -13,7 +13,7 @@ namespace TrueFitProjectTracker.ViewModels
             Title = project.Title;
 
             // summing logic goes here.
-            ProjectCompletion = 78;
+            ProjectCompletion = 78; // %, 0 through 100
             
             // TODO: write logic - for each (task in project) ...
             RecentTasksCompletedCount = 42;
@@ -50,7 +50,19 @@ namespace TrueFitProjectTracker.ViewModels
                 ).OrderBy(task => task.CompletionDate).ToList();
 
 
-        }
+        TaskProgress = 79;
+        TaskBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
+        TaskRecentChart = new List<double> {5, 3, 4, 7, 2, 1, 6};
+
+        BugProgress = 76;
+        BugBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
+        BugRecentChart = new List<double> { 5, 3, 4, 7, 2, 1, 6 };
+
+
+
+
+        } // more obvious: End of Constructor
+
 
         
         public string Title { get; set; }
@@ -69,6 +81,14 @@ namespace TrueFitProjectTracker.ViewModels
         public List<TaskEntryViewModel> OneWeekTasks { get; set; }
         public List<TaskEntryViewModel> DistantTasks { get; set; }
 
+        public double TaskProgress { get; set; }
+        public List<double> TaskBurndownChart { get; set; } // looks like 12 numbers, 1 for each month
+        public List<double> TaskRecentChart { get; set; } // looks like 1 week frame
+
+        public double BugProgress { get; set; }
+        public List<double> BugBurndownChart { get; set; } 
+        public List<double> BugRecentChart { get; set; } 
+       
 
     }
 

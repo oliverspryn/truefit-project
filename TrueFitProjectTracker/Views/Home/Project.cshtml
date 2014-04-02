@@ -32,7 +32,7 @@
         <div class="col-md-8">
             <h2>@Model.Title</h2>
             <div class="progress">
-                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="78" role="progressbar" style="width: 78%">
+                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
                     <span>@Model.ProjectCompletion%</span>
                 </div>
             </div>
@@ -44,8 +44,8 @@
 
 <section class="container">
     <section class="center content no-border row">
-        <h3>
-            <center>Progress Overview</center>
+        <h3 style="text-align:center;">
+            Progress Overview
         </h3>
         <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
 
@@ -199,7 +199,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
     <script>
         $(function () { // task progress pi chart
-            var percent = 79.0;
+            var percent = @Model.TaskProgress ;
 
             $('#task-progress').highcharts({
                 chart: {
@@ -251,7 +251,7 @@
         });
 
         $(function () { // task burndown line chart
-            var data = [100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6];
+            var data = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
 
             $('#task-burndown').highcharts({
                 chart: {
@@ -295,53 +295,65 @@
             });
         });
 
-        $(function () { // bug burndown line chart
-            var data = [100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6]; //replace with mvc
+        $(function () { // task completion by day within past week count
+            var max = 10;
+            var data = [@string.Join(",", Model.TaskRecentChart.ToArray())]; //replace with mvc
 
-            $('#bug-burndown').highcharts({
+            $('#task-recent-chart').highcharts({
                 chart: {
-                    backgroundColor: '#00D2FF',
-                    borderRadius: 0,
-                    spacing: [40, 10, 40, 10]
+                    backgroundColor: null,
+                    spacing: [0, 0, 0, 0],
+                    type: 'column'
                 },
-                colors: ['#FFFFFF'],
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                title: {
-                    text: null
-                },
+                credits: { enabled: false },
+                exporting: { enabled: false },
+                legend: { enabled: false },
+                title: { text: null },
+                tooltip: { enabled: false },
                 xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    lineColor: '#000000',
-                    tickColor: '#000000',
+                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                    gridLineColor: 'transparent',
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
+                    tickColor: 'transparent'
                 },
                 yAxis: {
-                    gridLineColor: '#000000',
-                    gridLineDashStyle: 'LongDash',
-                    title: {
-                        style: {
-                            color: '#FFFFFF'
-                        },
-                        text: 'Remaining Hours'
+                    gridLineColor: 'transparent',
+                    labels: { enabled: false },
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    title: { text: null }
+                },
+                plotOptions: {
+                    column: {
+                        animation: false,
+                        borderColor: 'transparent',
+                        borderWidth: 0,
+                        stacking: 'normal',
+                        states: { hover: { enabled: false } }
                     }
                 },
-                legend: {
-                    enabled: false
-                },
                 series: [{
-                    name: 'Remaining',
+                    color: ['#DDDDDD'],
                     data: data
+                }, {
+                    color: ['#77E38C'], // top bar
+                    data: function () {
+                        var subElements = [];
+                        for (var i = 0; i < data.length; i++) {
+                            subElements[i] = max - data[i];
+                        }
+                        return subElements;
+                    }()
                 }]
             });
         });
 
+        //-----------------BUGS-----------------------
+
         $(function () { // bug progress pi chart
-            var percent = 76.0;
+            var percent = @Model.BugProgress;
 
             $('#bug-progress').highcharts({
                 chart: {
@@ -392,9 +404,54 @@
             });
         });
 
+        $(function () { // bug burndown line chart
+            var data = [@string.Join(",", Model.BugBurndownChart.ToArray())];
+
+            $('#bug-burndown').highcharts({
+                chart: {
+                    backgroundColor: '#00D2FF',
+                    borderRadius: 0,
+                    spacing: [40, 10, 40, 10]
+                },
+                colors: ['#FFFFFF'],
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    lineColor: '#000000',
+                    tickColor: '#000000',
+                },
+                yAxis: {
+                    gridLineColor: '#000000',
+                    gridLineDashStyle: 'LongDash',
+                    title: {
+                        style: {
+                            color: '#FFFFFF'
+                        },
+                        text: 'Remaining Hours'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Remaining',
+                    data: data
+                }]
+            });
+        });
+
         $(function () { // bug bar chart - bugs closed within past week (recent)
             var max = 10;
-            var data = [5, 3, 4, 7, 2, 1, 6]; // replace with mvc
+            var data = [@string.Join(",", Model.BugRecentChart.ToArray())]
 
             $('#bug-recent-chart').highcharts({
                 chart: {
@@ -447,53 +504,6 @@
             });
         });
 
-        $(function () { // task completion by day within past week count
-            var max = 10;
-            var data = [5, 3, 4, 7, 2, 1, 6]; //replace with mvc
-
-            $('#task-recent-chart').highcharts({
-                chart: {
-                    backgroundColor: null,
-                    spacing: [0, 0, 0, 0],
-                    type: 'column'
-                },
-                credits: { enabled: false },
-                exporting: { enabled: false },
-                legend: { enabled: false },
-                title: { text: null },
-                tooltip: { enabled: false },
-                xAxis: {
-                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
-                    gridLineColor: 'transparent',
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
-                    tickColor: 'transparent'
-                },
-                yAxis: {
-                    gridLineColor: 'transparent',
-                    labels: { enabled: false },
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    title: { text: null }
-                },
-                plotOptions: {
-                    column: {
-                        animation: false,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        stacking: 'normal',
-                        states: { hover: { enabled: false } }
-                    }
-                },
-                series: [{
-                    color: ['#DDDDDD'],
-                    data: data
-                }, {
-                    color: ['#77E38C'], // top bar
-                    data: function () { var subElements = []; for (var i = 0; i < data.length; i++) { subElements[i] = max - data[i]; } return subElements; }()
-                }]
-            });
-        });
+        
     </script>
 }
