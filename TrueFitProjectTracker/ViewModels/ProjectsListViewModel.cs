@@ -17,9 +17,12 @@ namespace TrueFitProjectTracker.ViewModels
             for (int i = 0; i < projects.Count(); ++i)
             {
                 var project1 = projects.ElementAt(i);
+               // var projectstuff = jira.GetIssue(project1.Key);
+               // var stuff = projectstuff.Assignee;
                 string currentProject = project1.Name;
                 int projID = Convert.ToInt32(project1.Id);
-                this.projectsList.Add(new ProjectEntry(projID, project1.Name, project1.Lead, 56));
+
+                this.projectsList.Add(new ProjectEntry(projID, project1.Name, project1.Key, 56));
             }
 
 
