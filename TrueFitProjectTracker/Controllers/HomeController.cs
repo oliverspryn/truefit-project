@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TrueFitProjectTracker.ViewModels;
 using TrueFitProjectTracker.Models;
+using Atlassian.Jira;
 
 namespace TrueFitProjectTracker.Controllers
 {
@@ -17,9 +18,12 @@ namespace TrueFitProjectTracker.Controllers
 
         public ActionResult ProjectsList()
         {
-            ProjectsListModel projectsList = new ProjectsListModel();
-            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList);
+            //check to see if we need to move the username/password elsewhere again.
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            ProjectsListModel projectsList = new ProjectsListModel(jira);
+            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList, jira);
             
+
             return View(viewModel);
         }
 

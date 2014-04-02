@@ -3,21 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TrueFitProjectTracker.Models;
+using Atlassian.Jira;
 
 namespace TrueFitProjectTracker.ViewModels
 {
     public class ProjectsListViewModel
     {
 
-        public ProjectsListViewModel(ProjectsListModel projectsList)
+        public ProjectsListViewModel(ProjectsListModel projectsList, Jira jira)
         {
             // TODO: Load Data from JIRA
+            var projects = jira.GetProjects();
+            for (int i = 0; i < projects.Count(); ++i)
+            {
+                var project1 = projects.ElementAt(i);
+                string currentProject = project1.Name;
+                int projID = Convert.ToInt32(project1.Id);
+                this.projectsList.Add(new ProjectEntry(projID, project1.Name, project1.Lead, 56));
+            }
 
-            this.projectsList.Add(new ProjectEntry(10001, "Tree Project", "Reforesters United", 27));
-            this.projectsList.Add(new ProjectEntry(10005, "Mortal Wombats", "Capricornicopia", 78));
-            this.projectsList.Add(new ProjectEntry(10007, "The Chunky Spaghetti Crisis", "Mr. Meatball Maniac", 12));
-            this.projectsList.Add(new ProjectEntry(10020, "The 3/4 Done Club", "QuarterMain Studios",76));
-            this.projectsList.Add(new ProjectEntry(20221, "Whale Nuker/Backpack Problem Solver", "Eli Houston IV",100));
+
+        }
+
+        private int toUInt32(string p)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int toInt32(string p)
+        {
+            throw new NotImplementedException();
         }
 
         public List<ProjectEntry> projectsList = new List<ProjectEntry>();
