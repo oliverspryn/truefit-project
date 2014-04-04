@@ -15,7 +15,7 @@ namespace TrueFitProjectTracker.ViewModels
             // TODO: Load Data from JIRA
             var projects = jira.GetProjects();
             for (int i = 0; i < projects.Count(); ++i)
-            {
+            { 
                 var project1 = projects.ElementAt(i);
                // var projectstuff = jira.GetIssue(project1.Key);
                // var stuff = projectstuff.Assignee;

@@ -22,23 +22,20 @@ namespace TrueFitProjectTracker.Controllers
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
             ProjectsListModel projectsList = new ProjectsListModel(jira);
             ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList, jira);
-            
-
             return View(viewModel);
         }
 
-        public ActionResult Project(int id)
+        public ActionResult Project(string key)
         {
-
-            // no viewbags allowed! (except for page title with layout)  :)  -Jefff
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            int id = 4; 
             ProjectModel project = new ProjectModel(id);
 
             //follow 'Go To Definition' on these models to get the pattern.
 
             //demo:
             project.Title = "Project X";
-
-            ProjectViewModel viewModel = new ProjectViewModel(project);
+            ProjectViewModel viewModel = new ProjectViewModel(key, jira);
             
             return View(viewModel);
         }

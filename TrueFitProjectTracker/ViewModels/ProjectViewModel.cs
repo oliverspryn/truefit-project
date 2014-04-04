@@ -2,18 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Atlassian.Jira;
 
 namespace TrueFitProjectTracker.ViewModels
 {
     public class ProjectViewModel
     {
-        public ProjectViewModel(Models.ProjectModel project)
+        public ProjectViewModel(string key, Jira jira)
         {
+            var currentProject = jira.GetProjects().First(); //for initialization
+            var projects = jira.GetProjects();
+            for (int i = 0; i < projects.Count(); ++i)
+            {
+                var tempProject = projects.ElementAt(i);
+                if (tempProject.Key == key)
+                {
+                    currentProject = tempProject;
+                    break;
+                }
+            }
+            var issues = from i in jira.Issues
+                         where i.Project == currentProject.Key
+                         select i;
+            int count = 0;
+            for (int i = 0; i < issues.Count(); ++i)
+            {
+                var newIssue = issues.ElementAt(i);
+
+                count++;
+            }
+
+            
             // initialize the properties from the model just... like... this!
-            Title = project.Title;
+            Title = currentProject.Name;
 
             // summing logic goes here.
-            ProjectCompletion = 78; // %, 0 through 100
+            ProjectCompletion = count; // %, 0 through 100
             
             // TODO: write logic - for each (task in project) ...
             RecentTasksCompletedCount = 42;
