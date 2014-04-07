@@ -14,7 +14,7 @@ namespace TrueFitProjectTracker.Controllers
         //
         // GET: /Home/
 
-        public ProjectModel project;
+        public ProjectViewModel project;
 
         public ActionResult ProjectsList()
         {
@@ -28,21 +28,23 @@ namespace TrueFitProjectTracker.Controllers
         public ActionResult Project(string key)
         {
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            int id = 4; 
-            ProjectModel project = new ProjectModel(id);
-
-            //follow 'Go To Definition' on these models to get the pattern.
-
-            //demo:
-            project.Title = "Project X";
-            ProjectViewModel viewModel = new ProjectViewModel(key, jira);
             
-            return View(viewModel);
+            //NOT NEEDED ANYMORE?
+            //ProjectModel project = new ProjectModel(id);
+            //follow 'Go To Definition' on these models to get the pattern.
+            //demo:
+            //project.Title = "Project X";
+            //int id = 4; 
+
+            project = new ProjectViewModel(key, jira);
+            
+            return View(project);
         }
 
-        public ActionResult ReportBug(int id)
+        public ActionResult ReportBug(string Title)
         {
-            BugModel model = new BugModel(project);
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            BugViewModel model = new BugViewModel(project, jira);
             return View(model);
         }
     }
