@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TrueFitProjectTracker.ViewModels;
 using TrueFitProjectTracker.Models;
+using Atlassian.Jira;
 
 namespace TrueFitProjectTracker.Controllers
 {
@@ -13,27 +14,37 @@ namespace TrueFitProjectTracker.Controllers
         //
         // GET: /Home/
 
-        public ProjectModel project;
+        public ProjectViewModel project;
 
         public ActionResult ProjectsList()
         {
-            ProjectsListModel projectsList = new ProjectsListModel();
-            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList);
-
+            //check to see if we need to move the username/password elsewhere again.
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            ProjectsListModel projectsList = new ProjectsListModel(jira);
+            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList, jira);
             return View(viewModel);
         }
 
-        public ActionResult Project(int id)
+        public ActionResult Project(string key)
         {
-            ProjectModel project = new ProjectModel(id);
-            ProjectViewModel viewModel = new ProjectViewModel(project);
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            
+            //NOT NEEDED ANYMORE?
+            //ProjectModel project = new ProjectModel(id);
+            //follow 'Go To Definition' on these models to get the pattern.
+            //demo:
+            //project.Title = "Project X";
+            //int id = 4; 
 
-            return View(viewModel);
+            project = new ProjectViewModel(key, jira);
+            
+            return View(project);
         }
 
-        public ActionResult ReportBug(int id)
+        public ActionResult ReportBug(string Title)
         {
-            BugModel model = new BugModel(project);
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            BugViewModel model = new BugViewModel(project, jira);
             return View(model);
         }
     }

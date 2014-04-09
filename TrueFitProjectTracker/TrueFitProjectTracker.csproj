@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,7 +41,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Atlassian.Jira">
+    <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Atlassian.SDK.2.3.0\lib\Atlassian.Jira.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -132,11 +135,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BugController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Models\BugModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\JIRAInterface.cs" />
+    <Compile Include="ViewModels\ReportBugViewModel.cs" />
     <Compile Include="ViewModels\ProjectsListViewModel.cs" />
     <Compile Include="Models\ProjectsListModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -149,6 +151,7 @@
   <ItemGroup>
     <Content Include="Content\Home.css" />
     <Content Include="Content\Project.css" />
+    <Content Include="Content\Bug.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -172,6 +175,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Project.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -186,15 +190,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ProjectsList.cshtml" />
-    <Content Include="Views\Home\Project.cshtml" />
-    <Content Include="Views\Home\ReportBug.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Styles.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Scripts.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Footer.cshtml" />
-    <Content Include="Views\Shared\Layouts\_Home.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\Shared\Layouts\_Project.cshtml" />
-    <Content Include="Views\Bug\Index.cshtml" />
+    <Content Include="Views\Home\Project.cshtml" />
+    <Content Include="Views\Home\ReportBug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -233,6 +233,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

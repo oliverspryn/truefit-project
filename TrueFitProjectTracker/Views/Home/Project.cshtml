@@ -1,7 +1,509 @@
-﻿@model TrueFitProjectTracker.Models.ProjectModel
-
+﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
 @{
-    ViewBag.Title = "Project";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Project</h2>
+
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+}
+<section class="jumbotron" id="start">
+    <nav class="main-breadcrumb">
+        <ul>
+            <li>
+                <a class="logo" href="@Url.Action("Index", "Home", null)"></a>
+            </li>
+            <li>
+                <a href="#">@Model.Title</a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav class="links">
+        <ul>
+            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
+            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+            <h2>@Model.Title</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
+                    <span>@Model.ProjectCompletion%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2"></div>
+    </div>
+</section>
+
+<section class="container">
+    <section class="center content no-border row">
+        <h3 style="text-align:center;">
+            Progress Overview
+        </h3>
+        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
+
+        <div class="col-md-12">
+            <article class="tasks">
+                <div class="jumbotron">
+                    <h2>Our to-do list</h2>
+                    <div class="col-md-8">
+                        <div id="task-burndown" class="burndown"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="task-progress" class="item-progress"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="recent center row task-recent">
+                            <h3>
+                                <center>Tasks completed this past week</center>
+                            </h3>
+                            <div class="col-md-10 recent-chart" id="task-recent-chart"></div>
+                            <div class="task-recent-total col-md-2 recent-total">
+                                <h4>@Model.RecentTasksCompletedCount</h4>
+                                <h5>Tasks Completed</h5>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                        <div class="row stats task-stats">
+                            <div class="col-md-6 task-stats-complete">
+                                <h5>Total Completed</h5>
+                                <h4>@Model.TasksCompletedCount</h4>
+                            </div>
+                            <div class="col-md-6 task-stats-remain">
+                                <h5>Total Remaining</h5>
+                                <h4>@Model.RemainingTasksCount</h4>
+                            </div>
+                        </div>
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="center content even no-border row">
+        <div class="col-md-12">
+            <article class="bugs">
+                <div class="jumbotron">
+                    <h2>
+                        <center>Software Bugs</center>
+                    </h2>
+                    <div class="col-md-8">
+                        <div id="bug-burndown" class="burndown"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="bug-progress" class="item-progress"></div>
+                    </div>
+                    
+                        <div class="bug-recent recent row">
+                        <div class="col-md-12">
+                            <h3><center>Bugs closed this past week</center></h3>
+                        </div>
+                            <div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
+                            <div class="bug-recent-total col-md-4 recent-total">
+                                <h4>@Model.RecentBugsCompletedCount</h4>
+                                <h5>Bugs Closed</h5>
+                            </div>
+                </div>
+
+                <div class="bug-stats row stats">
+                            <div class="bug-stats-complete col-md-6">
+                                <h5>Total Closed</h5>
+                                <h4>@Model.BugsCompletedCount</h4>
+                            </div>
+                            <div class="bug-stats-remain col-md-6">
+                                <h5>Total Remaining</h5>
+                                <h4>@Model.RemainingBugsCount</h4>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="bug center content even row">
+        <div class="col-lg-12">
+            <h2>Found a bug?</h2>
+            <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
+            <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
+                <span class="glyphicon glyphicon-warning-sign"></span>Report a Bug
+            </a>
+        </div>
+    </section>
+
+
+    <section class="center content row tasks">
+        <h2>Upcoming Tasks</h2>
+
+        <div class="col-md-4">
+            <header>
+                <h3>In progress</h3>
+                <h4>@Model.UpcomingTasks.Count()</h4>
+                <h5>Tasks currently in execution</h5>
+            </header>
+
+            <ul>
+                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.UpcomingTasks.Take(10) ) {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.UpcomingTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <header>
+                <h3>Starting soon</h3>
+                <h4>@Model.OneWeekTasks.Count()</h4>
+                <h5>Tasks scheduled within one week</h5>
+            </header>
+
+            <ul>
+                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Take(10))
+                {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.OneWeekTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <header>
+                <h3>Distant future</h3>
+                <h4>@Model.DistantTasks.Count()</h4>
+                <h5>Tasks scheduled in greater than one week</h5>
+            </header>
+
+            <ul>
+                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Take(10))
+                {
+                    <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                }
+                @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+            </ul>
+        </div>
+    </section>
+
+</section>
+
+
+
+@section Scripts {
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+    <script>
+        $(function () { // task progress pi chart
+            var percent = @Model.TaskProgress ;
+
+            $('#task-progress').highcharts({
+                chart: {
+                    backgroundColor: null,
+                    height: 250,
+                    spacing: [0, 0, 0, 0],
+                    width: 250
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        animation: false,
+                        borderWidth: 0,
+                        dataLabels: { enabled: false },
+                        states: { hover: { enabled: false } }
+                    }
+                },
+                series: [{
+                    data: [{
+                        color: '#77E38C',
+                        y: percent
+                    }, {
+                        color: '#FFFFFF',
+                        y: 100.0 - percent
+                    }],
+                    innerSize: '80%',
+                    type: 'pie'
+                }, {
+                    data: [{
+                        color: '#323A45',
+                        y: 100.0
+                    }],
+                    size: '80%',
+                    type: 'pie'
+                }],
+                title: {
+                    align: 'center',
+                    text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
+                    verticalAlign: 'middle',
+                    y: 20
+                },
+                tooltip: { enabled: false }
+            });
+        });
+
+        $(function () { // task burndown line chart
+            var data = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
+
+            $('#task-burndown').highcharts({
+                chart: {
+                    backgroundColor: '#77E38C',
+                    borderRadius: 0,
+                    spacing: [40, 10, 40, 10]
+                },
+                colors: ['#FFFFFF'],
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    lineColor: '#000000',
+                    tickColor: '#000000',
+                },
+                yAxis: {
+                    gridLineColor: '#000000',
+                    gridLineDashStyle: 'LongDash',
+                    title: {
+                        style: {
+                            color: '#FFFFFF'
+                        },
+                        text: 'Remaining Hours'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Remaining',
+                    data: data
+                }]
+            });
+        });
+
+        $(function () { // task completion by day within past week count
+            var max = 10;
+            var data = [@string.Join(",", Model.TaskRecentChart.ToArray())]; //replace with mvc
+
+            $('#task-recent-chart').highcharts({
+                chart: {
+                    backgroundColor: null,
+                    spacing: [0, 0, 0, 0],
+                    type: 'column'
+                },
+                credits: { enabled: false },
+                exporting: { enabled: false },
+                legend: { enabled: false },
+                title: { text: null },
+                tooltip: { enabled: false },
+                xAxis: {
+                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                    gridLineColor: 'transparent',
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
+                    tickColor: 'transparent'
+                },
+                yAxis: {
+                    gridLineColor: 'transparent',
+                    labels: { enabled: false },
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    title: { text: null }
+                },
+                plotOptions: {
+                    column: {
+                        animation: false,
+                        borderColor: 'transparent',
+                        borderWidth: 0,
+                        stacking: 'normal',
+                        states: { hover: { enabled: false } }
+                    }
+                },
+                series: [{
+                    color: ['#DDDDDD'],
+                    data: data
+                }, {
+                    color: ['#77E38C'], // top bar
+                    data: function () {
+                        var subElements = [];
+                        for (var i = 0; i < data.length; i++) {
+                            subElements[i] = max - data[i];
+                        }
+                        return subElements;
+                    }()
+                }]
+            });
+        });
+
+        //-----------------BUGS-----------------------
+
+        $(function () { // bug progress pi chart
+            var percent = @Model.BugProgress;
+
+            $('#bug-progress').highcharts({
+                chart: {
+                    backgroundColor: null,
+                    height: 250,
+                    spacing: [0, 0, 0, 0],
+                    width: 250
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        animation: false,
+                        borderWidth: 0,
+                        dataLabels: { enabled: false },
+                        states: { hover: { enabled: false } }
+                    }
+                },
+                series: [{
+                    data: [{
+                        color: '#00D2FF',
+                        y: percent
+                    }, {
+                        color: '#FFFFFF',
+                        y: 100.0 - percent
+                    }],
+                    innerSize: '80%',
+                    type: 'pie'
+                }, {
+                    data: [{
+                        color: '#323A45',
+                        y: 100.0
+                    }],
+                    size: '80%',
+                    type: 'pie'
+                }],
+                title: {
+                    align: 'center',
+                    text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
+                    verticalAlign: 'middle',
+                    y: 20
+                },
+                tooltip: { enabled: false }
+            });
+        });
+
+        $(function () { // bug burndown line chart
+            var data = [@string.Join(",", Model.BugBurndownChart.ToArray())];
+
+            $('#bug-burndown').highcharts({
+                chart: {
+                    backgroundColor: '#00D2FF',
+                    borderRadius: 0,
+                    spacing: [40, 10, 40, 10]
+                },
+                colors: ['#FFFFFF'],
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    lineColor: '#000000',
+                    tickColor: '#000000',
+                },
+                yAxis: {
+                    gridLineColor: '#000000',
+                    gridLineDashStyle: 'LongDash',
+                    title: {
+                        style: {
+                            color: '#FFFFFF'
+                        },
+                        text: 'Remaining Hours'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Remaining',
+                    data: data
+                }]
+            });
+        });
+
+        $(function () { // bug bar chart - bugs closed within past week (recent)
+            var max = 10;
+            var data = [@string.Join(",", Model.BugRecentChart.ToArray())]
+
+            $('#bug-recent-chart').highcharts({
+                chart: {
+                    backgroundColor: null,
+                    spacing: [0, 0, 0, 0],
+                    type: 'column'
+                },
+                credits: { enabled: false },
+                exporting: { enabled: false },
+                legend: { enabled: false },
+                title: { text: null },
+                tooltip: { enabled: false },
+                xAxis: {
+                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                    gridLineColor: 'transparent',
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
+                    tickColor: 'transparent'
+                },
+                yAxis: {
+                    gridLineColor: 'transparent',
+                    labels: { enabled: false },
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    title: { text: null }
+                },
+                plotOptions: {
+                    column: {
+                        animation: false,
+                        borderColor: 'transparent',
+                        borderWidth: 0,
+                        stacking: 'normal',
+                        states: { hover: { enabled: false } }
+                    }
+                },
+                series: [{
+                    color: ['#DDDDDD'],
+                    data: data
+                }, {
+                    color: ['#00D2FF'],
+                    data: function () { // top space fillers
+                        var subElements = [];
+                        for (var i = 0; i < data.length; i++) {
+                            subElements[i] = max - data[i];
+                        }
+                        return subElements;
+                    }()
+                }]
+            });
+        });
+
+        
+    </script>
+}
