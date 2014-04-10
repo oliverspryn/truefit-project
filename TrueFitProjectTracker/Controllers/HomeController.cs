@@ -20,8 +20,8 @@ namespace TrueFitProjectTracker.Controllers
         {
             //check to see if we need to move the username/password elsewhere again.
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            ProjectsListModel projectsList = new ProjectsListModel(jira);
-            ProjectsListViewModel viewModel = new ProjectsListViewModel(projectsList, jira);
+            //ProjectsListModel projectsList = new ProjectsListModel(jira);
+            ProjectsListModel viewModel = new ProjectsListModel(jira);
             return View(viewModel);
         }
 
