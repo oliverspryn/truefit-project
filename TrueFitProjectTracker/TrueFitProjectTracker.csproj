@@ -139,7 +139,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\JIRAInterface.cs" />
     <Compile Include="ViewModels\ReportBugViewModel.cs" />
-    <Compile Include="ViewModels\ProjectsListViewModel.cs" />
     <Compile Include="Models\ProjectsListModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -78,7 +78,7 @@
         </div>
         <div class="panel panel-text">
             <div id="projects-list">
-                @foreach (TrueFitProjectTracker.ViewModels.ProjectEntry entry in Model.projectsList)
+                @foreach (TrueFitProjectTracker.Models.ProjectEntry entry in Model.projectsList)
                 {
                     <a href ="@Url.Action("Project", "Home", new { id = entry.Id, name = entry.ClientName })" data-project="stuff" class="list-group-item">
                         <h4 class="list-group-item-heading" id="entry-name">@(entry.Name) </h4>

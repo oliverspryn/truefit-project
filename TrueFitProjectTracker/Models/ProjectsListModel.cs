@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TrueFitProjectTracker.Models;
 using Atlassian.Jira;
 
-namespace TrueFitProjectTracker.ViewModels
+namespace TrueFitProjectTracker.Models
 {
     public class ProjectsListModel
     {
@@ -21,7 +20,7 @@ namespace TrueFitProjectTracker.ViewModels
                // var stuff = projectstuff.Assignee;
                 string currentProject = project1.Name;
                 int projID = Convert.ToInt32(project1.Id);
-
+                
                 this.projectsList.Add(new ProjectEntry(projID, project1.Name, project1.Key, 56));
             }
 
