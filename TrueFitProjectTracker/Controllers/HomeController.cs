@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TrueFitProjectTracker.ViewModels;
 using TrueFitProjectTracker.Models;
 using Atlassian.Jira;
+using TrueFitProjectTracker.Factories.Dashboard;
 
 namespace TrueFitProjectTracker.Controllers
 {
@@ -25,7 +26,7 @@ namespace TrueFitProjectTracker.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Project(string key)
+        public ActionResult Project(string name)
         {
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
             
@@ -36,7 +37,8 @@ namespace TrueFitProjectTracker.Controllers
             //project.Title = "Project X";
             //int id = 4; 
 
-            project = new ProjectViewModel(key, jira);
+            project = new ProjectViewModel(name, jira);
+			var stuff = new TasksFactory(name);
             
             return View(project);
         }
