@@ -44,11 +44,6 @@
 
 <section class="container">
     <section class="center content no-border row">
-        <h3 style="text-align:center;">
-            Progress Overview
-        </h3>
-        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
-
         <div class="col-md-12">
             <article class="tasks">
                 <div class="jumbotron">
@@ -124,16 +119,10 @@
                     </div>
             </article>
         </div>
-    </section>
-
-    <section class="bug center content even row">
-        <div class="col-lg-12">
-            <h2>Found a bug?</h2>
-            <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
-            <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
-                <span class="glyphicon glyphicon-warning-sign"></span>Report a Bug
-            </a>
-        </div>
+         <h3 style="text-align:center;">
+            Progress Overview
+        </h3>
+        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
     </section>
 
 
@@ -188,6 +177,16 @@
                 }
                 @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
+        </div>
+    </section>
+
+    <section class="bug center content even row">
+        <div class="col-lg-12">
+            <h2>Found a bug?</h2>
+            <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
+            <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
+                <span class="glyphicon glyphicon-warning-sign"></span>Report a Bug
+            </a>
         </div>
     </section>
 

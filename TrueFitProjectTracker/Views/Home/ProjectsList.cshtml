@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12"><br /><br /><br /><br /><br /><br /></div>
+        <div class="col-md-12"><br /><br /><br /></div>
     </div>
 </section>
 
@@ -84,9 +84,7 @@
                         <h4 class="list-group-item-heading" id="entry-name">@(entry.Name) </h4>
                         <p class="list-group-item-text" id="project-number">Project Number: @(entry.Id) </p>
                         <p class="list-group-item-text" id="client-name">Client: @(entry.ClientName) </p>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="@(entry.TotalProgress)" aria-valuemin="0" aria-valuemax="100" style="width: @(entry.TotalProgress)%;"><span class="sr-only">@(entry.TotalProgress)% Complete</span></div>
-                        </div>
+                      
                     </a>
                 }
             </div>
