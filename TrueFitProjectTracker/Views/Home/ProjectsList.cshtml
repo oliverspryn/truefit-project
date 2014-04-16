@@ -11,16 +11,20 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
-    $ (document).ready(function () {
-        $("#text-box").change(function () {
-            var list = $('#projects-list').children('a');
-            var search = $(this).val();
-            for (var i = 0; i < list.length; i++) {
-                str = "placeholder"; //replace here with correct Javascript/JQuery
-                if (search.toLowerCase().indexOf(str.toLowerCase()) >= 0){
+    $(document).ready(function () {
+        $("#text-box").keydown(function () {
+            // var list = $('#projects-list').children('a');
+            var list = document.getElementsByClassName("list-group-item-heading");
+             var search = $(this).val();
+             for (var i = 0; i < list.length; i++) {
+                 if (search.toString() == "") {
+                     $('#projects-list').children('a').eq(i).show("fast");
+                 }
+                if (list[i].textContent.toString().toLowerCase().indexOf(search.toString().toLowerCase()) >= 0) {
+                    $('#projects-list').children('a').eq(i).show("fast");
                 }
                 else{
-                    $('#projects-list').children('a').eq(1).hide("slow");
+                    $('#projects-list').children('a').eq(i).hide("slow");
                 }
             }
         });
