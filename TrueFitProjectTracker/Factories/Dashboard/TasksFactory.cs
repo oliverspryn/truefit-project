@@ -199,6 +199,11 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 					addToSprint(sprint[0] as string, tm);
 				}
 			}
+
+		//Sort the tasks
+			foreach (SprintModel sm in list) {
+				sm.Tasks.Sort((x, y) => x.Created.CompareTo(y.Created));
+			}
 		}
 
 		private string getSprintName(string sprintData) {
