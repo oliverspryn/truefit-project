@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Atlassian.Jira;
+using TrueFitProjectTracker.Factories.Dashboard;
 
 namespace TrueFitProjectTracker.ViewModels
 {
@@ -50,26 +51,35 @@ namespace TrueFitProjectTracker.ViewModels
 
             // tasks
 
-            UpcomingTasks = new List<TaskEntryViewModel>();
+            AllTasks = new List<TaskEntryViewModel>();
+            CompletedTasks = new List<TaskEntryViewModel>();
             OneWeekTasks = new List<TaskEntryViewModel>();
             DistantTasks = new List<TaskEntryViewModel>();
 
-            // for testing, in production, use only uncompleted tasks?
 
-            for (int i = 4; i < 6; i++)
+            TasksFactory tasks = new TasksFactory(key);
+            string taskName;
+            DateTime dueDate;
+            for (int i = 0; i < tasks.list.Count; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < tasks.list[i].Tasks.Count; j++)
                 {
-                    UpcomingTasks.Add(new TaskEntryViewModel("Task " + j + "!", new DateTime(2014, i, j * 3 + 1)));
+                    taskName = tasks.list[i].Tasks[j].Name;
+                    dueDate = tasks.list[i].Tasks[j].DueDate;
+                    AllTasks.Add(new TaskEntryViewModel(taskName, dueDate));
                 }
             }
 
-            OneWeekTasks = UpcomingTasks.Where(task =>
+            CompletedTasks = AllTasks.Where(task =>
+                DateTime.Compare(task.CompletionDate, DateTime.Now) < 0
+                ).OrderBy(task => task.CompletionDate).ToList();
+
+            OneWeekTasks = AllTasks.Where(task =>
                 DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) < 0
                 && DateTime.Compare(task.CompletionDate, DateTime.Now) > 0
                 ).OrderBy(task => task.CompletionDate).ToList();
             
-            DistantTasks = UpcomingTasks.Where(task =>
+            DistantTasks = AllTasks.Where(task =>
                 DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) > 0
                 ).OrderBy(task => task.CompletionDate).ToList();
 
@@ -101,7 +111,8 @@ namespace TrueFitProjectTracker.ViewModels
         public int RemainingBugsCount { get; set; } // number
 
         // tasks
-        public List<TaskEntryViewModel> UpcomingTasks { get; set; }
+        public List<TaskEntryViewModel> AllTasks { get; set; }
+        public List<TaskEntryViewModel> CompletedTasks { get; set; }
         public List<TaskEntryViewModel> OneWeekTasks { get; set; }
         public List<TaskEntryViewModel> DistantTasks { get; set; }
 

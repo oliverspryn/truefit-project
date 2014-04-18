@@ -113,27 +113,27 @@
 
 
     <section class="center content row tasks">
-        <h2>Upcoming Tasks</h2>
+        <h2>Completed Tasks</h2>
 
         <div class="col-md-4">
             <header>
-                <h3>In progress</h3>
-                <h4>@Model.UpcomingTasks.Count()</h4>
+                <h3>In Progress</h3>
+                <h4>@Model.CompletedTasks.Count()</h4>
                 <h5>Tasks currently in execution</h5>
             </header>
 
             <ul>
-                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.UpcomingTasks.Take(10) ) {
+                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
                     <li>@task.Title <span>Expected completion: 
                         <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
                 }
-                @if(Model.UpcomingTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
 
         <div class="col-md-4">
             <header>
-                <h3>Starting soon</h3>
+                <h3>Current</h3>
                 <h4>@Model.OneWeekTasks.Count()</h4>
                 <h5>Tasks scheduled within one week</h5>
             </header>
@@ -150,7 +150,7 @@
 
         <div class="col-md-4">
             <header>
-                <h3>Distant future</h3>
+                <h3>Starting Soon</h3>
                 <h4>@Model.DistantTasks.Count()</h4>
                 <h5>Tasks scheduled in greater than one week</h5>
             </header>
