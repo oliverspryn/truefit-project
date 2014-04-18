@@ -1,15 +1,23 @@
 ﻿@model TrueFitProjectTracker.Models.ProjectsListModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "TrueFit Innovations Project Tracker";
+}
+
+@section headerSection {
+     <div class="row" id="search-header">
+        <h2>Find your project&hellip;</h2>
+
+        <div class="col-md-6 col-md-offset-3">
+            <input class="form-control" id="search-box" placeholder="Search for your project here" type="text">
+        </div>
+    </div>
 }
 
 @section styles {
     @Styles.Render("~/Content/Home.css")
 }
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
+
 <script>
     $(document).ready(function () {
         $("#text-box").keydown(function () {
@@ -32,49 +40,6 @@
     /*for later: http://www.w3schools.com/jquery/jquery_slide.asp */
 </script>
 
-<script>
-    function choose1() { document.getElementById("choice").innerHTML = "By Project Name"; }
-    function choose2() { document.getElementById("choice").innerHTML = "By Client Name"; }
-</script>
-<section class="jumbotron" id="start">
-    <nav class="main-breadcrumb">
-        <ul>
-            <li>
-                <a class="logo" href="@Url.Content("~")"></a>
-            </li>
-        </ul>
-    </nav>
-
-    <nav class="links">
-        <ul>
-            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
-            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
-        </ul>
-    </nav>
-    <br /><br /><br />
-    <h2>Let's get started&hellip;</h2>
-
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <input class="form-control" onchange="searchtext(this)" id="text-box" placeholder="Search for your project here..." type="text">
-                <div class="input-group-btn">
-                    <button class="btn btn-default dropdown-toggle" id="choice" data-toggle="dropdown"> By Project Name <span class="caret"></span></button>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="#" onclick="choose1()">By Project Name</a></li>
-                        <li><a href="#" onclick="choose2()">By Client Name</a></li>
-                        <script>
-
-                        </script>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12"><br /><br /><br /></div>
-    </div>
-</section>
-
 <section class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -84,7 +49,7 @@
             <div id="projects-list">
                 @foreach (TrueFitProjectTracker.Models.ProjectEntry entry in Model.projectsList)
                 {
-                    <a href ="@Url.Action("Project", "Home", new { id = entry.Id, name = entry.ClientName })" data-project="stuff" class="list-group-item">
+                    <a href="@Url.Action("Project", "Home", new { id = entry.Id, name = entry.ClientName })" data-project="stuff" class="list-group-item">
                         <h4 class="list-group-item-heading" id="entry-name">@(entry.Name) </h4>
                         <p class="list-group-item-text" id="project-number">Project Number: @(entry.Id) </p>
                         <p class="list-group-item-text" id="client-name">Client: @(entry.ClientName) </p>

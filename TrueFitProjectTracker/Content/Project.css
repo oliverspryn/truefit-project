@@ -3,10 +3,6 @@
  * -------------------------------------
 */
 
-section#start {
-    background: url('../Images/banners/stardust.png');
-}
-
 section#start h2 {
     font-weight: 100;
     margin-top: 70px;

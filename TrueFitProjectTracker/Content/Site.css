@@ -13,6 +13,7 @@
 */
 
 section#start {
+    background-image: url('../Images/banners/stressed_linen.png');
     color: #FFFFFF;
     padding: 48px 110px;
 }
@@ -131,6 +132,35 @@ section#start nav.links ul li a:hover {
 	color: #444444;
 }
 
+@media screen and (max-width: 750px) {
+    section#start {
+        padding: 30px;
+    }
+
+    section#start nav.main-breadcrumb ul {
+        text-align: center;
+    }
+
+    section#start nav.main-breadcrumb ul li {
+        padding-top: 8px;
+    }
+
+    section#start nav.main-breadcrumb ul li a {
+        font-size: 14px;
+    }
+
+    section#start nav.main-breadcrumb ul li a.logo {
+        background-position: -11px -11px;
+        background-size: 326%;
+        height: 35px;
+        width: 52px;
+    }
+
+    section#start nav.links {
+        display: none;
+    }
+}
+
 /*
  * Footer
  * -------------------------------------------
@@ -168,4 +198,14 @@ footer#main-footer ul li.footer-logo {
 footer#main-footer ul li a {
     color: #888888;
     text-decoration: none;
+}
+
+@media screen and (max-width: 750px) {
+    footer#main-footer {
+        padding: 15px;
+    }
+
+    footer#main-footer ul li:first-child, footer#main-footer ul li:last-child {
+        display: none;
+    }
 }
