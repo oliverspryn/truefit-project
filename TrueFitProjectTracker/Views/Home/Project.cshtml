@@ -1,46 +1,32 @@
 ﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
+
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @Model.Title;
 }
 
-
-@section Styles {
-    @Styles.Render("~/Content/Project.css")
+@section breadcrumb {
+    <li>
+        <a href="#">@Model.Title</a>
+    </li>
 }
-<section class="jumbotron" id="start">
-    <nav class="main-breadcrumb">
-        <ul>
-            <li>
-                <a class="logo" href="@Url.Action("ProjectsList", "Home", null)"></a>
-            </li>
-            <li>
-                <a href="#">@Model.Title</a>
-            </li>
-        </ul>
-    </nav>
 
-    <nav class="links">
-        <ul>
-            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
-            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="row">
-        <div class="col-md-2"></div>
-
-        <div class="col-md-8">
+@section headerSection {
+    <div class="header-progress row">
+        <div class="col-md-8 col-md-offset-2">
             <h2>@Model.Title</h2>
+
             <div class="progress">
                 <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
                     <span>@Model.ProjectCompletion%</span>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-2"></div>
     </div>
-</section>
+}
+
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+}
 
 <section class="container">
     <section class="center content no-border row">
