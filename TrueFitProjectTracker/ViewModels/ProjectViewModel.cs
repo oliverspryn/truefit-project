@@ -74,16 +74,11 @@ namespace TrueFitProjectTracker.ViewModels
                 ).OrderBy(task => task.CompletionDate).ToList();
 
 
-        TaskProgress = 79;
-        TaskBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
-        TaskRecentChart = new List<double> {5, 3, 4, 7, 2, 1, 6};
+            TaskBurndownChart = new List<double>();
+            TaskRecentChart = new List<double>();
 
-        BugProgress = 76;
-        BugBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
-        BugRecentChart = new List<double> { 5, 3, 4, 7, 2, 1, 6 };
-
-
-
+            BugBurndownChart = new List<double>();
+            BugRecentChart = new List<double>();
 
         } // more obvious: End of Constructor
 
@@ -105,12 +100,20 @@ namespace TrueFitProjectTracker.ViewModels
         public List<TaskEntryViewModel> OneWeekTasks { get; set; }
         public List<TaskEntryViewModel> DistantTasks { get; set; }
 
-        public double TaskProgress { get; set; }
-        public List<double> TaskBurndownChart { get; set; } // looks like 12 numbers, 1 for each month
-        public List<double> TaskRecentChart { get; set; } // looks like 1 week frame
+
+        // task and bug charts
+        public double TaskProgress { get; set; } // percentage
+        public Tuple<int, int> TaskBurndownStart { get; set; } // month, year, 0 for jan
+        public Tuple<int, int> TaskBurndownEnd { get; set; } // month, year
+        public List<double> TaskBurndownChart { get; set; } // filled one per month
+        
+        public List<double> TaskRecentChart { get; set; } // 7 items, one week before Now(), today is not charted
 
         public double BugProgress { get; set; }
+        public Tuple<int, int> BugBurndownStart { get; set; }
+        public Tuple<int, int> BugBurndownEnd { get; set; }
         public List<double> BugBurndownChart { get; set; } 
+        
         public List<double> BugRecentChart { get; set; } 
        
 
