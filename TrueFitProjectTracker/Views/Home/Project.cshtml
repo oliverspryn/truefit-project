@@ -1,46 +1,32 @@
 ﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
+
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @Model.Title;
 }
 
-
-@section Styles {
-    @Styles.Render("~/Content/Project.css")
+@section breadcrumb {
+    <li>
+        <a href="#">@Model.Title</a>
+    </li>
 }
-<section class="jumbotron" id="start">
-    <nav class="main-breadcrumb">
-        <ul>
-            <li>
-                <a class="logo" href="@Url.Action("ProjectsList", "Home", null)"></a>
-            </li>
-            <li>
-                <a href="#">@Model.Title</a>
-            </li>
-        </ul>
-    </nav>
 
-    <nav class="links">
-        <ul>
-            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
-            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="row">
-        <div class="col-md-2"></div>
-
-        <div class="col-md-8">
+@section headerSection {
+    <div class="header-progress row">
+        <div class="col-md-8 col-md-offset-2">
             <h2>@Model.Title</h2>
+
             <div class="progress">
                 <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
                     <span>@Model.ProjectCompletion%</span>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-2"></div>
     </div>
-</section>
+}
+
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+}
 
 <section class="container">
     <section class="center content no-border row">
@@ -127,27 +113,27 @@
 
 
     <section class="center content row tasks">
-        <h2>Upcoming Tasks</h2>
+        <h2>Completed Tasks</h2>
 
         <div class="col-md-4">
             <header>
-                <h3>In progress</h3>
-                <h4>@Model.UpcomingTasks.Count()</h4>
+                <h3>In Progress</h3>
+                <h4>@Model.CompletedTasks.Count()</h4>
                 <h5>Tasks currently in execution</h5>
             </header>
 
             <ul>
-                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.UpcomingTasks.Take(10) ) {
+                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
                     <li>@task.Title <span>Expected completion: 
                         <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
                 }
-                @if(Model.UpcomingTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
 
         <div class="col-md-4">
             <header>
-                <h3>Starting soon</h3>
+                <h3>Current</h3>
                 <h4>@Model.OneWeekTasks.Count()</h4>
                 <h5>Tasks scheduled within one week</h5>
             </header>
@@ -164,7 +150,7 @@
 
         <div class="col-md-4">
             <header>
-                <h3>Distant future</h3>
+                <h3>Starting Soon</h3>
                 <h4>@Model.DistantTasks.Count()</h4>
                 <h5>Tasks scheduled in greater than one week</h5>
             </header>
