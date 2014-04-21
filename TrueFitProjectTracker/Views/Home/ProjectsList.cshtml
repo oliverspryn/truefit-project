@@ -17,26 +17,67 @@
 @section styles {
     @Styles.Render("~/Content/Home.css")
 }
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#text-box").keydown(function () {
-            // var list = $('#projects-list').children('a');
+        $("#search-box").keydown(function () {
+            var projects = $('#projects-list');
             var list = document.getElementsByClassName("list-group-item-heading");
-             var search = $(this).val();
-             for (var i = 0; i < list.length; i++) {
-                 if (search.toString() == "") {
-                     $('#projects-list').children('a').eq(i).show("fast");
-                 }
-                if (list[i].textContent.toString().toLowerCase().indexOf(search.toString().toLowerCase()) >= 0) {
+            var search = $(this).val();
+            var item = new Array();
+            for (var i = 0; i < list.length; i++) {
+                item[i] = $('#projects-list').children('a').eq(i);
+            }
+            var counter = new Array();
+            for (var i = 0; i < list.length; i++) {
+                counter[i] = list[i].textContent.toString().toLowerCase().indexOf(search.toString().toLowerCase());
+            }
+            if (search.toString() == "") {
+                for (var i = 0; i < list.length; i++) {
                     $('#projects-list').children('a').eq(i).show("fast");
                 }
-                else{
-                    $('#projects-list').children('a').eq(i).hide("slow");
-                }
+                return;
             }
+            for (var i = 0; i < list.length; i++) {
+                $('#projects-list').children('a').eq(i).remove();
+            }
+               //HOLD FOR REFERENCE
+               // if (list[i].textContent.toString().toLowerCase().indexOf(search.toString().toLowerCase()) >= 0) {
+                    //$('#projects-list').children('a').eq(i).show("fast");
+                    //$('#projects-list').children('a').eq(i).remove();
+                    //$('#projects-list').prepend(item);
+               // }
+               // else{
+                    //$('#projects-list').children('a').eq(i).remove();
+                    //$('#projects-list').prepend(item);
+                    //$('#projects-list').children('a').eq(i).hide("slow");
+                //}
+
+             alert(counter.toString() + item.toString());
+
+             var i = -1;
+             var max = 0;
+             for (var i = 0; i < counter.length; i++) {
+                 if (counter[i] >= max) max = counter[i];
+             }
+             alert(max);
+            
+             for(var i=-1; i <= max; i++) {
+                 for (var j = 0; j < item.length; j++) {
+                     if (counter[j] == i) {
+                         $('#projects-list').prepend(item[j]);
+                         alert(j.toString() + i.toString());
+                     }
+
+                 }
+             }
         });
     });
+
+    // when changed:
+    // use item to hold the elements and counter to store the indexOf computations
+    //remove all elements
+    //swap elements in item, reappend. 
     /*for later: http://www.w3schools.com/jquery/jquery_slide.asp */
 </script>
 
