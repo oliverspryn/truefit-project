@@ -60,11 +60,13 @@
              for (var i = 0; i < counter.length; i++) {
                  if (counter[i] >= max) max = counter[i];
              }
+             alert(max);
             
              for(var i=-1; i <= max; i++) {
                  for (var j = 0; j < item.length; j++) {
                      if (counter[j] == i) {
                          $('#projects-list').prepend(item[j]);
+                         alert(j.toString() + i.toString());
                      }
 
                  }
