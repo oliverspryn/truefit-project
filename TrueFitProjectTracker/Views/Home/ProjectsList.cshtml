@@ -62,13 +62,23 @@
              }
 
             
-             for(var i=-1; i <= max; i++) {
+             for(var i=max; i >= 0; i--) {
                  for (var j = 0; j < item.length; j++) {
                      if (counter[j] == i) {
-                         $('#projects-list').prepend(item[j]);
+                         if (counter[j] == -1) {
+                             continue;
+                         }
+                         else {
+                             $('#projects-list').prepend(item[j]);
+                         }
 
                      }
 
+                 }
+             }
+             for (var j = 0; j < item.length; j++) {
+                 if (counter[j] == -1) {
+                     $('#projects-list').append(item[j]);
                  }
              }
         });
