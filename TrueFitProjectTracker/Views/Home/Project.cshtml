@@ -108,12 +108,12 @@
          <h3 style="text-align:center;">
             Progress Overview
         </h3>
-        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. Below is a series of charts enumerating our progress on each of these fronts of your project.</p>
+        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. The charts above enumerate our progress on each of these fronts of your project.</p>
     </section>
 
 
     <section class="center content row tasks">
-        <h2>Completed Tasks</h2>
+        <h2>All Tasks</h2>
 
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <ol class="carousel-indicators">
@@ -124,13 +124,71 @@
 
 		  <div class="carousel-inner">
 			<div class="item active">
-			  <h2>Matthew</h2>
+			    <header>
+                    <h3>Completed</h3>
+                    <h4>@Model.CompletedTasks.Count()</h4>
+                    <h5>Tasks currently completed</h5>
+                </header>
+
+                <div class="col-md-4">
+                    <ul>
+                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
+                            <li>@task.Title <span>Completion Date: 
+                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                        }
+                        @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                    </ul>
+                 </div>
+                <div class="col-md-4">
+                    <ul>
+                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
+                            <li>@task.Title <span>Completion Date: 
+                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                        }
+                        @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                    </ul>
+                 </div>
+                <div class="col-md-4">
+                    <ul>
+                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
+                            <li>@task.Title <span>Completion Date: 
+                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                        }
+                        @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                    </ul>
+                 </div>
 			</div>
 			<div class="item">
-			  <h2>Ray</h2>
+			    <header>
+                    <h3>Current</h3>
+                    <h4>@Model.OneWeekTasks.Count()</h4>
+                    <h5>Tasks scheduled within one week</h5>
+                </header>
+
+                <ul>
+                    @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Take(10))
+                    {
+                        <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                    }
+                    @if(Model.OneWeekTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                </ul>
 			</div>
 			<div class="item">
-			  <h2>Goehring</h2>
+			    <header>
+                    <h3>Starting Soon</h3>
+                    <h4>@Model.DistantTasks.Count()</h4>
+                    <h5>Tasks scheduled in greater than one week</h5>
+                </header>
+
+                <ul>
+                    @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Take(10))
+                    {
+                        <li>@task.Title <span>Expected completion: 
+                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
+                    }
+                    @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                </ul>
 			</div>
 		  </div>
 
@@ -141,56 +199,6 @@
 			<span class="glyphicon glyphicon-chevron-right"></span>
 		  </a>
 		</div>
-
-        <div class="col-md-4">
-            <header>
-                <h3>Completed</h3>
-                <h4>@Model.CompletedTasks.Count()</h4>
-                <h5>Tasks currently completed</h5>
-            </header>
-
-            <ul>
-                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
-                    <li>@task.Title <span>Expected completion: 
-                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                }
-                @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
-            </ul>
-        </div>
-
-        <div class="col-md-4">
-            <header>
-                <h3>Current</h3>
-                <h4>@Model.OneWeekTasks.Count()</h4>
-                <h5>Tasks scheduled within one week</h5>
-            </header>
-
-            <ul>
-                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Take(10))
-                {
-                    <li>@task.Title <span>Expected completion: 
-                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                }
-                @if(Model.OneWeekTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
-            </ul>
-        </div>
-
-        <div class="col-md-4">
-            <header>
-                <h3>Starting Soon</h3>
-                <h4>@Model.DistantTasks.Count()</h4>
-                <h5>Tasks scheduled in greater than one week</h5>
-            </header>
-
-            <ul>
-                @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Take(10))
-                {
-                    <li>@task.Title <span>Expected completion: 
-                        <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                }
-                @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
-            </ul>
-        </div>
     </section>
 
     <section class="bug center content even row">
