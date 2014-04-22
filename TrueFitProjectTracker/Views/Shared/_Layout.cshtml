@@ -10,10 +10,28 @@
 </head>
 
 <body>
+    <section class="jumbotron" id="start">
+        <nav class="main-breadcrumb">
+            <ul>
+                <li>
+                    <a class="logo" href="@Url.Content("~")"></a>
+                </li>
 
+                @RenderSection("breadcrumb", false)
+            </ul>
+        </nav>
+
+        <nav class="links">
+            <ul>
+                <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
+                <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    
+        @RenderSection("headerSection", false)
+    </section>
 
     @RenderBody()
-
 
     @Html.Partial("PartialViews/_Footer")
     @Html.Partial("PartialViews/_Scripts")

@@ -39,7 +39,113 @@ namespace TrueFitProjectTracker.Controllers
 
             project = new ProjectViewModel(name, jira);
 			var stuff = new TasksFactory(name);
+
+
+            // <jeff id="burndown-and-recent-chart">
             
+            // aggregate the charts
+            // both are handled the same way, only difference is where they are assigned
+            // (hence the last if statement)
+            foreach(string type in new string[] {"Task", "Bug"} ){ // to compare task.Issue to
+                var tasksList = stuff.list.Aggregate(new List<Models.Dashboard.TaskModel>(), (tasklist, value) =>
+                    {
+                        tasklist.AddRange(value.Tasks.Where(task => task.Issue == type));
+                        return tasklist;
+                    });
+                var goodTasks = tasksList.Where(task => task.Created != null // no unbegun tasks please!
+                    && (task.DueDate != null || task.ResolutionDate != new DateTime())).ToList(); // need either or.
+
+                // month, year dates
+                var startDate = goodTasks
+                    .Select(task => task.Created).Min().Date;
+                startDate = startDate.AddDays(-startDate.Day + 1);
+                var start = new Tuple<int, int>(startDate.Month, startDate.Year);
+                
+                // the last month with activities in it
+                var endDate = goodTasks
+                    .Select(task => task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate)
+                    .Max().Date;
+                endDate = endDate.AddDays(-endDate.Day + 1);
+                // on the x axis, include extra month
+                var end = new Tuple<int, int>(endDate.AddMonths(1).Month, endDate.Year);
+
+                var datesList = Enumerable
+                    .Range(0, 1+ (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month)
+                    .Select(i => startDate.AddMonths(i))
+                    .ToList();
+
+                // list of doubls to output to view model in one nice linq query
+                List<double> taskData = datesList
+                    .Select(monthYear =>
+                    {   // get work for each month.
+                        // where this month has something to do with this task
+                        return tasksList.Where(task => task.Created < monthYear.AddMonths(1)
+                            && (task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate) >= monthYear)
+                            // get man hours done in this month, final block.
+                            .Select(task =>
+                            {   // get ratio of % of task being done in this month
+                                double ratioInThisMonth = 0;
+                                if (task.Created < monthYear)
+                                {
+                                    if ((task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1))
+                                    {   // task  |-----|
+                                        // month    |----|
+                                        ratioInThisMonth = 1d
+                                            * (task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate).Subtract(monthYear).Days
+                                            / (task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                    }
+                                    else
+                                    {   // task  |---------|
+                                        // month    |----|
+                                        ratioInThisMonth = 1d
+                                            * monthYear.AddMonths(1).Subtract(monthYear).Days
+                                            / (task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                    }
+                                }
+                                else
+                                {
+                                    if ((task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1))
+                                    {   // task       |-|
+                                        // month    |----|
+                                        ratioInThisMonth = 1d; // 100%
+                                    }
+                                    else
+                                    {   // task       |----|
+                                        // month    |----|
+                                        ratioInThisMonth = 1d
+                                            * monthYear.Subtract(task.Created).Days
+                                            / (task.ResolutionDate != new DateTime() ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                    }
+                                }
+                                // get actual man hours from task effort and percentage... whoops, don't have em. 
+                                return ratioInThisMonth * monthYear.AddMonths(1).Subtract(monthYear).Days;
+                            })
+                            .Sum();
+                    }).ToList();
+                
+
+                // now handle our project model
+
+                if (type == "Task")
+                { // tasks
+                    project.TaskProgress = 1;
+                    project.TaskBurndownStart = start;
+                    project.TaskBurndownEnd = end;
+                    project.TaskBurndownChart = taskData;
+                }
+                else if (type == "Bug")
+                { // bugs
+                    project.BugProgress = 1;
+                    project.BugBurndownStart = start;
+                    project.BugBurndownEnd = end;
+                    project.BugBurndownChart = taskData;
+                }
+            }
+
+            
+
+            // </jeff>
+
             return View(project);
         }
 

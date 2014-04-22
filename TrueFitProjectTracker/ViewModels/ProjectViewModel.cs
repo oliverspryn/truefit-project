@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Atlassian.Jira;
+using TrueFitProjectTracker.Factories.Dashboard;
 
 namespace TrueFitProjectTracker.ViewModels
 {
@@ -50,40 +51,44 @@ namespace TrueFitProjectTracker.ViewModels
 
             // tasks
 
-            UpcomingTasks = new List<TaskEntryViewModel>();
+            AllTasks = new List<TaskEntryViewModel>();
+            CompletedTasks = new List<TaskEntryViewModel>();
             OneWeekTasks = new List<TaskEntryViewModel>();
             DistantTasks = new List<TaskEntryViewModel>();
 
-            // for testing, in production, use only uncompleted tasks?
 
-            for (int i = 4; i < 6; i++)
+            TasksFactory tasks = new TasksFactory(key);
+            string taskName;
+            DateTime dueDate;
+            for (int i = 0; i < tasks.list.Count; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < tasks.list[i].Tasks.Count; j++)
                 {
-                    UpcomingTasks.Add(new TaskEntryViewModel("Task " + j + "!", new DateTime(2014, i, j * 3 + 1)));
+                    taskName = tasks.list[i].Tasks[j].Name;
+                    dueDate = tasks.list[i].Tasks[j].DueDate;
+                    AllTasks.Add(new TaskEntryViewModel(taskName, dueDate));
                 }
             }
 
-            OneWeekTasks = UpcomingTasks.Where(task =>
+            CompletedTasks = AllTasks.Where(task =>
+                DateTime.Compare(task.CompletionDate, DateTime.Now) < 0
+                ).OrderBy(task => task.CompletionDate).ToList();
+
+            OneWeekTasks = AllTasks.Where(task =>
                 DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) < 0
                 && DateTime.Compare(task.CompletionDate, DateTime.Now) > 0
                 ).OrderBy(task => task.CompletionDate).ToList();
             
-            DistantTasks = UpcomingTasks.Where(task =>
+            DistantTasks = AllTasks.Where(task =>
                 DateTime.Compare(task.CompletionDate, DateTime.Now.AddDays(7)) > 0
                 ).OrderBy(task => task.CompletionDate).ToList();
 
 
-        TaskProgress = 79;
-        TaskBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
-        TaskRecentChart = new List<double> {5, 3, 4, 7, 2, 1, 6};
+            TaskBurndownChart = new List<double>();
+            TaskRecentChart = new List<double>();
 
-        BugProgress = 76;
-        BugBurndownChart = new List<double> {100.0, 86.9, 73.5, 67.5, 55.2, 47.5, 40.2, 31.5, 27.3, 20.3, 13.9, 9.6};
-        BugRecentChart = new List<double> { 5, 3, 4, 7, 2, 1, 6 };
-
-
-
+            BugBurndownChart = new List<double>();
+            BugRecentChart = new List<double>();
 
         } // more obvious: End of Constructor
 
@@ -101,16 +106,25 @@ namespace TrueFitProjectTracker.ViewModels
         public int RemainingBugsCount { get; set; } // number
 
         // tasks
-        public List<TaskEntryViewModel> UpcomingTasks { get; set; }
+        public List<TaskEntryViewModel> AllTasks { get; set; }
+        public List<TaskEntryViewModel> CompletedTasks { get; set; }
         public List<TaskEntryViewModel> OneWeekTasks { get; set; }
         public List<TaskEntryViewModel> DistantTasks { get; set; }
 
-        public double TaskProgress { get; set; }
-        public List<double> TaskBurndownChart { get; set; } // looks like 12 numbers, 1 for each month
-        public List<double> TaskRecentChart { get; set; } // looks like 1 week frame
+
+        // task and bug charts
+        public double TaskProgress { get; set; } // percentage
+        public Tuple<int, int> TaskBurndownStart { get; set; } // month, year, 0 for jan
+        public Tuple<int, int> TaskBurndownEnd { get; set; } // month, year
+        public List<double> TaskBurndownChart { get; set; } // filled one per month
+        
+        public List<double> TaskRecentChart { get; set; } // 7 items, one week before Now(), today is not charted
 
         public double BugProgress { get; set; }
+        public Tuple<int, int> BugBurndownStart { get; set; }
+        public Tuple<int, int> BugBurndownEnd { get; set; }
         public List<double> BugBurndownChart { get; set; } 
+        
         public List<double> BugRecentChart { get; set; } 
        
 

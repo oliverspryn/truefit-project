@@ -1,46 +1,32 @@
 ﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
+
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @Model.Title;
 }
 
-
-@section Styles {
-    @Styles.Render("~/Content/Project.css")
+@section breadcrumb {
+    <li>
+        <a href="#">@Model.Title</a>
+    </li>
 }
-<section class="jumbotron" id="start">
-    <nav class="main-breadcrumb">
-        <ul>
-            <li>
-                <a class="logo" href="@Url.Action("ProjectsList", "Home", null)"></a>
-            </li>
-            <li>
-                <a href="#">@Model.Title</a>
-            </li>
-        </ul>
-    </nav>
 
-    <nav class="links">
-        <ul>
-            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
-            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="row">
-        <div class="col-md-2"></div>
-
-        <div class="col-md-8">
+@section headerSection {
+    <div class="header-progress row">
+        <div class="col-md-8 col-md-offset-2">
             <h2>@Model.Title</h2>
+
             <div class="progress">
                 <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
                     <span>@Model.ProjectCompletion%</span>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-2"></div>
     </div>
-</section>
+}
+
+@section Styles {
+    @Styles.Render("~/Content/Project.css")
+}
 
 <section class="container">
     <section class="center content no-border row">
@@ -127,7 +113,7 @@
 
 
     <section class="center content row tasks">
-        <h2>Upcoming Tasks</h2>
+        <h2>Completed Tasks</h2>
 
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 		  <ol class="carousel-indicators">
@@ -158,23 +144,23 @@
 
         <div class="col-md-4">
             <header>
-                <h3>In progress</h3>
-                <h4>@Model.UpcomingTasks.Count()</h4>
-                <h5>Tasks currently in execution</h5>
+                <h3>Completed</h3>
+                <h4>@Model.CompletedTasks.Count()</h4>
+                <h5>Tasks currently completed</h5>
             </header>
 
             <ul>
-                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.UpcomingTasks.Take(10) ) {
+                @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(10) ) {
                     <li>@task.Title <span>Expected completion: 
                         <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
                 }
-                @if(Model.UpcomingTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
+                @if(Model.CompletedTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
             </ul>
         </div>
 
         <div class="col-md-4">
             <header>
-                <h3>Starting soon</h3>
+                <h3>Current</h3>
                 <h4>@Model.OneWeekTasks.Count()</h4>
                 <h5>Tasks scheduled within one week</h5>
             </header>
@@ -191,7 +177,7 @@
 
         <div class="col-md-4">
             <header>
-                <h3>Distant future</h3>
+                <h3>Starting Soon</h3>
                 <h4>@Model.DistantTasks.Count()</h4>
                 <h5>Tasks scheduled in greater than one week</h5>
             </header>
@@ -278,6 +264,10 @@
 
         $(function () { // task burndown line chart
             var data = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
+            var months = getMonthNamesFromMonthAndYear(
+                @Model.BugBurndownStart.Item1 , @Model.BugBurndownStart.Item2 ,
+                @Model.BugBurndownEnd.Item1 , @Model.BugBurndownEnd.Item2 );
+
 
             $('#task-burndown').highcharts({
                 chart: {
@@ -296,8 +286,7 @@
                     text: null
                 },
                 xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    categories: months,
                     lineColor: '#000000',
                     tickColor: '#000000',
                 },
@@ -324,6 +313,7 @@
         $(function () { // task completion by day within past week count
             var max = 10;
             var data = [@string.Join(",", Model.TaskRecentChart.ToArray())]; //replace with mvc
+            var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
             $('#task-recent-chart').highcharts({
                 chart: {
@@ -337,7 +327,7 @@
                 title: { text: null },
                 tooltip: { enabled: false },
                 xAxis: {
-                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                    categories: days,
                     gridLineColor: 'transparent',
                     lineWidth: 0,
                     minorGridLineWidth: 0,
@@ -379,7 +369,7 @@
         //-----------------BUGS-----------------------
 
         $(function () { // bug progress pi chart
-            var percent = @Model.BugProgress;
+            var percent = @(Model.BugProgress);
 
             $('#bug-progress').highcharts({
                 chart: {
@@ -432,6 +422,9 @@
 
         $(function () { // bug burndown line chart
             var data = [@string.Join(",", Model.BugBurndownChart.ToArray())];
+            var months = getMonthNamesFromMonthAndYear(
+                @Model.BugBurndownStart.Item1 , @Model.BugBurndownStart.Item2 ,
+                @Model.BugBurndownEnd.Item1 , @Model.BugBurndownEnd.Item2 );
 
             $('#bug-burndown').highcharts({
                 chart: {
@@ -450,8 +443,7 @@
                     text: null
                 },
                 xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    categories: months,
                     lineColor: '#000000',
                     tickColor: '#000000',
                 },
@@ -478,6 +470,7 @@
         $(function () { // bug bar chart - bugs closed within past week (recent)
             var max = 10;
             var data = [@string.Join(",", Model.BugRecentChart.ToArray())]
+            var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
             $('#bug-recent-chart').highcharts({
                 chart: {
@@ -491,7 +484,7 @@
                 title: { text: null },
                 tooltip: { enabled: false },
                 xAxis: {
-                    categories: ['S', 'M', 'T', 'W', 'R', 'F', 'S'],
+                    categories: days,
                     gridLineColor: 'transparent',
                     lineWidth: 0,
                     minorGridLineWidth: 0,
@@ -530,6 +523,32 @@
             });
         });
 
-        
+
+        // *******functions****************
+
+        function getDayNamesFromDayOfWeek(number) { // 0 is sunday, return ['S', 'M', ...]
+            var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            var result = [];
+            for (var i = number; i < number + 7; i++) {
+                result.push(days[i % 7]);
+            }
+            return result;
+        }
+
+        function getMonthNamesFromMonthAndYear(month, year, monthEnd, yearEnd) {
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var result = [];
+            while (month <= monthEnd || year <= yearEnd) {
+                 // 1st time, put year with month
+                if (month == 0 || result.length == 0)
+                    result.push(months[month] + ' ' + year.toString().slice(-2)); // 2014 -> 14
+                else
+                    result.push(months[month]);
+                month++;
+                if (month == 12){ month = 0; year++; } // reset
+            }
+            return result;
+        }
     </script>
 }
