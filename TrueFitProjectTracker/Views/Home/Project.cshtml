@@ -398,9 +398,6 @@
                 },
                 series: [{
                     color: ['#DDDDDD'],
-                    data: data
-                }, {
-                    color: ['#77E38C'], // top bar
                     data: function () {
                         var subElements = [];
                         for (var i = 0; i < data.length; i++) {
@@ -408,6 +405,9 @@
                         }
                         return subElements;
                     }()
+                }, {
+                    color: ['#77E38C'], // top bar
+                    data: data
                 }]
             });
         });
@@ -555,9 +555,6 @@
                 },
                 series: [{
                     color: ['#DDDDDD'],
-                    data: data
-                }, {
-                    color: ['#00D2FF'],
                     data: function () { // top space fillers
                         var subElements = [];
                         for (var i = 0; i < data.length; i++) {
@@ -565,6 +562,9 @@
                         }
                         return subElements;
                     }()
+                }, {
+                    color: ['#00D2FF'],
+                    data: data
                 }]
             });
         });

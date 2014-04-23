@@ -163,6 +163,9 @@ namespace TrueFitProjectTracker.Controllers
                 }
             }
 
+            project.ProjectCompletion = (int)((double)(project.BugsCompletedCount + project.TasksCompletedCount)
+                / (project.BugsCompletedCount + project.TasksCompletedCount + project.RemainingBugsCount + project.RemainingTasksCount)
+                * 100);
 
             // </jeff>
 
