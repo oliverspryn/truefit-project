@@ -37,18 +37,6 @@ namespace TrueFitProjectTracker.ViewModels
             // initialize the properties from the model just... like... this!
             Title = currentProject.Name;
 
-            // summing logic goes here.
-            ProjectCompletion = count; // %, 0 through 100
-            
-            // TODO: write logic - for each (task in project) ...
-            RecentTasksCompletedCount = 42;
-            TasksCompletedCount = 392;
-            RemainingTasksCount = 105;
-
-            RecentBugsCompletedCount = 42;
-            BugsCompletedCount = 267;
-            RemainingBugsCount = 83;
-
             // tasks
 
             AllTasks = new List<TaskEntryViewModel>();
@@ -85,10 +73,10 @@ namespace TrueFitProjectTracker.ViewModels
 
 
             TaskBurndownChart = new List<double>();
-            TaskRecentChart = new List<double>();
+            TaskRecentChart = new List<int>();
 
             BugBurndownChart = new List<double>();
-            BugRecentChart = new List<double>();
+            BugRecentChart = new List<int>();
 
         } // more obvious: End of Constructor
 
@@ -118,14 +106,14 @@ namespace TrueFitProjectTracker.ViewModels
         public Tuple<int, int> TaskBurndownEnd { get; set; } // month, year
         public List<double> TaskBurndownChart { get; set; } // filled one per month
         
-        public List<double> TaskRecentChart { get; set; } // 7 items, one week before Now(), today is not charted
+        public List<int> TaskRecentChart { get; set; } // 7 items, one week before Now(), today is not charted
 
         public double BugProgress { get; set; }
         public Tuple<int, int> BugBurndownStart { get; set; }
         public Tuple<int, int> BugBurndownEnd { get; set; }
         public List<double> BugBurndownChart { get; set; } 
         
-        public List<double> BugRecentChart { get; set; } 
+        public List<int> BugRecentChart { get; set; } 
        
 
     }

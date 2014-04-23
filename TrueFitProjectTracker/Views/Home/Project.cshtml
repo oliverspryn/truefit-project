@@ -257,7 +257,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
     <script>
         $(function () { // task progress pi chart
-            var percent = @Model.TaskProgress ;
+            var percent = @(Model.TaskProgress);
 
             $('#task-progress').highcharts({
                 chart: {
@@ -357,7 +357,7 @@
         });
 
         $(function () { // task completion by day within past week count
-            var max = 10;
+            var max = @((int)(Model.TaskRecentChart.Max() + 1));
             var data = [@string.Join(",", Model.TaskRecentChart.ToArray())]; //replace with mvc
             var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
@@ -514,7 +514,7 @@
         });
 
         $(function () { // bug bar chart - bugs closed within past week (recent)
-            var max = 10;
+            var max = @((int)(Model.BugRecentChart.Max() + 1));
             var data = [@string.Join(",", Model.BugRecentChart.ToArray())]
             var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
@@ -588,7 +588,7 @@
             while (month <= monthEnd || year <= yearEnd) {
                  // 1st time, put year with month
                 if (month == 0 || result.length == 0)
-                    result.push(months[month] + ' ' + year.toString().slice(-2)); // 2014 -> 14
+                    result.push(months[month] + ', ' + year.toString()); // 2014
                 else
                     result.push(months[month]);
                 month++;

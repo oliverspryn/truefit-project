@@ -56,8 +56,8 @@ namespace TrueFitProjectTracker.Controllers
                     && (task.DueDate != null || task.ResolutionDate != new DateTime())).ToList(); // need either or.
 
                 // month, year dates
-                var startDate = goodTasks
-                    .Select(task => task.Created).Min().Date;
+                var startDate = DateTime.Now.Date; //goodTasks
+                //    .Select(task => task.Created).Min().Date;
                 startDate = startDate.AddDays(-startDate.Day + 1);
                 var start = new Tuple<int, int>(startDate.Month, startDate.Year);
                 
@@ -122,27 +122,47 @@ namespace TrueFitProjectTracker.Controllers
                             })
                             .Sum();
                     }).ToList();
-                
+                // get recent tasks
+                List<int> recentTasksData = Enumerable.Range(0, 7) // 0 ... 6
+                    .Select(n => DateTime.Now.Date.AddDays(-7 + n))
+                    .Select(day => tasksList.Count(task => task.ResolutionDate.Date.Equals(day))).ToList();
 
-                // now handle our project model
+                // completion statistics
+                int recentCompletedCount = tasksList.Count(task => task.ResolutionDate.Date.CompareTo(DateTime.Now.Date) <= 0
+                    && task.ResolutionDate.Date.CompareTo(DateTime.Now.Date.AddDays(-7)) >= 0);
+                int completedCount = tasksList.Count(task => task.ResolutionDate != new DateTime());
+                int remainingCount = tasksList.Count() - completedCount;
+
+                double progress = (double)(completedCount) / (remainingCount + completedCount) * 100; // percent
+
+                // now handle our project model based on if we're doing tasks or bugs
 
                 if (type == "Task")
                 { // tasks
-                    project.TaskProgress = 1;
+                    project.TaskProgress = progress;
                     project.TaskBurndownStart = start;
                     project.TaskBurndownEnd = end;
                     project.TaskBurndownChart = taskData;
+                    project.TaskRecentChart = recentTasksData;
+
+                    project.RecentTasksCompletedCount = recentCompletedCount;
+                    project.TasksCompletedCount = completedCount;
+                    project.RemainingTasksCount = remainingCount;
                 }
                 else if (type == "Bug")
                 { // bugs
-                    project.BugProgress = 1;
+                    project.BugProgress = progress;
                     project.BugBurndownStart = start;
                     project.BugBurndownEnd = end;
                     project.BugBurndownChart = taskData;
+                    project.BugRecentChart = recentTasksData;
+
+                    project.RecentBugsCompletedCount = recentCompletedCount;
+                    project.BugsCompletedCount = completedCount;
+                    project.RemainingBugsCount = remainingCount;
                 }
             }
 
-            
 
             // </jeff>
 
