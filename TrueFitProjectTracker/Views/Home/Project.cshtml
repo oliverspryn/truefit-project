@@ -1,7 +1,10 @@
 ﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
 
 @{
-    ViewBag.Title = @Model.Title;
+	int counter = 0;
+	DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+	TrueFitProjectTracker.Factories.Dashboard.TasksFactory tasks = ViewBag.Tasks;
+	ViewBag.Title = @Model.Title;
 }
 
 @section breadcrumb {
@@ -111,144 +114,137 @@
         <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. The charts above enumerate our progress on each of these fronts of your project.</p>
     </section>
 
+	<section class="center content row tasks">
+        <h2>All Sprints and Associated Stories</h2>
 
-    <section class="center content row tasks">
-        <h2>All Tasks</h2>
+		<div class="carousel slide" data-interval="false" data-ride="carousel" id="task-scroller">
+			<div class="carousel-inner">
+			@foreach (TrueFitProjectTracker.Models.Dashboard.SprintModel sprint in tasks.list) {
+				<div class="@(counter == 0 ? "active " : "")item">
+					<header>
+						<h3>@sprint.Name</h3>
+						@if (!sprint.State.IsEmpty()) { <h4>State: @sprint.State</h4> }
 
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-		  <ol class="carousel-indicators">
-			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-		  </ol>
+						@if (DateTime.Compare(epoch, sprint.StartDate) != 0) {
+						<ul>
+							<li><time class="from" datetime="@sprint.StartDate.ToString("yyyy-MM-dd")">@sprint.StartDate.ToString("MMMM dd, yyyy")</time></li>
+							
+							@if (DateTime.Compare(epoch, sprint.EndDate) != 0) {
+							<li>to</li>
+							<li><time class="to" datetime="@sprint.EndDate.ToString("yyyy-MM-dd")">@sprint.EndDate.ToString("MMMM dd, yyyy")</time></li>
+							}
+						</ul>
+						}
+					</header>
 
-		  <div class="carousel-inner">
-			<div class="item active">
-			    <header>
-                    <h3>Completed</h3>
-                    <h4>@Model.CompletedTasks.Count()</h4>
-                    <h5>Tasks currently completed</h5>
-                </header>
+					<div class="sprint-body">
+						<div class="row">
+							@{
+								List<TrueFitProjectTracker.Models.Dashboard.TaskModel> complete = new List<TrueFitProjectTracker.Models.Dashboard.TaskModel>();
+								List<TrueFitProjectTracker.Models.Dashboard.TaskModel> later = new List<TrueFitProjectTracker.Models.Dashboard.TaskModel>();
+								List<TrueFitProjectTracker.Models.Dashboard.TaskModel> started = new List<TrueFitProjectTracker.Models.Dashboard.TaskModel>();
 
-                <div class="col-md-4">
-                    <ul>
-                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Take(5) ) {
-                            <li>@task.Title <span>Completion Date: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                 </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Skip(5).Take(5) ) {
-                            <li>@task.Title <span>Completion Date: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                 </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach( TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.CompletedTasks.Skip(10).Take(5) ) {
-                            <li>@task.Title <span>Completion Date: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                         @if(Model.CompletedTasks.Count > 15) {<li class="more"><span>&hellip;</span></li> }
-                    </ul>
-                 </div>
+							//Calculate which tasks have been completed, started, or starting soon
+								foreach (TrueFitProjectTracker.Models.Dashboard.TaskModel task in sprint.Tasks) {
+									if (task.Percent == 0) {
+										later.Add(task);
+									} else if (task.Percent == 100) {
+										complete.Add(task);
+									} else {
+										started.Add(task);
+									}
+								}
+							}
+
+							@if (complete.Count > 0) {
+							<div class="col-md-4 complete">
+								<h5>Complete</h5>
+
+								<ul>
+								@foreach (TrueFitProjectTracker.Models.Dashboard.TaskModel task in complete) {
+									<li>@task.Name</li>
+								}
+								</ul>
+							</div>
+							} else {
+							<div class="col-md-4 complete empty">
+								<header>
+									<h5>No Completed Stories</h5>
+									<h6>Check back soon, we're working hard</h6>
+								</header>
+							</div>
+							}
+
+							@if (started.Count > 0) {
+							<div class="col-md-4 started">
+								<h5>In Progress</h5>
+
+								<ul>
+								@foreach (TrueFitProjectTracker.Models.Dashboard.TaskModel task in started) {
+									<li>@task.Name</li>
+								}
+								</ul>
+							</div>
+							} else {
+							<div class="col-md-4 empty started">
+								<header>
+									<h5>No Active Stories</h5>
+									<h6>@(later.Count == 0 ? "We're all done!" : "We'll be starting soon")</h6>
+								</header>
+							</div>
+							}
+
+							@if (later.Count > 0) {
+							<div class="col-md-4 later">
+								<h5>Starting Soon</h5>
+
+								<ul>
+								@foreach (TrueFitProjectTracker.Models.Dashboard.TaskModel task in later) {
+									<li>@task.Name</li>
+								}
+								</ul>
+							</div>
+							} else {
+							<div class="col-md-4 empty later">
+								<header>
+									<h5>No Pending Stories</h5>
+									<h6>That's all folks!</h6>
+								</header>
+							</div>
+							}
+						</div>
+					</div>
+				</div>
+
+				++counter;
+			}
+
 			</div>
-			<div class="item">
-			    <header>
-                    <h3>Current</h3>
-                    <h4>@Model.OneWeekTasks.Count()</h4>
-                    <h5>Tasks scheduled within one week</h5>
-                </header>
 
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Take(5))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Skip(5).Take(5))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.OneWeekTasks.Skip(10).Take(5))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                        @if(Model.OneWeekTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
-                    </ul>
-                </div>
-			</div>
-			<div class="item">
-			    <header>
-                    <h3>Starting Soon</h3>
-                    <h4>@Model.DistantTasks.Count()</h4>
-                    <h5>Tasks scheduled in greater than one week</h5>
-                </header>
+			<ol class="carousel-indicators">
+			@for (int i = 0; i < counter; ++i) {
+				<li@(i == 0 ? " class=active" : "") data-slide-to="@i" data-target="#task-scroller"></li>
+			}
+			</ol>
 
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Take(10))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Skip(5).Take(5))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul>
-                        @foreach (TrueFitProjectTracker.ViewModels.TaskEntryViewModel task in Model.DistantTasks.Skip(10).Take(5))
-                        {
-                            <li>@task.Title <span>Expected completion: 
-                            <time datetime="@task.CompletionDate.ToString("yyyy-mm-dd")">@task.CompletionDate.ToString("MMMM d, yyyy")</time></span></li>
-                        }
-                        @if(Model.DistantTasks.Count > 10) {<li class="more"><span>&hellip;</span></li> }
-                    </ul>
-                </div>
-			</div>
-		  </div>
+			<a class="carousel-control left" data-slide="prev" href="#task-scroller">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
 
-		  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left"></span>
-		  </a>
-		  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right"></span>
-		  </a>
+			<a class="carousel-control right" data-slide="next" href="#task-scroller">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
 		</div>
     </section>
 
     <section class="bug center content even row">
-        <div class="col-lg-12">
-            <h2>Found a bug?</h2>
-            <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
-            <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
-                <span class="glyphicon glyphicon-warning-sign"></span>Report a Bug
-            </a>
-        </div>
-    </section>
+        <h2>Found a Bug?</h2>
+        <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
 
+        <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
+            <span class="glyphicon glyphicon-warning-sign"></span> Report a Bug
+        </a>
+    </section>
 </section>
 
 
