@@ -38,8 +38,14 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 
 		//A new sprint may need to be created
 			if (sprintData == null && !sprints.ContainsKey(name)) {
+				DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+
 				sprints[name] = new SprintModel();
+				sprints[name].CompleteDate = epoch;
+				sprints[name].EndDate = epoch;
 				sprints[name].Name = name;
+				sprints[name].StartDate = epoch;
+				sprints[name].State = "FUTURE";
 				sprints[name].Tasks = new List<TaskModel>();
 			} else if (!sprints.ContainsKey(name)) {
 				sprints[name] = createSprint(sprintData);
@@ -62,6 +68,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 		}
 
 		private SprintModel createSprint(string sprintData) {
+			DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
 			SprintModel sm = new SprintModel();
 
 		//This is a comma delimited list
@@ -72,7 +79,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			small = parts[5].Split('=');
 
 			if (small[1] == "<null>") {
-				sm.CompleteDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+				sm.CompleteDate = epoch;
 			} else {
 				sm.CompleteDate = DateTime.Parse(small[1]);
 			}
@@ -81,7 +88,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			small = parts[4].Split('=');
 
 			if (small[1] == "<null>") {
-				sm.EndDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+				sm.EndDate = epoch;
 			} else {
 				sm.EndDate = DateTime.Parse(small[1]);
 			}
@@ -94,7 +101,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			small = parts[3].Split('=');
 
 			if (small[1] == "<null>") {
-				sm.StartDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+				sm.StartDate = epoch;
 			} else {
 				sm.StartDate = DateTime.Parse(small[1]);
 			}
@@ -110,6 +117,8 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 		}
 
 		private void fetchTasks(string projectKey) {
+			DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+
 		//Fetch all of the tasks for a particular project
 			Object issues = Jira.RPC(API_ISSUES_LIST + HttpUtility.UrlEncode("\"" + projectKey + "\""));
 			Dictionary<String, Object> parent = issues as Dictionary<String, Object>;
@@ -132,7 +141,13 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				Dictionary<String, Object> fields = issue["fields"] as Dictionary<String, Object>;
 
 			//Creation date
-				tm.Created = DateTime.Parse(fields["created"] as string);
+				string created = fields["created"] as string;
+
+				if (created == null) {
+					tm.Created = epoch;
+				} else {
+					tm.Created = DateTime.Parse(fields["created"] as string);
+				}				
 
 			//Description
 				tm.Description = fields["description"] as string;
@@ -141,7 +156,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				string due = fields["duedate"] as string;
 
 				if (due == null) {
-					tm.DueDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+					tm.DueDate = epoch;
 				} else {
 					tm.DueDate = DateTime.Parse(fields["duedate"] as string);
 				}
@@ -181,7 +196,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				string resolution = fields["resolutiondate"] as string;
 
 				if(resolution == null) {
-					tm.ResolutionDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+					tm.ResolutionDate = epoch;
 				} else {
 					tm.ResolutionDate = DateTime.Parse(fields["resolutiondate"] as string);
 				}

@@ -72,7 +72,7 @@ article.content.center p, section.content.center p {
 	text-align: center;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 750px) {
 	article.content, section.content {
 		padding: 15px 10% 15px 10%;
 	}
@@ -200,72 +200,212 @@ section.bug a.btn {
  * -------------------------------------
 */
 
-section.tasks div header {
-    background-color: #181818;
-    padding: 50px 0px;
+section.tasks {
+	padding: 0px;
 }
 
-section.tasks div header h3 {
+section.tasks > h2 {
+	display: none;
+}
+
+section.tasks div.carousel div.carousel-inner div.item > header {
+    background-color: #181818;
+    padding: 50px 200px;
+	position: relative;
+}
+
+section.tasks div.carousel header h3 {
+	background: url('../Images/sprites/tasks.png') no-repeat;
+	background-position: -23px 0px;
     color: #FFFFFF;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 300;
     letter-spacing: 2px;
     margin: 0px;
-    padding-bottom: 20px;
-    text-align: center;
+    padding: 3px 0px 14px 35px;
     text-transform: uppercase;
 }
 
-section.tasks div header h4 {
-    color: #FFFFFF;
-    font-size: 100px;
-    font-weight: 100;
+section.tasks div.carousel header h4 {
+    color: #666666;
+    font-size: 18px;
     margin: 0px;
-    padding-bottom: 30px;
-    text-align: center;
 }
 
-section.tasks div header h5 {
-    color: #999999;
-    font-style: italic;
-    margin: 0px;
-    text-align: center;
+section.tasks div.carousel header ul {
+	background: url('../Images/sprites/tasks.png') no-repeat;
+	background-position: -24px -59px;
+	color: #666666;
+	list-style: none;
+	margin: 0px;
+	padding: 3px 0px 3px 33px;
+	position: absolute;
+	right: 200px;
+	top: 50px;
 }
 
-section.tasks div ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
+section.tasks div.carousel header ul li {
+	display: inline-block;
 }
 
-section.tasks div ul li {
-    background: #F7F7F7;
-    border-bottom: 1px solid #E9E9E9;
-    font-weight: 700;
-    padding: 10px 15px;
+section.tasks div.carousel div.sprint-body {
+	display: table;
+	padding: 50px 200px 75px 200px;
+	width: 100%;
 }
 
-section.tasks div ul li:last-child {
-    border-bottom: none;
-}
-section.tasks div ul li span {
-    color: #999999;
-    display: block;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: normal;
-    padding-top: 5px;
+section.tasks div.carousel div.sprint-body div.row {
+	display: table-row;
+	height: 100%;
 }
 
-section.tasks div ul li.more {
-    text-align: center;
+section.tasks div.carousel div.sprint-body div.row div {
+	border-top: 5px solid #181818;
+	display: table-cell;
+	float: none;
+	margin: 0px 5px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: top;
 }
 
-section.tasks div ul li.more span {
-    font-size: 100px;
-    font-style: normal;
-    font-weight: 100;
-    position: relative;
-    line-height: 0.3;
-    top: -38px;
+section.tasks div.carousel div.sprint-body div.row div:hover {
+	border-top: 5px solid #585858;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.empty {
+	border: none;
+	text-align: center;
+	vertical-align: middle;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.complete.empty {
+	color: #00B22D;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.started.empty {
+	color: #B2B200;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.later.empty {
+	color: #B20000;
+}
+
+section.tasks div.carousel div.sprint-body div.row div h5 {
+	background: url('../Images/sprites/tasks.png') no-repeat;
+	display: inline-block;
+	padding: 3px 0px 3px 33px;
+	font-size: 20px;
+	text-align: center;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.complete h5 {
+	background-position: -27px -115px;
+	color: #00B22D;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.started h5 {
+	background-position: -27px -171px;
+	color: #B2B200;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.later h5 {
+	background-position: -27px -229px;
+	color: #B20000;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.empty h5 {
+	padding: 91px 0px 0px 0px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.complete.empty h5 {
+	background-position: center -338px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.started.empty h5 {
+	background-position: center -475px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div.later.empty h5 {
+	background-position: center -611px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div ul li {
+	background: #F7F7F7;
+	border-bottom: 1px solid #E9E9E9;
+	padding: 11px;
+}
+
+section.tasks div.carousel div.sprint-body div.row div ul li:hover {
+	background-color: #F0F0F0;
+}
+
+section.tasks div.carousel div.sprint-body div.row div ul li:last-child {
+	border-bottom: none;
+}
+
+section.tasks div.carousel ol li {
+	border: 1px solid #000000;
+}
+
+section.tasks div.carousel ol li.active {
+	background-color: #000000;
+}
+
+@media screen and (max-width: 970px) {
+	section.tasks div.carousel div.carousel-inner div.item > header {
+		padding: 30px;
+	}
+
+	section.tasks div.carousel header h3 {
+		background-image: none;
+		padding: 0px;
+		text-align: center;
+	}
+
+	section.tasks div.carousel header h4 {
+		display: none;
+	}
+
+	section.tasks div.carousel header ul {
+		background-image: none;
+		padding: 15px 0px 0px 0px;
+		position: static;
+		text-align: center;
+	}
+
+	section.tasks div.carousel div.sprint-body {
+		padding: 10px 20% 40px 20%;
+	}
+
+	section.tasks div.carousel div.sprint-body div.row div {
+		border: none;
+		display: block;
+		padding: 20px 0px;
+	}
+
+	section.tasks div.carousel div.sprint-body div.row div.empty h5 {
+		padding: 3px 0px 3px 33px;
+	}
+
+	section.tasks div.carousel div.sprint-body div.row div.complete.empty h5 {
+		background-position: -27px -115px;
+		color: #00B22D;
+	}
+
+	section.tasks div.carousel div.sprint-body div.row div.started.empty h5 {
+		background-position: -27px -171px;
+		color: #B2B200;
+	}
+
+	section.tasks div.carousel div.sprint-body div.row div.later.empty h5 {
+		background-position: -27px -229px;
+		color: #B20000;
+	}
 }

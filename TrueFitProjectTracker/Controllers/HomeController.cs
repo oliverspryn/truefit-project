@@ -169,6 +169,8 @@ namespace TrueFitProjectTracker.Controllers
 
             // </jeff>
 
+			ViewBag.Tasks = stuff;
+
             return View(project);
         }
 
