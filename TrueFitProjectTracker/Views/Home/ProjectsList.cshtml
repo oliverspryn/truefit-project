@@ -27,6 +27,7 @@
             var item = new Array();
             for (var i = 0; i < list.length; i++) {
                 item[i] = $('#projects-list').children('a').eq(i);
+                $('#projects-list').children('a').eq(i).show();
             }
             var counter = new Array();
             for (var i = 0; i < list.length; i++) {
@@ -34,7 +35,7 @@
             }
             if (search.toString() == "") {
                 for (var i = 0; i < list.length; i++) {
-                    $('#projects-list').children('a').eq(i).show("fast");
+                    $('#projects-list').children('a').eq(i).show();
                 }
                 return;
             }
@@ -79,6 +80,7 @@
              for (var j = 0; j < item.length; j++) {
                  if (counter[j] == -1) {
                      $('#projects-list').append(item[j]);
+                     $('#projects-list').children('a').eq(i).hide();
                  }
              }
         });
