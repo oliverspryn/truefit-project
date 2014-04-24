@@ -8,7 +8,7 @@
 }
 
 /*
- * Jumbotron
+ * Master header
  * -------------------------------------
 */
 
@@ -27,7 +27,7 @@ section#start nav.main-breadcrumb ul {
 section#start nav.main-breadcrumb ul li {
     display: inline-block;
     list-style: none;
-    padding: 2px 0px 5px 9px;
+    padding: 3px 0px 5px 9px;
     vertical-align: top;
 }
 
@@ -159,6 +159,67 @@ section#start nav.links ul li a:hover {
     section#start nav.links {
         display: none;
     }
+}
+
+/*
+ * Master header locked
+ * -------------------------------------
+*/
+
+body.locked section#start {
+	padding-top: 89px;
+}
+
+body.locked section#start nav.main-breadcrumb {
+	-moz-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-ms-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-o-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-webkit-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+
+	background-image: url('../Images/banners/stressed_linen.png');
+	left: 0px;
+	padding: 8px 10%;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 100;
+}
+
+body.locked section#start nav.main-breadcrumb ul li {
+	padding-top: 7px;
+}
+
+body.locked section#start nav.main-breadcrumb ul li:first-child {
+	padding-top: 3px;
+}
+
+body.locked section#start nav.main-breadcrumb ul li a.logo {
+    background-position: -11px -11px;
+    background-size: 326%;
+    height: 35px;
+	margin-top: 2px;
+    width: 52px;
+}
+
+body.locked section#start nav.links {
+	position: fixed;
+	top: 0px;
+	z-index: 101;
+}
+
+body.locked section#start nav.links ul li {
+	padding: 0px;
+}
+
+body.locked section#start nav.links ul li a {
+	margin: 0px 5px;
+	padding: 21px 10px;
+}
+
+body.locked section#start nav.links ul li a:hover {
+	background-color: #282828;
+	color: #666666;
 }
 
 /*

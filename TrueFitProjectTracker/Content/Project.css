@@ -18,7 +18,12 @@ section#start div.row div.progress {
  * ----------------------------------
 */
 
+body {
+	background: #D3D7D8;
+}
+
 section.container {
+	background: #D3D7D8;
     margin: 0px;
     overflow: hidden;
     padding: 0px;
@@ -26,13 +31,8 @@ section.container {
 }
 
 article.content, section.content {
-	background: #FFFFFF;
 	border-top: 1px solid #DDDDDD;
-	padding: 65px 10% 65px 10%;
-}
-
-article.content.even, section.content.even, article.content.no-splash, section.content.no-splash {
-	background: #F5F5F5;
+	padding: 30px 10% 30px 10%;
 }
 
 article.content.no-border, section.content.no-border, article.content.no-border, section.content.no-border {
@@ -51,16 +51,6 @@ article.content > h1, section.content h1, article.content h2, section.content h2
 	text-transform: uppercase;
 }
 
-article.content > h1::after, section.content h1::after, article.content h2::after, section.content h2::after, article.content header h1::after, section.content header h1::after, article.content header h2::after, section.content header h2::after {
-	border-top: 2px solid #303030;
-	content: ' ';
-	display: block;
-	margin: 7px auto 0px auto;
-	padding: 0px;
-	text-align: center;
-	width: 300px;
-}
-
 article.content p, section.content p {
 	color: #777777;
 	margin: 10px 0px 10px 0px;
@@ -76,10 +66,6 @@ article.content.center p, section.content.center p {
 	article.content, section.content {
 		padding: 15px 10% 15px 10%;
 	}
-    
-    article.content > h1::after, section.content > h1::after, article.content > h2::after, section.content > h2::after, article.content header h1::after, section.content header h1::after, article.content header h2::after, section.content header h2::after {
-        content: none;
-    }
 }
 
 /*
@@ -87,20 +73,58 @@ article.content.center p, section.content.center p {
  * -------------------------------------
 */
 
-p.description {
-    margin-bottom: 80px !important;
+div.birds-eye {
+	text-align: center;
 }
 
-article div.tasks div.jumbotron {
-    -moz-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
+div.birds-eye h2 {
+	background: url('../Images/sprites/title-indicators.png') no-repeat;
+	background-position: 3px -627px;
+	color: #F27835;
+	display: inline-block;
+	margin: 0px auto 30px auto;
+	padding: 20px 0px 20px 89px;
+}
+
+div.birds-eye section.panel {
+	-moz-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -ms-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -o-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -webkit-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
-
-    border: none;
+	
+	border: none;
 }
 
+div.birds-eye section.panel div.panel-heading {
+	background: #313B47;
+	color: #CCCCCC;
+	font-size: 16px;
+	font-weight: 600;
+	padding: 14px;
+	text-align: center;
+}
+
+div.birds-eye section.panel div.panel-body {
+	background: #F2F3F5 url('../Images/sprites/title-indicators.png') no-repeat;
+}
+
+div.birds-eye section.compare.panel div.panel-body {
+	background-image: none;
+}
+
+div.birds-eye section.panel.story-completion div.panel-body {
+	background-position: center 117px;
+}
+
+div.birds-eye section.bug-completion.panel div.panel-body {
+	background-position: center -181px;
+}
+
+
+article.tasks div#task-burndown {
+    
+}
 
 article div.item-progress {
     margin: 40px auto;
@@ -210,7 +234,7 @@ section.tasks > h2 {
 
 section.tasks div.carousel div.carousel-inner div.item > header {
     background-color: #181818;
-    padding: 50px 200px;
+    padding: 50px 17%;
 	position: relative;
 }
 
@@ -250,7 +274,7 @@ section.tasks div.carousel header ul li {
 
 section.tasks div.carousel div.sprint-body {
 	display: table;
-	padding: 50px 200px 75px 200px;
+	padding: 50px 17% 75px 17%;
 	width: 100%;
 }
 
@@ -358,6 +382,10 @@ section.tasks div.carousel ol li.active {
 	background-color: #000000;
 }
 
+section.tasks div.carousel a.carousel-control {
+	margin-top: 162px;
+}
+
 @media screen and (max-width: 970px) {
 	section.tasks div.carousel div.carousel-inner div.item > header {
 		padding: 30px;
@@ -408,4 +436,35 @@ section.tasks div.carousel ol li.active {
 		background-position: -27px -229px;
 		color: #B20000;
 	}
+
+	section.tasks div.carousel div.sprint-body div.row div.empty h6 {
+		display: none;
+	}
+
+	section.tasks div.carousel a.carousel-control {
+		margin-top: 86px;
+	}
+}
+
+/*
+ * Floating bug link
+ * -------------------------------------
+*/
+
+a.bug-floater {
+	background-image: linear-gradient(to bottom,#5bc0de 0,#31b0d5 100%);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	bottom: -1px;
+	border: 1px solid #008C8C;
+	color: #FFFFFF;
+	padding: 15px;
+	position: fixed;
+	right: 20px;
+	text-align: center;
+}
+
+a.bug-floater:hover {
+	border: 1px solid #004040;
+	text-decoration: none;
 }

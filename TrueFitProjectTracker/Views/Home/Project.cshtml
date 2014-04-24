@@ -33,44 +33,74 @@
 
 <section class="container">
     <section class="center content no-border row">
-        <div class="col-md-12">
-            <article class="tasks">
-                <div class="jumbotron">
-                    <h2>Our to-do list</h2>
-                    <div class="col-md-8">
-                        <div id="task-burndown" class="burndown"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div id="task-progress" class="item-progress"></div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="recent center row task-recent">
-                            <h3>
-                                <center>Tasks completed this past week</center>
-                            </h3>
-                            <div class="col-md-10 recent-chart" id="task-recent-chart"></div>
-                            <div class="task-recent-total col-md-2 recent-total">
-                                <h4>@Model.RecentTasksCompletedCount</h4>
-                                <h5>Tasks Completed</h5>
-                            </div>
-                        </div>
-                    </div>
-                    `
-                        <div class="row stats task-stats">
-                            <div class="col-md-6 task-stats-complete">
-                                <h5>Total Completed</h5>
-                                <h4>@Model.TasksCompletedCount</h4>
-                            </div>
-                            <div class="col-md-6 task-stats-remain">
-                                <h5>Total Remaining</h5>
-                                <h4>@Model.RemainingTasksCount</h4>
-                            </div>
-                        </div>
-                </div>
-            </article>
-        </div>
+		<div class="birds-eye row">
+			<div class="col-md-12">
+				<h2>Bird's Eye View</h2>
+			</div>
+
+			<div class="col-md-6">
+				<section class="compare panel panel-default">
+					<div class="panel-heading">Number of Stories vs. Bugs</div>
+
+					<div class="panel-body">
+					Panel content
+					</div>
+				</section>
+			</div>
+
+			<div class="col-md-3">
+				<section class="panel panel-default story-completion">
+					<div class="panel-heading">Story Completion</div>
+
+					<div class="panel-body">
+						<div id="task-progress" class="item-progress"></div>
+					</div>
+				</section>
+			</div>
+
+			<div class="col-md-3">
+				<section class="bug-completion panel panel-default">
+					<div class="panel-heading">Bug Completion</div>
+
+					<div class="panel-body">
+						<div id="bug-progress" class="item-progress"></div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<div id="task-burndown" class="burndown"></div>
+		</div>
+
+		<div class="col-md-4">
+			
+
+			<div class="row stats task-stats">
+				<div class="col-md-6 task-stats-complete">
+					<h4>@Model.TasksCompletedCount</h4>
+					<h5>Total Completed</h5>
+				</div>
+				<div class="col-md-6 task-stats-remain">
+					<h4>@Model.RemainingTasksCount</h4>
+					<h5>Total Remaining</h5>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="recent center row task-recent">
+				<h3>Tasks completed this past week</h3>
+
+				<div class="col-md-10 recent-chart" id="task-recent-chart"></div>
+				<div class="task-recent-total col-md-2 recent-total">
+					<h4>@Model.RecentTasksCompletedCount</h4>
+					<h5>Tasks Completed</h5>
+				</div>
+			</div>
+		</div>
     </section>
-    <section class="center content even no-border row">
+    <section class="center content even row">
         <div class="col-md-12">
             <article class="bugs">
                 <div class="jumbotron">
@@ -81,7 +111,7 @@
                         <div id="bug-burndown" class="burndown"></div>
                     </div>
                     <div class="col-md-4">
-                        <div id="bug-progress" class="item-progress"></div>
+                        
                     </div>
                     
                         <div class="bug-recent recent row">
@@ -221,6 +251,7 @@
 
 			</div>
 
+			@if (counter > 1) {
 			<ol class="carousel-indicators">
 			@for (int i = 0; i < counter; ++i) {
 				<li@(i == 0 ? " class=active" : "") data-slide-to="@i" data-target="#task-scroller"></li>
@@ -234,33 +265,27 @@
 			<a class="carousel-control right" data-slide="next" href="#task-scroller">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
+			}
 		</div>
     </section>
 
-    <section class="bug center content even row">
-        <h2>Found a Bug?</h2>
-        <p>We're sorry to hear that @Model.Title has caused a problem. To help us better improve your product, please take a moment to let us know about this issue you found.</p>
-
-        <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-default btn-lg" role="button">
-            <span class="glyphicon glyphicon-warning-sign"></span> Report a Bug
-        </a>
-    </section>
+    <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="bug-floater">Report<br>Bug</a>
 </section>
 
 
 
 @section Scripts {
     <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+	@Scripts.Render("~/Scripts/jQuery/jquery.locker.js");
     <script>
         $(function () { // task progress pi chart
             var percent = @(Model.TaskProgress);
 
             $('#task-progress').highcharts({
                 chart: {
-                    backgroundColor: null,
-                    height: 250,
-                    spacing: [0, 0, 0, 0],
-                    width: 250
+                	backgroundColor: null,
+					height: 250,
+                    spacing: [0, 0, 0, 0]
                 },
                 credits: {
                     enabled: false
@@ -281,25 +306,13 @@
                         color: '#77E38C',
                         y: percent
                     }, {
-                        color: '#FFFFFF',
+                    	color: '#313B47',
                         y: 100.0 - percent
                     }],
-                    innerSize: '80%',
-                    type: 'pie'
-                }, {
-                    data: [{
-                        color: '#323A45',
-                        y: 100.0
-                    }],
-                    size: '80%',
+                    innerSize: '85%',
                     type: 'pie'
                 }],
-                title: {
-                    align: 'center',
-                    text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
-                    verticalAlign: 'middle',
-                    y: 20
-                },
+                title: { text: '' },
                 tooltip: { enabled: false }
             });
         });
@@ -417,8 +430,7 @@
                 chart: {
                     backgroundColor: null,
                     height: 250,
-                    spacing: [0, 0, 0, 0],
-                    width: 250
+                    spacing: [0, 0, 0, 0]
                 },
                 credits: {
                     enabled: false
@@ -439,25 +451,13 @@
                         color: '#00D2FF',
                         y: percent
                     }, {
-                        color: '#FFFFFF',
+                    	color: '#313B47',
                         y: 100.0 - percent
                     }],
-                    innerSize: '80%',
-                    type: 'pie'
-                }, {
-                    data: [{
-                        color: '#323A45',
-                        y: 100.0
-                    }],
-                    size: '80%',
+                    innerSize: '85%',
                     type: 'pie'
                 }],
-                title: {
-                    align: 'center',
-                    text: '<span style="color: #FFFFFF; font-size: 60px;  vertical-align: top;">' + percent + '<span style="color: #AAAAAA; font-size: 24px;">%</span></span>',
-                    verticalAlign: 'middle',
-                    y: 20
-                },
+                title: {  text: '' },
                 tooltip: { enabled: false }
             });
         });
