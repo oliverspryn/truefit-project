@@ -101,14 +101,14 @@ namespace TrueFitProjectTracker.ViewModels
 
 
         // task and bug charts
-        public double TaskProgress { get; set; } // percentage
+        public int TaskProgress { get; set; } // percentage
         public Tuple<int, int> TaskBurndownStart { get; set; } // month, year, 0 for jan
         public Tuple<int, int> TaskBurndownEnd { get; set; } // month, year
         public List<double> TaskBurndownChart { get; set; } // filled one per month
         
         public List<int> TaskRecentChart { get; set; } // 7 items, one week before Now(), today is not charted
 
-        public double BugProgress { get; set; }
+        public int BugProgress { get; set; }
         public Tuple<int, int> BugBurndownStart { get; set; }
         public Tuple<int, int> BugBurndownEnd { get; set; }
         public List<double> BugBurndownChart { get; set; } 
