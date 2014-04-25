@@ -27,14 +27,90 @@
     </div>
 }
 
+@section Scripts {
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+	@Scripts.Render("~/Scripts/jQuery/jquery.burndown.js")
+	@Scripts.Render("~/Scripts/jQuery/jquery.locker.js")
+	@Scripts.Render("~/Scripts/jQuery/jquery.compare.js")
+	@Scripts.Render("~/Scripts/jQuery/jquery.recent.js")
+	@Scripts.Render("~/Scripts/jQuery/jquery.rotary.js")
+
+    <script>
+    	$(function() {
+    	//Derive chart data
+    		var bugBurnData = [@string.Join(",", Model.BugBurndownChart.ToArray())];
+    		var bugBurnMonths = getMonthNamesFromMonthAndYear(@Model.BugBurndownStart.Item1, @Model.BugBurndownStart.Item2, @Model.BugBurndownEnd.Item1, @Model.BugBurndownEnd.Item2);
+
+    		var bugDetailData = [@string.Join(",", Model.BugRecentChart.ToArray())]
+    		var bugDetailDays = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
+
+    		var taskBurnData = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
+    		var taskBurnMonths = getMonthNamesFromMonthAndYear(@Model.BugBurndownStart.Item1, @Model.BugBurndownStart.Item2, @Model.BugBurndownEnd.Item1, @Model.BugBurndownEnd.Item2);
+
+    		var taskDetailData = [@string.Join(",", Model.TaskRecentChart.ToArray())];
+    		var taskDetailDays = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
+
+		//Build the charts
+    		$('#compare-chart').compare(@Model.RemainingTasksCount, '#77E38C', @Model.RemainingBugsCount, '#00D2FF');
+        	$('#task-progress').rotary(@Model.TaskProgress, '#77E38C');
+    		$('#bug-progress').rotary(@Model.BugProgress, '#00D2FF');
+
+    		$('#task-burndown').burndown(taskBurnData, taskBurnMonths, '#77E38C');
+    		$('#task-recent-chart').recent(taskDetailData, taskDetailDays, '#77E38C');
+
+    		$('#bug-burndown').burndown(bugBurnData, bugBurnMonths, '#00D2FF');
+    		$('#bug-recent-chart').recent(bugDetailData, bugDetailDays, '#00D2FF');
+
+    		function getDayNamesFromDayOfWeek(number) { // 0 is sunday, return ['S', 'M', ...]
+    			var days = ['S', 'M', 'T', 'W', 'R', 'F', 'S'];
+    			var result = [];
+    			for (var i = number; i < number + 7; i++) {
+    				result.push(days[i % 7]);
+    			}
+    			return result;
+    		}
+
+    		function getMonthNamesFromMonthAndYear(month, year, monthEnd, yearEnd) {
+    			var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+							'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    			var result = [];
+    			while (month <= monthEnd || year <= yearEnd) {
+    				// 1st time, put year with month
+    				if (month == 0 || result.length == 0)
+    					result.push(months[month] + ', ' + year.toString()); // 2014
+    				else
+    					result.push(months[month]);
+    				month++;
+    				if (month == 12){ month = 0; year++; } // reset
+    			}
+    			return result;
+    		}
+        });
+    </script>
+}
+
 @section Styles {
     @Styles.Render("~/Content/Project.css")
 }
 
+<section class="locker">
+	<h2>@Model.Title</h2>
+
+	<nav>
+		<ul>
+			<li><a href="#birds-eye-view">Bird's Eye View</a></li>
+			<li><a href="#story-details">Stories</a></li>
+			<li><a href="#software-bugs">Bugs</a></li>
+			<li><a href="#sprints">Sprints</a></li>
+		</ul>
+	</nav>
+</section>
+
 <section class="container">
     <section class="center content no-border row">
-		<div class="birds-eye row">
+		<div class="birds-eye content-area row">
 			<div class="col-md-12">
+				<a name="birds-eye-view"></a>
 				<h2>Bird's Eye View</h2>
 			</div>
 
@@ -43,7 +119,11 @@
 					<div class="panel-heading">Number of Stories vs. Bugs</div>
 
 					<div class="panel-body">
-					Panel content
+						<div class="chart" id="compare-chart"></div>
+						<div class="compare-details details">
+							<h3>Yeah<span>%</span></h3>
+							<h4>&lt;insert amazing comment that no one reads here&gt;</h4>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -53,7 +133,11 @@
 					<div class="panel-heading">Story Completion</div>
 
 					<div class="panel-body">
-						<div id="task-progress" class="item-progress"></div>
+						<div class="chart" id="task-progress"></div>
+						<div class="details task-details">
+							<h3>@Model.TaskProgress<span>%</span></h3>
+							<h4>of the stories are finished</h4>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -63,88 +147,113 @@
 					<div class="panel-heading">Bug Completion</div>
 
 					<div class="panel-body">
-						<div id="bug-progress" class="item-progress"></div>
+						<div class="chart" id="bug-progress"></div>
+						<div class="bug-details details">
+							<h3>@Model.BugProgress<span>%</span></h3>
+							<h4>of the bugs are closed</h4>
+						</div>
 					</div>
 				</section>
 			</div>
 		</div>
 
-		<div class="col-md-8">
-			<div id="task-burndown" class="burndown"></div>
-		</div>
+		<div class="content-area row tasks">
+			<div class="col-md-12">
+				<a name="story-details"></a>
+				<h2>Story Details</h2>
+			</div>
 
-		<div class="col-md-4">
-			
+			<div class="col-md-9">
+				<section class="panel panel-default task-burndown">
+					<header>
+						<h3>Story Burndown Chart</h3>
+						<h4>A glance into the future showing how we plan to complete these stories</h4>
+					</header>
 
-			<div class="row stats task-stats">
-				<div class="col-md-6 task-stats-complete">
-					<h4>@Model.TasksCompletedCount</h4>
-					<h5>Total Completed</h5>
-				</div>
-				<div class="col-md-6 task-stats-remain">
-					<h4>@Model.RemainingTasksCount</h4>
-					<h5>Total Remaining</h5>
+					<div class="panel-body">
+						<div class="burndown" id="task-burndown"></div>
+					</div>
+				</section>
+			</div>
+
+			<div class="col-md-3">
+				<section class="panel panel-default task-totals">
+					<div class="panel-heading">Totals</div>
+
+					<div class="panel-body">
+						<div class="col-md-12">
+							<h4>@Model.TasksCompletedCount</h4>
+							<h5>Completed</h5>
+						</div>
+						<div class="col-md-12">
+							<h4>@Model.RemainingTasksCount</h4>
+							<h5>Remaining</h5>
+						</div>
+					</div>
+				</section>
+
+				<a href="http://truefitsolutions.com/#Contact" class="btn btn-block btn-success" role="button" target="_blank">Questions About our Progress?</a>
+			</div>
+
+			<div class="col-md-12">
+				<div class="recent row">
+					<h3>Sprints Completed this Past Week</h3>
+
+					<div class="col-md-12 recent-chart" id="task-recent-chart"></div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="bugs content-area row">
+			<div class="col-md-12">
+				<a name="software-bugs"></a>
+				<h2>Software Bugs</h2>
+			</div>
 
-		<div class="col-md-12">
-			<div class="recent center row task-recent">
-				<h3>Tasks completed this past week</h3>
+			<div class="col-md-9">
+				<section class="bug-burndown panel panel-default">
+					<header>
+						<h3>Bug Burndown Chart</h3>
+						<h4>A glance into the future showing how we plan to resolve these bugs</h4>
+					</header>
 
-				<div class="col-md-10 recent-chart" id="task-recent-chart"></div>
-				<div class="task-recent-total col-md-2 recent-total">
-					<h4>@Model.RecentTasksCompletedCount</h4>
-					<h5>Tasks Completed</h5>
+					<div class="panel-body">
+						<div class="burndown" id="bug-burndown"></div>
+					</div>
+				</section>
+			</div>
+
+			<div class="col-md-3">
+				<section class="bug-totals panel panel-default">
+					<div class="panel-heading">Totals</div>
+
+					<div class="panel-body">
+						<div class="col-md-12">
+							<h4>@Model.BugsCompletedCount</h4>
+							<h5>Completed</h5>
+						</div>
+						<div class="col-md-12">
+							<h4>@Model.RemainingBugsCount</h4>
+							<h5>Remaining</h5>
+						</div>
+					</div>
+				</section>
+
+				<a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-block btn-info" role="button">Report a Bug</a>
+			</div>
+
+			<div class="col-md-12">
+				<div class="bug-recent recent center row">
+					<h3>Bugs Resolved this Past Week</h3>
+
+					<div class="col-md-12 recent-chart" id="bug-recent-chart"></div>
 				</div>
 			</div>
 		</div>
-    </section>
-    <section class="center content even row">
-        <div class="col-md-12">
-            <article class="bugs">
-                <div class="jumbotron">
-                    <h2>
-                        <center>Software Bugs</center>
-                    </h2>
-                    <div class="col-md-8">
-                        <div id="bug-burndown" class="burndown"></div>
-                    </div>
-                    <div class="col-md-4">
-                        
-                    </div>
-                    
-                        <div class="bug-recent recent row">
-                        <div class="col-md-12">
-                            <h3><center>Bugs closed this past week</center></h3>
-                        </div>
-                            <div class="col-md-8 recent-chart" id="bug-recent-chart"></div>
-                            <div class="bug-recent-total col-md-4 recent-total">
-                                <h4>@Model.RecentBugsCompletedCount</h4>
-                                <h5>Bugs Closed</h5>
-                            </div>
-                </div>
-
-                <div class="bug-stats row stats">
-                            <div class="bug-stats-complete col-md-6">
-                                <h5>Total Closed</h5>
-                                <h4>@Model.BugsCompletedCount</h4>
-                            </div>
-                            <div class="bug-stats-remain col-md-6">
-                                <h5>Total Remaining</h5>
-                                <h4>@Model.RemainingBugsCount</h4>
-                            </div>
-                        </div>
-                    </div>
-            </article>
-        </div>
-         <h3 style="text-align:center;">
-            Progress Overview
-        </h3>
-        <p class="description">The overall progress on @Model.Title is determined by both the list of completed tasks and number closed bug tickets. The charts above enumerate our progress on each of these fronts of your project.</p>
     </section>
 
 	<section class="center content row tasks">
+		<a name="sprints"></a>
         <h2>All Sprints and Associated Stories</h2>
 
 		<div class="carousel slide" data-interval="false" data-ride="carousel" id="task-scroller">
@@ -271,326 +380,3 @@
 
     <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="bug-floater">Report<br>Bug</a>
 </section>
-
-
-
-@section Scripts {
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
-	@Scripts.Render("~/Scripts/jQuery/jquery.locker.js");
-    <script>
-        $(function () { // task progress pi chart
-            var percent = @(Model.TaskProgress);
-
-            $('#task-progress').highcharts({
-                chart: {
-                	backgroundColor: null,
-					height: 250,
-                    spacing: [0, 0, 0, 0]
-                },
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                plotOptions: {
-                    pie: {
-                        animation: false,
-                        borderWidth: 0,
-                        dataLabels: { enabled: false },
-                        states: { hover: { enabled: false } }
-                    }
-                },
-                series: [{
-                    data: [{
-                        color: '#77E38C',
-                        y: percent
-                    }, {
-                    	color: '#313B47',
-                        y: 100.0 - percent
-                    }],
-                    innerSize: '85%',
-                    type: 'pie'
-                }],
-                title: { text: '' },
-                tooltip: { enabled: false }
-            });
-        });
-
-        $(function () { // task burndown line chart
-            var data = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
-            var months = getMonthNamesFromMonthAndYear(
-                @Model.BugBurndownStart.Item1 , @Model.BugBurndownStart.Item2 ,
-                @Model.BugBurndownEnd.Item1 , @Model.BugBurndownEnd.Item2 );
-
-
-            $('#task-burndown').highcharts({
-                chart: {
-                    backgroundColor: '#77E38C',
-                    borderRadius: 0,
-                    spacing: [40, 10, 40, 10]
-                },
-                colors: ['#FFFFFF'],
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    categories: months,
-                    lineColor: '#000000',
-                    tickColor: '#000000',
-                },
-                yAxis: {
-                    gridLineColor: '#000000',
-                    gridLineDashStyle: 'LongDash',
-                    title: {
-                        style: {
-                            color: '#FFFFFF'
-                        },
-                        text: 'Remaining Hours'
-                    }
-                },
-                legend: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Remaining',
-                    data: data
-                }]
-            });
-        });
-
-        $(function () { // task completion by day within past week count
-            var max = @((int)(Model.TaskRecentChart.Max() + 1));
-            var data = [@string.Join(",", Model.TaskRecentChart.ToArray())]; //replace with mvc
-            var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
-
-            $('#task-recent-chart').highcharts({
-                chart: {
-                    backgroundColor: null,
-                    spacing: [0, 0, 0, 0],
-                    type: 'column'
-                },
-                credits: { enabled: false },
-                exporting: { enabled: false },
-                legend: { enabled: false },
-                title: { text: null },
-                tooltip: { enabled: false },
-                xAxis: {
-                    categories: days,
-                    gridLineColor: 'transparent',
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
-                    tickColor: 'transparent'
-                },
-                yAxis: {
-                    gridLineColor: 'transparent',
-                    labels: { enabled: false },
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    title: { text: null }
-                },
-                plotOptions: {
-                    column: {
-                        animation: false,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        stacking: 'normal',
-                        states: { hover: { enabled: false } }
-                    }
-                },
-                series: [{
-                    color: ['#DDDDDD'],
-                    data: function () {
-                        var subElements = [];
-                        for (var i = 0; i < data.length; i++) {
-                            subElements[i] = max - data[i];
-                        }
-                        return subElements;
-                    }()
-                }, {
-                    color: ['#77E38C'], // top bar
-                    data: data
-                }]
-            });
-        });
-
-        //-----------------BUGS-----------------------
-
-        $(function () { // bug progress pi chart
-            var percent = @(Model.BugProgress);
-
-            $('#bug-progress').highcharts({
-                chart: {
-                    backgroundColor: null,
-                    height: 250,
-                    spacing: [0, 0, 0, 0]
-                },
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                plotOptions: {
-                    pie: {
-                        animation: false,
-                        borderWidth: 0,
-                        dataLabels: { enabled: false },
-                        states: { hover: { enabled: false } }
-                    }
-                },
-                series: [{
-                    data: [{
-                        color: '#00D2FF',
-                        y: percent
-                    }, {
-                    	color: '#313B47',
-                        y: 100.0 - percent
-                    }],
-                    innerSize: '85%',
-                    type: 'pie'
-                }],
-                title: {  text: '' },
-                tooltip: { enabled: false }
-            });
-        });
-
-        $(function () { // bug burndown line chart
-            var data = [@string.Join(",", Model.BugBurndownChart.ToArray())];
-            var months = getMonthNamesFromMonthAndYear(
-                @Model.BugBurndownStart.Item1 , @Model.BugBurndownStart.Item2 ,
-                @Model.BugBurndownEnd.Item1 , @Model.BugBurndownEnd.Item2 );
-
-            $('#bug-burndown').highcharts({
-                chart: {
-                    backgroundColor: '#00D2FF',
-                    borderRadius: 0,
-                    spacing: [40, 10, 40, 10]
-                },
-                colors: ['#FFFFFF'],
-                credits: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                title: {
-                    text: null
-                },
-                xAxis: {
-                    categories: months,
-                    lineColor: '#000000',
-                    tickColor: '#000000',
-                },
-                yAxis: {
-                    gridLineColor: '#000000',
-                    gridLineDashStyle: 'LongDash',
-                    title: {
-                        style: {
-                            color: '#FFFFFF'
-                        },
-                        text: 'Remaining Hours'
-                    }
-                },
-                legend: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Remaining',
-                    data: data
-                }]
-            });
-        });
-
-        $(function () { // bug bar chart - bugs closed within past week (recent)
-            var max = @((int)(Model.BugRecentChart.Max() + 1));
-            var data = [@string.Join(",", Model.BugRecentChart.ToArray())]
-            var days = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
-
-            $('#bug-recent-chart').highcharts({
-                chart: {
-                    backgroundColor: null,
-                    spacing: [0, 0, 0, 0],
-                    type: 'column'
-                },
-                credits: { enabled: false },
-                exporting: { enabled: false },
-                legend: { enabled: false },
-                title: { text: null },
-                tooltip: { enabled: false },
-                xAxis: {
-                    categories: days,
-                    gridLineColor: 'transparent',
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    labels: { style: { 'color': '#999999', 'font-size': '14px' } },
-                    tickColor: 'transparent'
-                },
-                yAxis: {
-                    gridLineColor: 'transparent',
-                    labels: { enabled: false },
-                    lineWidth: 0,
-                    minorGridLineWidth: 0,
-                    title: { text: null }
-                },
-                plotOptions: {
-                    column: {
-                        animation: false,
-                        borderColor: 'transparent',
-                        borderWidth: 0,
-                        stacking: 'normal',
-                        states: { hover: { enabled: false } }
-                    }
-                },
-                series: [{
-                    color: ['#DDDDDD'],
-                    data: function () { // top space fillers
-                        var subElements = [];
-                        for (var i = 0; i < data.length; i++) {
-                            subElements[i] = max - data[i];
-                        }
-                        return subElements;
-                    }()
-                }, {
-                    color: ['#00D2FF'],
-                    data: data
-                }]
-            });
-        });
-
-
-        // *******functions****************
-
-        function getDayNamesFromDayOfWeek(number) { // 0 is sunday, return ['S', 'M', ...]
-            var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-            var result = [];
-            for (var i = number; i < number + 7; i++) {
-                result.push(days[i % 7]);
-            }
-            return result;
-        }
-
-        function getMonthNamesFromMonthAndYear(month, year, monthEnd, yearEnd) {
-            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            var result = [];
-            while (month <= monthEnd || year <= yearEnd) {
-                 // 1st time, put year with month
-                if (month == 0 || result.length == 0)
-                    result.push(months[month] + ', ' + year.toString()); // 2014
-                else
-                    result.push(months[month]);
-                month++;
-                if (month == 12){ month = 0; year++; } // reset
-            }
-            return result;
-        }
-    </script>
-}

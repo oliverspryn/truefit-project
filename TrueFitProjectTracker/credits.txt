@@ -8,7 +8,10 @@ TrueFit logo: Courtesy of TrueFit Innovation [http://truefitsolutions.com]
 ICONS:
 ------------------------------
 
+Book icon: Courtesy of Webalys [http://www.webalys.com/minicons] from the Streamline Icon Pack, free for commerical use
 Bug icon: Courtesy of Visual Pharm [http://icons8.com] from the Windows 8 Metro Style Icon Pack, free for commerical use
 Calendar icon: Courtesy of Designmodo [http://designmodo.com] from the Lineicons Free Icon Pack, CC Attribution 3.0 Unported
 Checkmark icon: Courtesy of Designmodo [http://designmodo.com/flat-free] from the Flat UI Free Icon Pack, CC BY 3.0
+Eagle silhouette: Courtesy of Tarah Haack from the Bird Silhouettes Icon Pack, unknown license
 Hourglass icon: Courtesy of Webalys [http://www.webalys.com/minicons] from the Minicons Free Vector Icons Pack, CC BY 3.0
+List icon: Courtesy of Luboš Volkov [http://www.othericons.com] from the Othericons Icons Pack, free for commerical use

@@ -13,17 +13,83 @@ section#start div.row div.progress {
     margin-top: 20px;
 }
 
+/*
+ * Master header locked
+ * -------------------------------------
+*/
+
+section.locker {
+	-moz-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-ms-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-o-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	-webkit-box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+	box-shadow: 0px 0px 3px 5px rgba(32, 32, 32, 0.6);
+
+	background-image: url('../Images/banners/stressed_linen.png');
+	padding: 8px 10%;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	z-index: 100;
+}
+
+section.locker h2 {
+	color: #FFFFFF;
+	font-weight: 100;
+	margin: 0px;
+}
+
+section.locker nav {
+	position: fixed;
+	right: 10%;
+	top: 0px;
+}
+
+section.locker nav ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+section.locker nav ul li {
+	display: inline-block;
+	padding: 14px 0px;
+}
+
+section.locker nav ul li a {
+	-moz-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+
+	border-bottom: 3px solid #181818;
+	color: #666666;
+	margin: 0px 5px;
+	font-weight: bold;
+    padding: 14px 10px;
+    text-decoration: none;
+}
+
+section.locker nav ul li a:hover {
+	background-color: #282828;
+	border-bottom: 3px solid #44BBFF;
+	color: #666666;
+}
+
+@media screen and (max-width: 750px) {
+	section.locker {
+		display: none;
+	}
+}
+
 /**
  * Content area styles
  * ----------------------------------
 */
 
-body {
-	background: #D3D7D8;
-}
-
 section.container {
-	background: #D3D7D8;
     margin: 0px;
     overflow: hidden;
     padding: 0px;
@@ -73,20 +139,24 @@ article.content.center p, section.content.center p {
  * -------------------------------------
 */
 
-div.birds-eye {
+div.content-area {
+	border-bottom: 3px dotted #757678;
+	padding: 30px 0px;
 	text-align: center;
 }
 
-div.birds-eye h2 {
+div.content-area:last-child {
+	border-bottom: none;
+}
+
+div.content-area h2 {
 	background: url('../Images/sprites/title-indicators.png') no-repeat;
-	background-position: 3px -627px;
-	color: #F27835;
 	display: inline-block;
 	margin: 0px auto 30px auto;
 	padding: 20px 0px 20px 89px;
 }
 
-div.birds-eye section.panel {
+div.content-area section.panel {
 	-moz-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -ms-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
     -o-box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.15), 3px 5px 5px rgba(0, 0, 0, 0.15);
@@ -96,21 +166,40 @@ div.birds-eye section.panel {
 	border: none;
 }
 
-div.birds-eye section.panel div.panel-heading {
+div.content-area section.panel div.panel-heading {
 	background: #313B47;
-	color: #CCCCCC;
+	color: #F2F3F5;
 	font-size: 16px;
 	font-weight: 600;
 	padding: 14px;
 	text-align: center;
 }
 
+div.content-area section.panel div.panel-body {
+	background-color: #F2F3F5;
+	padding: 0px;
+}
+
+/*
+ * Bird's eye view
+ * -------------------------------------
+*/
+
+div.birds-eye h2 {
+	background-position: 3px -627px;
+	color: #313B47;
+}
+
 div.birds-eye section.panel div.panel-body {
-	background: #F2F3F5 url('../Images/sprites/title-indicators.png') no-repeat;
+	background: url('../Images/sprites/title-indicators.png') no-repeat;
 }
 
 div.birds-eye section.compare.panel div.panel-body {
 	background-image: none;
+}
+
+div.birds-eye section.compare.panel div.panel-body div#compare-chart {
+	height: 250px;
 }
 
 div.birds-eye section.panel.story-completion div.panel-body {
@@ -121,102 +210,171 @@ div.birds-eye section.bug-completion.panel div.panel-body {
 	background-position: center -181px;
 }
 
-
-article.tasks div#task-burndown {
-    
+div.birds-eye section.panel div.panel-body div.chart {
+    height: 250px;
+	padding: 15px;
 }
 
-article div.item-progress {
-    margin: 40px auto;
-    width: 250px;
+div.birds-eye section.panel div.panel-body div.details {
+	background: #313B47;
+	color: #F2F3F5;
+    margin-top: 30px;
+	padding: 15px;
 }
 
-article div.row {
-    border-bottom: 1px solid #CCCCCC;
-    margin: 20px 0px;
+div.birds-eye section.panel div.panel-body div.details h3 {
+	font-size: 65px;
+	font-weight: 300;
+	margin: 0px;
+	padding: 10px 0px;
 }
 
-article div.row:last-child {
-    border-bottom: none;
+div.birds-eye section.panel div.panel-body div.details h3 span {
+	font-size: 45px;
 }
 
-article div.recent {
-    padding-bottom: 20px;
+div.birds-eye section.panel div.panel-body div.details h4 {
+	font-size: 18px;
 }
 
-article div.recent h3 {
-    font-weight: 300;
-    margin: 5px 0px 20px 0px;
+div.birds-eye section.panel div.panel-body div.details.task-details {
+	background: #77E38C;
+	color: #313B47;
 }
 
-article div.recent h3 {
-    font-weight: 300;
-    margin: 5px 0px 20px 0px;
-}
-
-article div.recent-chart {
-    height: 80px;
-    padding-right: 0px;
-}
-
-article div.recent-chart h5 {
-    height: 110px;
-    padding-left: 0px;
-    vertical-align: middle;
-}
-
-article div.recent div h4 {
-    font-size: 36px;
-    font-weight: 700;
-    margin: 0px;
-    padding: 19px 0px 6px 0px;
-}
-
-article div.task-recent div h4 {
-    color: #77E38C;
-}
-
-article div.bug-recent div h4 {
-    color: #00D2FF;
-}
-
-article div.recent div h5 {
-    color: #999999;
-    font-size: 14px;
-    margin: 0px;
-    text-transform: uppercase;
-}
-
-article div.stats div h4 {
-    color: #00D2FF;
-    font-size: 36px;
-    font-weight: 700;
-}
-
-article div.task-stats div h4 {
-    color: #77E38C;
-}
-
-article div.bug-stats div h4 {
-    color: #00D2FF;
-}
-
-article div.stats div h5 {
-    color: #999999;
-    font-size: 14px;
+div.birds-eye section.panel div.panel-body div.bug-details.details {
+	background: #00D2FF;
+	color: #313B47;
 }
 
 /*
- * Bug logging
+ * Story details
  * -------------------------------------
 */
 
-section.bug {
-    text-align: center;
+div.tasks h2 {
+	background-position: 3px -747px;
+	color: #47A447;
 }
 
-section.bug a.btn {
-    margin: 50px 0px 20px 0px;
+div.tasks section.task-burndown {
+	border-radius: 3px;
+}
+
+div.tasks section.task-burndown header {
+	background-color: #F2F3F5;
+	border-radius: 3px;
+	padding: 15px;
+}
+
+div.tasks section.task-burndown header h3 {
+	color: #313B47;
+	font-weight: 600;
+}
+
+div.tasks section.task-burndown header h4 {
+	color: #AAAAAA;
+	font-size: 16px;
+}
+
+div.tasks section.task-burndown div.panel-body {
+	padding: 0px 15px;
+}
+
+div.tasks section.task-totals h4 {
+	font-size: 65px;
+	font-weight: 600;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.tasks section.task-totals div.panel-body div.col-md-12 {
+	border-bottom: 1px solid #757678;
+	padding: 5px 15px;
+}
+
+div.tasks section.task-totals div.panel-body div.col-md-12:last-child {
+	border-bottom: none;
+}
+
+div.tasks div.recent {
+	padding-top: 30px;
+}
+
+div.tasks div.recent h3 {
+	color: #313B47;
+	font-weight: 600;
+	margin-bottom: 0px;
+	padding: 0px 15px;
+}
+
+div.tasks div.recent div.recent-chart {
+	height: 200px;
+}
+
+/*
+ * Bug details
+ * -------------------------------------
+*/
+
+div.bugs h2 {
+	background-position: 3px -867px;
+	color: #2AABD2;
+}
+
+div.bugs section.bug-burndown {
+	border-radius: 3px;
+}
+
+div.bugs section.bug-burndown header {
+	background-color: #F2F3F5;
+	border-radius: 3px;
+	padding: 15px;
+}
+
+div.bugs section.bug-burndown header h3 {
+	color: #313B47;
+	font-weight: 600;
+}
+
+div.bugs section.bug-burndown header h4 {
+	color: #AAAAAA;
+	font-size: 16px;
+}
+
+div.bugs section.bug-burndown div.panel-body {
+	padding: 0px 15px;
+}
+
+div.bugs section.bug-totals h4 {
+	font-size: 65px;
+	font-weight: 600;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.bugs section.bug-totals div.panel-body div.col-md-12 {
+	border-bottom: 1px solid #757678;
+	padding: 5px 15px;
+}
+
+div.bugs section.bug-totals div.panel-body div.col-md-12:last-child {
+	border-bottom: none;
+}
+
+div.bugs div.recent {
+	padding-top: 30px;
+}
+
+div.bugs div.recent h3 {
+	color: #313B47;
+	font-weight: 600;
+	margin-bottom: 0px;
+	padding: 0px 15px;
+}
+
+div.bugs div.recent div.recent-chart {
+	height: 200px;
 }
 
 /*
