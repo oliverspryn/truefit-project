@@ -164,6 +164,7 @@
     <Content Include="Content\Bug.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="jira.dat" />
     <None Include="Scripts\jQuery\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\banners\stressed_linen.png" />
     <Content Include="Images\logos\favicon.ico" />
