@@ -214,6 +214,7 @@
     <Content Include="Views\Shared\PartialViews\_Scripts.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Footer.cshtml" />
     <Content Include="Views\Home\Project.cshtml" />
+    <Content Include="Views\Home\_ReportBug.cshtml" />
     <Content Include="Views\Home\ReportBug.cshtml" />
   </ItemGroup>
   <ItemGroup>

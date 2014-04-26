@@ -16,7 +16,7 @@ namespace TrueFitProjectTracker.Controllers
         // GET: /Home/
 
         public ProjectViewModel project;
-
+        public Atlassian.Jira.Issue newIssue;
         public ActionResult ProjectsList()
         {
             //check to see if we need to move the username/password elsewhere again.
@@ -186,11 +186,25 @@ namespace TrueFitProjectTracker.Controllers
             return View(project);
         }
 
+        [HttpGet]
         public ActionResult ReportBug(string Title)
         {
+            string test = Title;
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            BugViewModel model = new BugViewModel(project, jira);
+            BugModel model = new BugModel(project, jira);
             return View(model);
+
+        }
+        [HttpPost]
+        public ActionResult ReportBug(BugModel model)
+        {
+            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+            var issue = jira.CreateIssue("Project Management Test-Lehman");
+            issue.Description = model.Description;
+            issue.Summary = model.Summary;
+            issue.Reporter = model.Reporter;
+            issue.SaveChanges();
+            return RedirectToAction("Project");
         }
     }
 }

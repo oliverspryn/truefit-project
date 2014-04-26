@@ -12,8 +12,14 @@ namespace TrueFitProjectTracker.ViewModels
 
         public BugViewModel(ProjectViewModel project, Jira jira)
         {
-            // TODO: Complete member initialization
+            title = "Agile Scrum";
         }
+
+        public string title { get; set; }
+        public string Summary { get; set; }
+        public string Description { get; set; }
+        public string Reporter { get; set; } 
+
 
     }
 }
