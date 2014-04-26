@@ -138,16 +138,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Factories\Dashboard\FieldFactory.cs" />
     <Compile Include="Factories\Dashboard\TasksFactory.cs" />
     <Compile Include="Factories\JiraFactory.cs" />
     <Compile Include="Factories\JiraInterface.cs" />
     <Compile Include="Models\BugModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Cache\FieldsModel.cs" />
-    <Compile Include="Models\Dashboard\SprintCollectionModel.cs" />
+    <Compile Include="Models\Dashboard\ProgressModel.cs" />
     <Compile Include="Models\Dashboard\SprintModel.cs" />
     <Compile Include="Models\Dashboard\TaskModel.cs" />
-    <Compile Include="Models\DataContext\FieldsDataContext.cs" />
     <Compile Include="Models\JIRAInterface.cs" />
     <Compile Include="ViewModels\ReportBugViewModel.cs" />
     <Compile Include="Models\ProjectsListModel.cs" />
@@ -164,7 +164,8 @@
     <Content Include="Content\Bug.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="jira.dat" />
+    <Content Include="App_Data\fields.dat" />
+    <Content Include="App_Data\jira.dat" />
     <None Include="Scripts\jQuery\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\banners\stressed_linen.png" />
     <Content Include="Images\logos\favicon.ico" />
@@ -217,9 +218,7 @@
     <Content Include="Views\Home\_ReportBug.cshtml" />
     <Content Include="Views\Home\ReportBug.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
