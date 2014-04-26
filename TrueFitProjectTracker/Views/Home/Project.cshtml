@@ -258,7 +258,7 @@
 
 		<div class="carousel slide" data-interval="false" data-ride="carousel" id="task-scroller">
 			<div class="carousel-inner">
-			@foreach (TrueFitProjectTracker.Models.Dashboard.SprintModel sprint in tasks.list) {
+			@foreach (TrueFitProjectTracker.Models.Dashboard.SprintModel sprint in tasks.List) {
 				<div class="@(counter == 0 ? "active " : "")item">
 					<header>
 						<h3>@sprint.Name</h3>
@@ -285,9 +285,9 @@
 
 							//Calculate which tasks have been completed, started, or starting soon
 								foreach (TrueFitProjectTracker.Models.Dashboard.TaskModel task in sprint.Tasks) {
-									if (task.Percent == 0) {
+									if (task.Progress.Percent == 0) {
 										later.Add(task);
-									} else if (task.Percent == 100) {
+									} else if (task.Progress.Percent == 100) {
 										complete.Add(task);
 									} else {
 										started.Add(task);

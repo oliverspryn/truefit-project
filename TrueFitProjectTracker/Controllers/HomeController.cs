@@ -47,7 +47,7 @@ namespace TrueFitProjectTracker.Controllers
             // both are handled the same way, only difference is where they are assigned
             // (hence the last if statement)
             foreach(string type in new string[] {"Task", "Bug"} ){ // to compare task.Issue to
-                var tasksList = stuff.list.Aggregate(new List<Models.Dashboard.TaskModel>(), (tasklist, value) =>
+                var tasksList = stuff.List.Aggregate(new List<Models.Dashboard.TaskModel>(), (tasklist, value) =>
                     {
                         tasklist.AddRange(value.Tasks.Where(task => task.Issue == type));
                         return tasklist;

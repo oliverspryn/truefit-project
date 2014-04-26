@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 
 namespace TrueFitProjectTracker.Models.Dashboard {
-	public class SprintCollectionModel {
-		public List<SprintModel> Sprints { get; set; }
+	public class ProgressModel {
+		public int Committed { get; set; }
+		public int Expected { get; set; }
+		public int Percent { get; set; }
 	}
 }

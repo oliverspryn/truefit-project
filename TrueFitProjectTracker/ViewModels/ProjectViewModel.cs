@@ -48,12 +48,12 @@ namespace TrueFitProjectTracker.ViewModels
             TasksFactory tasks = new TasksFactory(key);
             string taskName;
             DateTime dueDate;
-            for (int i = 0; i < tasks.list.Count; i++)
+            for (int i = 0; i < tasks.List.Count; i++)
             {
-                for (int j = 0; j < tasks.list[i].Tasks.Count; j++)
+                for (int j = 0; j < tasks.List[i].Tasks.Count; j++)
                 {
-                    taskName = tasks.list[i].Tasks[j].Name;
-                    dueDate = tasks.list[i].Tasks[j].DueDate;
+                    taskName = tasks.List[i].Tasks[j].Name;
+                    dueDate = tasks.List[i].Tasks[j].DueDate;
                     AllTasks.Add(new TaskEntryViewModel(taskName, dueDate));
                 }
             }

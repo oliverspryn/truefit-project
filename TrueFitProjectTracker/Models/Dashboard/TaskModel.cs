@@ -11,8 +11,8 @@ namespace TrueFitProjectTracker.Models.Dashboard {
 		public string Epic { get; set; }
 		public string Issue { get; set; }
 		public string Name { get; set; }
-		public int Percent { get; set; }
 		public string Priority { get; set; }
+		public ProgressModel Progress { get; set; }
 		public string Resolution { get; set; }
 		public DateTime ResolutionDate { get; set; }
 		public string Sprint { get; set; }

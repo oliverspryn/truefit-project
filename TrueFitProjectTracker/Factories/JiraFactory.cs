@@ -27,7 +27,7 @@ namespace TrueFitProjectTracker.Factories {
 	///  
 	/// The path to the file will be relative to the project root directory.
 	/// </summary>
-		private const string CONFIG_FILE = "jira.dat";
+		private const string CONFIG_FILE = "App_Data/jira.dat";
 		
 	/// <summary>
 	/// The Jira object which will interface with the Jira API.
