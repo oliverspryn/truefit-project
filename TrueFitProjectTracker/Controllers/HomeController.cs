@@ -38,7 +38,7 @@ namespace TrueFitProjectTracker.Controllers
             //int id = 4; 
 
             project = new ProjectViewModel(name, jira);
-			var stuff = new TasksFactory(name);
+			TasksFactory sprintTasks = new TasksFactory(name);
 
 
             // <jeff id="burndown-and-recent-chart">
@@ -47,7 +47,7 @@ namespace TrueFitProjectTracker.Controllers
             // both are handled the same way, only difference is where they are assigned
             // (hence the last if statement)
             foreach(string type in new string[] {"Task", "Bug"} ){ // to compare task.Issue to
-                var tasksList = stuff.List.Aggregate(new List<Models.Dashboard.TaskModel>(), (tasklist, value) =>
+				var tasksList = sprintTasks.List.Aggregate(new List<Models.Dashboard.TaskModel>(), (tasklist, value) =>
                     {
                         tasklist.AddRange(value.Tasks.Where(task => task.Issue == type));
                         return tasklist;
@@ -181,7 +181,7 @@ namespace TrueFitProjectTracker.Controllers
 
             // </jeff>
 
-			ViewBag.Tasks = stuff;
+			ViewBag.Tasks = sprintTasks;
 
             return View(project);
         }
