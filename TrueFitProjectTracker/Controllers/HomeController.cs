@@ -199,7 +199,7 @@ namespace TrueFitProjectTracker.Controllers
         public ActionResult ReportBug(BugModel model)
         {
             var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            var issue = jira.CreateIssue("Project Management Test-Lehman");
+            var issue = jira.CreateIssue("Agile Scrum");
             issue.Description = model.Description;
             issue.Summary = model.Summary;
             issue.Reporter = model.Reporter;
