@@ -234,21 +234,23 @@
 						</div>
 						<div class="col-md-12">
 							<h4>@Model.RemainingBugsCount</h4>
-							<h5>Remaining</h5>
-						</div>
-					</div>
-				</section>
+                            <h5>Remaining</h5>
+                        </div>
+                    </div>
+                </section>
 
-				<a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-block btn-info" role="button">Report a Bug</a>
-			</div>
+                <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="btn btn-block btn-info" role="button">Report a Bug</a>
+                <button class="btn btn-block btn-info" data-toggle="modal" data-target="#myModal">
+                    Report<br />Bug
+                </button>
 
-			<div class="col-md-12">
-				<div class="bug-recent recent center row">
-					<h3>Bugs Resolved this Past Week</h3>
+            <div class="col-md-12">
+                <div class="bug-recent recent center row">
+                    <h3>Bugs Resolved this Past Week</h3>
 
-					<div class="col-md-12 recent-chart" id="bug-recent-chart"></div>
-				</div>
-			</div>
+                    <div class="col-md-12 recent-chart" id="bug-recent-chart"></div>
+                </div>
+            </div>
 		</div>
     </section>
 
@@ -375,8 +377,32 @@
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
 			}
-		</div>
+        </div>
     </section>
+    <!-- Button trigger modal -->
+    <button class="bug-floater" data-toggle="modal" data-target="#myModal">
+        Report<br />
+        Bug
+    </button>
 
-    <a href="@Url.Action("ReportBug", "Home", Model.Title)" class="bug-floater">Report<br>Bug</a>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel">Report Bug</h3>
+                </div>
+                <div class="modal-body">
+                    <iframe src="@Url.Action("ReportBug", "Home", Model.Title)" width =" 400 " height =" 600 "></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </section>

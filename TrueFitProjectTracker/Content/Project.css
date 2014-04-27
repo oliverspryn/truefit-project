@@ -609,7 +609,7 @@ section.tasks div.carousel a.carousel-control {
  * -------------------------------------
 */
 
-a.bug-floater {
+button.bug-floater {
 	background-image: linear-gradient(to bottom,#5bc0de 0,#31b0d5 100%);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -622,7 +622,7 @@ a.bug-floater {
 	text-align: center;
 }
 
-a.bug-floater:hover {
+button.bug-floater:hover {
 	border: 1px solid #004040;
 	text-decoration: none;
 }
