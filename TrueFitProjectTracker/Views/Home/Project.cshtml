@@ -2,6 +2,7 @@
 
 @{
 	int counter = 0;
+	double percent = Math.Round(((double)Model.RemainingBugsCount / (double)(Model.RemainingBugsCount + Model.RemainingTasksCount)) * 100.0);
 	DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
 	TrueFitProjectTracker.Factories.Dashboard.TasksFactory tasks = ViewBag.Tasks;
 	ViewBag.Title = @Model.Title;
@@ -28,7 +29,9 @@
 }
 
 @section Scripts {
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/highcharts.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/highcharts-more.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/modules/solid-gauge.js"></script>
 	@Scripts.Render("~/Scripts/jQuery/jquery.burndown.js")
 	@Scripts.Render("~/Scripts/jQuery/jquery.locker.js")
 	@Scripts.Render("~/Scripts/jQuery/jquery.compare.js")
@@ -121,8 +124,8 @@
 					<div class="panel-body">
 						<div class="chart" id="compare-chart"></div>
 						<div class="compare-details details">
-							<h3>Yeah<span>%</span></h3>
-							<h4>&lt;insert amazing comment that no one reads here&gt;</h4>
+							<h3>@percent<span>%</span></h3>
+							<h4>of our to-to list involves fixing bugs</h4>
 						</div>
 					</div>
 				</section>
@@ -238,9 +241,11 @@
                         </div>
                     </div>
                 </section>
+
                 <button class="btn btn-block btn-info" data-toggle="modal" data-target="#myModal">
                     Report a Bug
                 </button>
+			</div>
 
             <div class="col-md-12">
                 <div class="bug-recent recent center row">
