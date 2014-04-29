@@ -1,53 +1,60 @@
 ﻿(function($) {
 	$.fn.compare = function(taskCount, taskColor, bugCount, bugColor) {
-		var total = bugCount + taskCount;
-		var taskPercent = (taskCount / total) * 100;
-    
 		$(this).highcharts({
-			chart: { type: 'solidgauge' },
+			chart: {
+				backgroundColor: null,
+				type: 'bar'
+			},
 			credits: { enabled: false },
-			pane: {
-				background: {
-					backgroundColor: null,
-					innerRadius: '60%',
-					outerRadius: '100%',
-					shape: 'arc'
-				},
-	    		center: [ '50%', '85%' ],
-				endAngle: 90,
-	    		size: '140%',
-				startAngle: -90
+			exporting: { enabled: false },
+			legend: { enabled: false },
+			plotOptions: {
+				bar: {
+					animation: false,
+					dataLabels: { enabled: false },
+					states: { hover: { enabled: false } }
+				}
 			},
 			series: [{
 				data: [{
-					color: '#77E38C',
-					y: 100
+					color: taskColor,
+					y: taskCount
 				}, {
-					color: '#14B9D6',
-					y: 100 - taskPercent
+					color: bugColor,
+					y: bugCount
 				}]
 			}],
 			title: { text: null },
 			tooltip: { enabled: false },
-			yAxis: {
+			xAxis: {
+				categories: ['Stories', 'Bugs'],
 				labels: {
-					formatter: function() {
-						return this.value + '%';
-					},
 					style: {
 						'color': '#313B47',
 						'font-size': '12px',
 						'font-weight': 'bold'
-					},
-					y: 16
+					}
 				},
-				lineWidth: 0,
-				max: 100,
-				min: 0,
-				minorTickInterval: null,
-				tickPixelInterval: 400,
+				lineColor: '#313B47',
+				lineWidth: 1,
+				tickLength: 0,
 				tickWidth: 0,
-				title: { text: null }    
+				title: { text: null }
+			},
+			yAxis: {
+				allowDecimals: false,
+				gridLineColor: '#CCCCCC',
+				labels: {
+					style: {
+						'color': '#313B47',
+						'font-size': '12px',
+						'font-weight': 'bold'
+					}
+				},
+				lineColor: '#313B47',
+				lineWidth: 1,
+				min: 0,
+				title: { text: null }
 			}
 		});
 	}
