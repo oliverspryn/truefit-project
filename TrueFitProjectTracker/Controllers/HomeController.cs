@@ -7,23 +7,18 @@ using TrueFitProjectTracker.ViewModels;
 using TrueFitProjectTracker.Models;
 using Atlassian.Jira;
 using TrueFitProjectTracker.Factories.Dashboard;
+using TrueFitProjectTracker.Factories;
 
-namespace TrueFitProjectTracker.Controllers
-{
-    public class HomeController : Controller
-    {
-        //
-        // GET: /Home/
+namespace TrueFitProjectTracker.Controllers {
+    public class HomeController : Controller {
+		public Atlassian.Jira.Issue newIssue;
+		public ProjectViewModel project;
 
-        public ProjectViewModel project;
-        public Atlassian.Jira.Issue newIssue;
-        public ActionResult ProjectsList()
-        {
-            //check to see if we need to move the username/password elsewhere again.
-            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            //ProjectsListModel projectsList = new ProjectsListModel(jira);
-            ProjectsListModel viewModel = new ProjectsListModel(jira);
-            return View(viewModel);
+        public ActionResult ProjectsList()  {
+			JiraAuth jira = new JiraAuth();
+            ProjectsListModel list = new ProjectsListModel(jira);
+
+			return View(list);
         }
 
         public ActionResult Project(string name) {
@@ -31,23 +26,23 @@ namespace TrueFitProjectTracker.Controllers
         }
 
         [HttpGet]
-        public ActionResult ReportBug(string Title)
-        {
-            string test = Title;
-            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
+        public ActionResult ReportBug(string Title) {
+			JiraAuth jira = new JiraAuth();
             BugModel model = new BugModel(project, jira);
+
             return View(model);
 
         }
+
         [HttpPost]
-        public ActionResult ReportBug(BugModel model)
-        {
-            var jira = new Jira("https://gcctruefit.atlassian.net", "goehringmr1", "kronos5117");
-            var issue = jira.CreateIssue("Agile Scrum");
+        public ActionResult ReportBug(BugModel model) {
+			JiraAuth jira = new JiraAuth();
+            Issue issue = jira.CreateIssue("Agile Scrum");
             issue.Description = model.Description;
             issue.Summary = model.Summary;
             issue.Reporter = model.Reporter;
             issue.SaveChanges();
+
             return RedirectToAction("Project");
         }
     }

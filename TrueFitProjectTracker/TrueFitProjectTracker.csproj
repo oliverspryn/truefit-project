@@ -141,6 +141,7 @@
     <Compile Include="Factories\Dashboard\FieldFactory.cs" />
     <Compile Include="Factories\Dashboard\ProjectFactory.cs" />
     <Compile Include="Factories\Dashboard\TasksFactory.cs" />
+    <Compile Include="Factories\JiraAuth.cs" />
     <Compile Include="Factories\JiraFactory.cs" />
     <Compile Include="Factories\JiraInterface.cs" />
     <Compile Include="Models\BugModel.cs" />
