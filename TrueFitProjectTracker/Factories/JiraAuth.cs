@@ -24,7 +24,7 @@ namespace TrueFitProjectTracker.Factories {
 		private static string UserName;
 		private static string URL;
 
-		public JiraAuth() : base(getURL(), getUserName(), getPassword()) { }
+		public JiraAuth() : base(JiraAuth.getURL(), JiraAuth.getUserName(), JiraAuth.getPassword()) { }
 
 		private static string getPassword() { return Password; }
 
@@ -32,24 +32,23 @@ namespace TrueFitProjectTracker.Factories {
 
 		private static string getUserName() { return UserName; }
 
-		/// <summary>
-		/// Open the configuration file and store the contained Jira URL, username,
-		/// and password to later connect to the Jira API.
-		/// </summary>
-		/// 
-		/// <exception cref="System.ArgumentException"></exception>
-		/// <exception cref="System.ArgumentNullException"></exception>
-		/// <exception cref="System.IO.FileNotFounException"></exception>
-		/// <exception cref="System.IO.DirectoryNotFoundException"></exception>
-		/// <exception cref="System.IO.Exception"></exception>
-			private void openFile() {
-				string path = HostingEnvironment.ApplicationPhysicalPath + CONFIG_FILE;
+	/// <summary>
+	/// Open the configuration file and store the contained Jira URL, username,
+	/// and password to later connect to the Jira API.
+	/// </summary>
+	/// 
+	/// <exception cref="System.ArgumentException"></exception>
+	/// <exception cref="System.ArgumentNullException"></exception>
+	/// <exception cref="System.IO.FileNotFounException"></exception>
+	/// <exception cref="System.IO.DirectoryNotFoundException"></exception>
+	/// <exception cref="System.IO.Exception"></exception>
+		private void openFile() {
+			string path = HostingEnvironment.ApplicationPhysicalPath + CONFIG_FILE;
 
-				using (StreamReader sr = new StreamReader(path)) {
-					URL = sr.ReadLine();
-					UserName = sr.ReadLine();
-					Password = sr.ReadLine();
-				}
+			using (StreamReader sr = new StreamReader(path)) {
+				URL = sr.ReadLine();
+				UserName = sr.ReadLine();
+				Password = sr.ReadLine();
 			}
 		}
 	}
