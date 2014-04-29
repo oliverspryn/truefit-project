@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section styles{
-       @Styles.Render("~/Content/Bug.css")
-}
-
 <section class="jumbotron" id="start">
     <nav class="main-breadcrumb">
         <ul>
@@ -17,22 +13,19 @@
         </ul>
     </nav>
 
-    <nav class="links">
-        <ul>
-            <li><a href="http://truefitsolutions.com/#Buzz" target="_blank">News</a></li>
-            <li><a href="http://truefitsolutions.com/#Contact" target="_blank">Contact</a></li>
-        </ul>
-    </nav>
-
     <div class="col-md-3"></div>
 </section>
+
+@section styles{
+       @Styles.Render("~/Content/Bug.css")
+}
 
 <section class="container">
     <form class="form-horizontal" role="form">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="inputBugName" class="col-sm-2 control-label" style="text-align: left">Bug Name</label>
+                    <label for="inputBugName" class="col-md-2 control-label" style="text-align: left" style="">Bug Name</label>
                     <div class="col-sm-8">
                         <input type="Bug Name" class="form-control" id="inputBugName" placeholder="Bug name">
                     </div>
