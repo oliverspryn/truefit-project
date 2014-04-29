@@ -31,6 +31,13 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 	/// </summary>
 		private FieldFactory Fields;
 
+
+	/// <summary>
+	/// This object will contain the raw data returned from Jira, which can 
+	/// be accessed from another function or child class again, if needed
+	/// </summary>
+		protected Object Issues;
+
 	/// <summary>
 	/// A listing of sprints associated with a particular project. This
 	/// simply takes the <c>TasksFactor.Sprints</c> Dictionary<> and converts
@@ -56,9 +63,16 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 	/// </summary>
 		private Dictionary<string, SprintModel> Sprints;
 
+	/// <summary>
+	/// A flat List<> of all available tasks, given a minimal amount of 
+	/// processing.
+	/// </summary>
+		protected List<TaskModel> Tasks;
+
 		public TasksFactory(string projectKey) : base() {
 			Fields = new FieldFactory(Jira);
 			Sprints = new Dictionary<string, SprintModel>();
+			Tasks = new List<TaskModel>();
 
 		//Fetch the data from the Jira API
 			fetchTasks(projectKey);
@@ -144,8 +158,8 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			}	
 
 		//Fetch all of the tasks for a particular project
-			Object issues = Jira.RPC(API_ISSUES_LIST + HttpUtility.UrlEncode("\"" + projectKey + "\""));
-			Dictionary<String, Object> parent = issues as Dictionary<String, Object>;
+			Issues = Jira.RPC(API_ISSUES_LIST + HttpUtility.UrlEncode("\"" + projectKey + "\""));
+			Dictionary<String, Object> parent = Issues as Dictionary<String, Object>;
 
 		//Iterate over all of the issues
 			IEnumerable<Object> issueList = parent["issues"] as IEnumerable<Object>;
@@ -240,11 +254,15 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				} else {
 					addToSprint(sprint[0] as string, tm);
 				}
+
+			//Add the tasks to a flat array of tasks
+				Tasks.Add(tm);
 			}
 
 		//Sort the tasks
 			foreach (SprintModel sm in List) {
 				sm.Tasks.Sort((x, y) => x.Created.CompareTo(y.Created));
+				Tasks.Sort((x, y) => x.Created.CompareTo(y.Created));
 			}
 		}
 

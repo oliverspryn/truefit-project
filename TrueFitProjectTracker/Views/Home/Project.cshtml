@@ -1,27 +1,27 @@
-﻿@model TrueFitProjectTracker.ViewModels.ProjectViewModel
+﻿@model TrueFitProjectTracker.Factories.Dashboard.ProjectFactory
 
 @{
 	int counter = 0;
-	double percent = Math.Round(((double)Model.RemainingBugsCount / (double)(Model.RemainingBugsCount + Model.RemainingTasksCount)) * 100.0);
+	double percent = Math.Round(((double)Model.Bugs.Remaining / (double)(Model.Bugs.Remaining + Model.Tasks.Remaining)) * 100.0);
 	DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
 	TrueFitProjectTracker.Factories.Dashboard.TasksFactory tasks = ViewBag.Tasks;
-	ViewBag.Title = @Model.Title;
+	ViewBag.Title = @Model.Name;
 }
 
 @section breadcrumb {
     <li>
-        <a href="#">@Model.Title</a>
+        <a href="#">@Model.Name</a>
     </li>
 }
 
 @section headerSection {
     <div class="header-progress row">
         <div class="col-md-8 col-md-offset-2">
-            <h2>@Model.Title</h2>
+            <h2>@Model.Name</h2>
 
             <div class="progress">
-                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProjectCompletion" role="progressbar" style="width: @Model.ProjectCompletion%">
-                    <span>@Model.ProjectCompletion%</span>
+                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.Percent" role="progressbar" style="width: @Model.Percent%">
+                    <span>@Model.Percent%</span>
                 </div>
             </div>
         </div>
@@ -41,22 +41,22 @@
     <script>
     	$(function() {
     	//Derive chart data
-    		var bugBurnData = [@string.Join(",", Model.BugBurndownChart.ToArray())];
-    		var bugBurnMonths = getMonthNamesFromMonthAndYear(@Model.BugBurndownStart.Item1, @Model.BugBurndownStart.Item2, @Model.BugBurndownEnd.Item1, @Model.BugBurndownEnd.Item2);
+    		var bugBurnData = [@string.Join(",", Model.Bugs.Burndown.Data.ToArray())];
+    		var bugBurnMonths = getMonthNamesFromMonthAndYear(@Model.Bugs.Burndown.Start.Item1, @Model.Bugs.Burndown.Start.Item2, @Model.Bugs.Burndown.End.Item1, @Model.Bugs.Burndown.End.Item2);
 
-    		var bugDetailData = [@string.Join(",", Model.BugRecentChart.ToArray())]
+    		var bugDetailData = [@string.Join(",", Model.Bugs.RecentComplete.ToArray())]
     		var bugDetailDays = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
-    		var taskBurnData = [@string.Join(",", Model.TaskBurndownChart.ToArray())];
-    		var taskBurnMonths = getMonthNamesFromMonthAndYear(@Model.BugBurndownStart.Item1, @Model.BugBurndownStart.Item2, @Model.BugBurndownEnd.Item1, @Model.BugBurndownEnd.Item2);
+    		var taskBurnData = [@string.Join(",", Model.Tasks.Burndown.Data.ToArray())];
+    		var taskBurnMonths = getMonthNamesFromMonthAndYear(@Model.Tasks.Burndown.Start.Item1, @Model.Tasks.Burndown.Start.Item2, @Model.Tasks.Burndown.End.Item1, @Model.Tasks.Burndown.End.Item2);
 
-    		var taskDetailData = [@string.Join(",", Model.TaskRecentChart.ToArray())];
+    		var taskDetailData = [@string.Join(",", Model.Bugs.RecentComplete.ToArray())];
     		var taskDetailDays = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
 		//Build the charts
-    		$('#compare-chart').compare(@Model.RemainingTasksCount, '#77E38C', @Model.RemainingBugsCount, '#00D2FF');
-        	$('#task-progress').rotary(@Model.TaskProgress, '#77E38C');
-    		$('#bug-progress').rotary(@Model.BugProgress, '#00D2FF');
+    		$('#compare-chart').compare(@Model.Tasks.Remaining, '#77E38C', @Model.Bugs.Remaining, '#00D2FF');
+        	$('#task-progress').rotary(@Model.Tasks.Percent, '#77E38C');
+    		$('#bug-progress').rotary(@Model.Bugs.Percent, '#00D2FF');
 
     		$('#task-burndown').burndown(taskBurnData, taskBurnMonths, '#77E38C');
     		$('#task-recent-chart').recent(taskDetailData, taskDetailDays, '#77E38C');
@@ -97,7 +97,7 @@
 }
 
 <section class="locker">
-	<h2>@Model.Title</h2>
+	<h2>@Model.Name</h2>
 
 	<nav>
 		<ul>
@@ -138,7 +138,7 @@
 					<div class="panel-body">
 						<div class="chart" id="task-progress"></div>
 						<div class="details task-details">
-							<h3>@Model.TaskProgress<span>%</span></h3>
+							<h3>@Model.Tasks.Percent<span>%</span></h3>
 							<h4>of the stories are finished</h4>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 					<div class="panel-body">
 						<div class="chart" id="bug-progress"></div>
 						<div class="bug-details details">
-							<h3>@Model.BugProgress<span>%</span></h3>
+							<h3>@Model.Bugs.Percent<span>%</span></h3>
 							<h4>of the bugs are closed</h4>
 						</div>
 					</div>
@@ -185,11 +185,11 @@
 
 					<div class="panel-body">
 						<div class="col-md-12">
-							<h4>@Model.TasksCompletedCount</h4>
+							<h4>@Model.Tasks.Completed</h4>
 							<h5>Completed</h5>
 						</div>
 						<div class="col-md-12">
-							<h4>@Model.RemainingTasksCount</h4>
+							<h4>@Model.Tasks.Remaining</h4>
 							<h5>Remaining</h5>
 						</div>
 					</div>
@@ -232,11 +232,11 @@
 
 					<div class="panel-body">
 						<div class="col-md-12">
-							<h4>@Model.BugsCompletedCount</h4>
+							<h4>@Model.Bugs.Completed</h4>
 							<h5>Completed</h5>
 						</div>
 						<div class="col-md-12">
-							<h4>@Model.RemainingBugsCount</h4>
+							<h4>@Model.Bugs.Remaining</h4>
                             <h5>Remaining</h5>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
 
 		<div class="carousel slide" data-interval="false" data-ride="carousel" id="task-scroller">
 			<div class="carousel-inner">
-			@foreach (TrueFitProjectTracker.Models.Dashboard.SprintModel sprint in tasks.List) {
+			@foreach (TrueFitProjectTracker.Models.Dashboard.SprintModel sprint in Model.List) {
 				<div class="@(counter == 0 ? "active " : "")item">
 					<header>
 						<h3>@sprint.Name</h3>
@@ -397,7 +397,7 @@
                     <h3 class="modal-title" id="myModalLabel">Report a Bug</h3>
                 </div>
                 <div class="modal-body">
-                    <iframe src="@Url.Action("ReportBug", "Home", new {Title = Model.Title})" width =" 400 " height =" 600 "></iframe>
+                    <iframe src="@Url.Action("ReportBug", "Home", new {Title = Model.Name})" width =" 400 " height =" 600 "></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
