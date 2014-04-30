@@ -20,24 +20,42 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#search-box").keydown(function () {
+        $("#search-box").keyup (function () {
             var projects = $('#projects-list');
             var list = document.getElementsByClassName("list-group-item-heading");
             var search = $(this).val();
             var item = new Array();
+            var itemSort = new Array();
             for (var i = 0; i < list.length; i++) {
                 item[i] = $('#projects-list').children('a').eq(i);
+                itemSort[i] = list[i].textContent.toString();
                 $('#projects-list').children('a').eq(i).show();
             }
             var counter = new Array();
-            for (var i = 0; i < list.length; i++) {
+            for (var i = 0; i < item.length; i++) {
                 counter[i] = list[i].textContent.toString().toLowerCase().indexOf(search.toString().toLowerCase());
             }
+
+
             if (search.toString() == "") {
-                for (var i = 0; i < list.length; i++) {
-                    $('#projects-list').children('a').eq(i).show();
+                itemSort = itemSort.sort();
+                var itemDisplay = new Array();
+                for (var j = 0; j < itemSort.length; j++) {
+                    for (var k = 0; k < itemSort.length; k++) {
+                        if (itemSort[j].toString().toLowerCase() == list[k].textContent.toString().toLowerCase()) {
+                            itemDisplay[j] = item[k];
+                            break;
+                        }
+                    }
+                }
+                for (var i = itemDisplay.length-1; i >= 0; i--) {
+                    $('#projects-list').prepend(itemDisplay[i]);
+
                 }
                 return;
+
+
+
             }
             for (var i = 0; i < list.length; i++) {
                 $('#projects-list').children('a').eq(i).remove();
@@ -63,14 +81,14 @@
              }
 
             
-             for(var i=max; i >= 0; i--) {
+             for(var i=0; i <= max; i++) {
                  for (var j = 0; j < item.length; j++) {
                      if (counter[j] == i) {
                          if (counter[j] == -1) {
                              continue;
                          }
                          else {
-                             $('#projects-list').prepend(item[j]);
+                             $('#projects-list').append(item[j]);
                          }
 
                      }
@@ -80,7 +98,7 @@
              for (var j = 0; j < item.length; j++) {
                  if (counter[j] == -1) {
                      $('#projects-list').append(item[j]);
-                     $('#projects-list').children('a').eq(i).hide();
+                     //$('#projects-list').children('a').eq(i).hide();
                  }
              }
         });
@@ -104,8 +122,6 @@
                 {
                     <a href="@Url.Action("Project", "Home", new { id = entry.Id, name = entry.ClientName })" data-project="stuff" class="list-group-item">
                         <h4 class="list-group-item-heading" id="entry-name">@(entry.Name) </h4>
-                        <p class="list-group-item-text" id="project-number">Project Number: @(entry.Id) </p>
-                        <p class="list-group-item-text" id="client-name">Client: @(entry.ClientName) </p>
                       
                     </a>
                 }
