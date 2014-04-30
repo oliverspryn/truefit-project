@@ -3,7 +3,8 @@
 @section styles{
        @Styles.Render("~/Content/Bug.css")
 }
-@{Layout = "";}
+@Html.Partial("PartialViews/_Styles")
+@{Layout = "";}*
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -33,6 +34,8 @@
             @Html.EditorFor(model => model.Reporter)
             @Html.ValidationMessageFor(model => model.Reporter)
         </div>  
+        <br />
+        <input id="filMyFile" type="file" runat="server">
         <p>
             <input type="submit" class="btn btn-default" value="Create" />
         </p>

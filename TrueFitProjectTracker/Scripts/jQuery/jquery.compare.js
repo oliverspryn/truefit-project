@@ -1,60 +1,53 @@
 ﻿(function($) {
 	$.fn.compare = function(taskCount, taskColor, bugCount, bugColor) {
+		var total = bugCount + taskCount;
+		var taskPercent = (taskCount / total) * 100;
+    
 		$(this).highcharts({
-			chart: {
-				backgroundColor: null,
-				type: 'bar'
-			},
+			chart: { type: 'solidgauge' },
 			credits: { enabled: false },
-			exporting: { enabled: false },
-			legend: { enabled: false },
-			plotOptions: {
-				bar: {
-					animation: false,
-					dataLabels: { enabled: false },
-					states: { hover: { enabled: false } }
-				}
+			pane: {
+				background: {
+					backgroundColor: null,
+					innerRadius: '60%',
+					outerRadius: '100%',
+					shape: 'arc'
+				},
+	    		center: [ '50%', '85%' ],
+				endAngle: 90,
+	    		size: '140%',
+				startAngle: -90
 			},
 			series: [{
 				data: [{
-					color: taskColor,
-					y: taskCount
+					color: '#77E38C',
+					y: 100
 				}, {
-					color: bugColor,
-					y: bugCount
+					color: '#14B9D6',
+					y: 100 - taskPercent
 				}]
 			}],
 			title: { text: null },
 			tooltip: { enabled: false },
-			xAxis: {
-				categories: ['Stories', 'Bugs'],
-				labels: {
-					style: {
-						'color': '#313B47',
-						'font-size': '12px',
-						'font-weight': 'bold'
-					}
-				},
-				lineColor: '#313B47',
-				lineWidth: 1,
-				tickLength: 0,
-				tickWidth: 0,
-				title: { text: null }
-			},
 			yAxis: {
-				allowDecimals: false,
-				gridLineColor: '#CCCCCC',
 				labels: {
+					formatter: function() {
+						return this.value + '%';
+					},
 					style: {
 						'color': '#313B47',
 						'font-size': '12px',
 						'font-weight': 'bold'
-					}
+					},
+					y: 16
 				},
-				lineColor: '#313B47',
-				lineWidth: 1,
+				lineWidth: 0,
+				max: 100,
 				min: 0,
-				title: { text: null }
+				minorTickInterval: null,
+				tickPixelInterval: 400,
+				tickWidth: 0,
+				title: { text: null }    
 			}
 		});
 	}
