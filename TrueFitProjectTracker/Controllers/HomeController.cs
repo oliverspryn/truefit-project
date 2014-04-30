@@ -127,7 +127,7 @@ namespace TrueFitProjectTracker.Controllers
                                         }
                                     }
                                     // get actual man hours from task effort and percentage... whoops, don't have em. 
-                                    return ratioInThisMonth * monthYear.AddMonths(1).Subtract(monthYear).Days;
+                                    return ratioInThisMonth * task.Progress.Expected;
                                 })
                                 .Sum();
                         }).ToList();
