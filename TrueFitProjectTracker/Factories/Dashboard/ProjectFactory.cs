@@ -83,39 +83,49 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 					taskData = datesList
 						.Select(monthYear => {   // get work for each month.
 							// where this month has something to do with this task
-							return tasksList.Where(task => task.Created < monthYear.AddMonths(1)
+							return Math.Round(tasksList.Where(task => task.Created < monthYear.AddMonths(1)
 								&& (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate) >= monthYear)
 								// get man hours done in this month, final block.
-								.Select(task => {   // get ratio of % of task being done in this month
-									double ratioInThisMonth = 0;
-									if (task.Created < monthYear) {
-										if ((task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1)) {   // task  |-----|
-											// month    |----|
-											ratioInThisMonth = 1d
-												* (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(monthYear).Days
-												/ (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
-										} else {   // task  |---------|
-											// month    |----|
-											ratioInThisMonth = 1d
-												* monthYear.AddMonths(1).Subtract(monthYear).Days
-												/ (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
-										}
-									} else {
-										if ((task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1)) {   // task       |-|
-											// month    |----|
-											ratioInThisMonth = 1d; // 100%
-										} else {   // task       |----|
-											// month    |----|
-											ratioInThisMonth = 1d
-												* monthYear.Subtract(task.Created).Days
-												/ (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
-										}
-									}
-									// get actual man hours from task effort and percentage... whoops, don't have em. 
-									return ratioInThisMonth * task.Progress.Expected;
-								})
-								.Sum();
-						}).ToList();
+                                .Select(task =>
+                                {   // get ratio of % of task being done in this month
+                                    double ratioInThisMonth = 0;
+                                    if (task.Created < monthYear)
+                                    {
+                                        if ((task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1))
+                                        {   // task  |-----|
+                                            // month    |----|
+                                            ratioInThisMonth = 1d
+                                                * ((task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(monthYear).Days + 1)
+                                                / (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                        }
+                                        else
+                                        {   // task  |---------|
+                                            // month    |----|
+                                            ratioInThisMonth = 1d
+                                                * monthYear.AddMonths(1).Subtract(monthYear).Days
+                                                / (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if ((task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate) < monthYear.AddMonths(1))
+                                        {   // task       |-|
+                                            // month    |----|
+                                            ratioInThisMonth = 1d; // 100%
+                                        }
+                                        else
+                                        {   // task       |----|
+                                            // month    |----|
+                                            ratioInThisMonth = 1d
+                                                * (monthYear.AddMonths(1).Subtract(task.Created).Days - 1)
+                                                / (task.ResolutionDate != new DateTime(1970, 1, 1) ? task.ResolutionDate : task.DueDate).Subtract(task.Created).Days;
+                                        }
+                                    }
+                                    // get actual man hours from task effort and percentage. 
+                                    return task.Progress.Percent < 100 ? ratioInThisMonth * task.Progress.Expected / 60 : ratioInThisMonth * task.Progress.Committed / 60;
+                                })
+                                .Sum(), 1);
+                        }).ToList();
 				}
 
 
@@ -130,7 +140,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				int completedCount = tasksList.Count(task => task.ResolutionDate != new DateTime(1970, 1, 1));
 				int remainingCount = tasksList.Count() - completedCount;
 
-				int progress = (int)Math.Round((double)(completedCount) / (remainingCount + completedCount) * 100, 0); // percent
+                int progress = (int)Math.Round((double)(completedCount) / ((remainingCount + completedCount) == 0 ? (remainingCount + completedCount) * 100 : 1), 0); // percent
 
 				// now handle our project model based on if we're doing tasks or bugs
 
