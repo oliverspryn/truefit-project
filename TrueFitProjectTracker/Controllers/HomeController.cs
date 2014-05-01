@@ -21,8 +21,8 @@ namespace TrueFitProjectTracker.Controllers {
 			return View(list);
         }
 
-        public ActionResult Project(string name) {
-			return View(new ProjectFactory(name));
+        public ActionResult Project(string id) {
+			return View(new ProjectFactory(id));
         }
 
         [HttpGet]
