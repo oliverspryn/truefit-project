@@ -12,10 +12,10 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 		public SummaryModel Bugs { get; set; }
 
 	/// <summary>
-	/// The name of this project.
+	/// The name and key of this project.
 	/// </summary>
 		public string Name { get; set; }
-
+        public string Key { get; set; }
 	/// <summary>
 	/// The project's overall completion percentage.
 	/// </summary>
@@ -38,7 +38,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 
 		//Fetch the project name
 			Name = projectName(key);
-
+            Key = key;
 			// <jeff id="burndown-and-recent-chart">
 
 			// aggregate the charts

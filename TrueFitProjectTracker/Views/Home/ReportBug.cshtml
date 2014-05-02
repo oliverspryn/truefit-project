@@ -4,8 +4,17 @@
        @Styles.Render("~/Content/Bug.css")
 }
 @Html.Partial("PartialViews/_Styles")
-@{Layout = "";}*
+@{Layout = "";}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(onsubmit).click(function () {
+            @Url.Action("_ReportBug", "Home");
 
+
+        });
+    });
+        </script>
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
@@ -19,7 +28,8 @@
             @Html.EditorFor(model => model.Summary)
             @Html.ValidationMessageFor(model => model.Summary)
         </div>
-
+        	
+          @Html.HiddenFor(model => model.ProjectKey, new { isHidden = true })
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
@@ -27,15 +37,9 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Reporter)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Reporter)
-            @Html.ValidationMessageFor(model => model.Reporter)
-        </div>  
         <br />
         <input id="filMyFile" type="file" runat="server">
+        <br />
         <p>
             <input type="submit" class="btn btn-default" value="Create" />
         </p>

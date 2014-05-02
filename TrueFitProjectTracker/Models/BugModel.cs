@@ -11,18 +11,17 @@ namespace TrueFitProjectTracker.Models
     {
         public BugModel()
         {
-            title = "Agile Scrum";
         }
 
-        public BugModel(ProjectViewModel project, Jira jira)
+        public BugModel(String key)
         {
-            title = "Agile Scrum";
+            ProjectKey = key;
         }
 
         public string title { get; set; }
         public string Summary { get; set; }
         public string Description { get; set; }
-        public string Reporter { get; set; }
+        public string ProjectKey { get; set; }
 
 
     }

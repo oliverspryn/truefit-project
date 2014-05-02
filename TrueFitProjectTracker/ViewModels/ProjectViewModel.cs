@@ -83,6 +83,7 @@ namespace TrueFitProjectTracker.ViewModels
 
         
         public string Title { get; set; }
+        public string Key { get; set; }
         public int ProjectCompletion { get; set; } // percentage
 
         public int RecentTasksCompletedCount { get; set; } // number

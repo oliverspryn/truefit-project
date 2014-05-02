@@ -26,10 +26,9 @@ namespace TrueFitProjectTracker.Controllers {
         }
 
         [HttpGet]
-        public ActionResult ReportBug(string Title) {
+        public ActionResult ReportBug(string Key) {
 			JiraAuth jira = new JiraAuth();
-            BugModel model = new BugModel(project, jira);
-
+            BugModel model = new BugModel(Key);
             return View(model);
 
         }
@@ -37,13 +36,18 @@ namespace TrueFitProjectTracker.Controllers {
         [HttpPost]
         public ActionResult ReportBug(BugModel model) {
 			JiraAuth jira = new JiraAuth();
-            Issue issue = jira.CreateIssue("Agile Scrum");
+            Issue issue = jira.CreateIssue(model.ProjectKey);
             issue.Description = model.Description;
             issue.Summary = model.Summary;
-            issue.Reporter = model.Reporter;
+            issue.Type = "Bug";
+            
             issue.SaveChanges();
+            return RedirectToAction("_ReportBug");
+        }
 
-            return RedirectToAction("Project");
+        public ActionResult _ReportBug()
+        {
+            return View();
         }
     }
 }
