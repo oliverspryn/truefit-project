@@ -193,6 +193,7 @@
     <Content Include="Scripts\jQuery\jquery.burndown.js" />
     <Content Include="Scripts\jQuery\jquery.recent.js" />
     <Content Include="Scripts\jQuery\jquery.rotary.js" />
+    <Content Include="Scripts\jQuery\jquery.narrow.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -221,6 +222,7 @@
     <Content Include="Views\Home\Project.cshtml" />
     <Content Include="Views\Home\_ReportBug.cshtml" />
     <Content Include="Views\Home\ReportBug.cshtml" />
+    <Content Include="Views\Shared\_BugLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

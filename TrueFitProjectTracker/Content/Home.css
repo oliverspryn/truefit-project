@@ -13,3 +13,132 @@ section#start div#search-header h2 {
     padding-bottom: 5px;
     text-align: center;
 }
+
+/*
+ * Project list
+ * -------------------------------------
+*/
+
+ul#projects-list {
+	list-style: none;
+	margin: 30px 0px 60px 0px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: top;
+}
+
+ul#projects-list li {
+	background: #EEEEEE;
+	cursor: pointer;
+	display: inline-block;
+	height: 195px;
+	margin: 15px 7px;
+	padding: 5px;
+	position: relative;
+	vertical-align: top;
+	width: 225px;
+}
+
+/* Thank you: http://www.paulund.co.uk/creating-different-css3-box-shadows-effects */
+ul#projects-list li:before, ul#projects-list li:after {
+	-moz-box-shadow: 0 15px 10px #777777;
+	-ms-box-shadow: 0 15px 10px #777777;
+	-o-box-shadow: 0 15px 10px #777777;
+	-webkit-box-shadow: 0 15px 10px #777777;
+	box-shadow: 0 15px 10px #777777;
+  
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	-webkit-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+
+	background: #777;
+	bottom: 15px;
+	content: '';
+	left: 10px;
+	max-width:300px;
+	position: absolute;
+	top: 80%;
+	width: 50%;
+	z-index: -1;
+}
+
+ul#projects-list li:after {
+	-moz-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	-webkit-transform: rotate(3deg);
+	transform: rotate(3deg);
+  
+	left: auto;
+	right: 10px;
+}
+
+ul#projects-list li:hover:before, ul#projects-list li:hover:after {
+	-moz-box-shadow: 0 15px 20px #444444;
+	-ms-box-shadow: 0 15px 20px #444444;
+	-o-box-shadow: 0 15px 20px #444444;
+	-webkit-box-shadow: 0 15px 20px #444444;
+	box-shadow: 0 15px 20px #444444;
+}
+
+ul#projects-list li a {
+	color: #313B47;
+}
+
+ul#projects-list li a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+ul#projects-list li a h3 {
+	display: table-cell;
+	font-weight: 300;
+	height: 185px;
+	margin: 0px;
+	vertical-align: middle;
+	width: 215px;
+}
+
+@media screen and (max-width: 991px) {
+	ul#projects-list li {
+		width: 300px;
+	}
+
+	ul#projects-list li a h3 {
+		width: 290px;
+	}
+}
+
+@media screen and (max-width: 680px) {
+	ul#projects-list {
+		margin: 10px 0px 40px 0px;
+	}
+
+	ul#projects-list li {
+		border-bottom: 1px solid #CCCCCC;
+		height: auto;
+		margin: 0px;
+		padding: 15px;
+		text-align: left;
+		width: 100%
+	}
+
+	ul#projects-list li:before, ul#projects-list li:after {
+		content: none;
+	}
+
+	ul#projects-list li:hover {
+		background: #E9E9E9;
+	}
+
+	ul#projects-list li:last-child {
+		border-bottom: none;
+	}
+
+	ul#projects-list li a h3 {
+		height: auto;
+		width: 100%;
+	}
+}

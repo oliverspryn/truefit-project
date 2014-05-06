@@ -1,7 +1,18 @@
-﻿section#start
-{
-    font-size: 24px;
-    font-weight: 100;
-    padding-bottom: 5px;
-    text-align: center;
+﻿/*
+ * General styles
+ * -------------------------------------
+*/
+
+body {
+	background: #FFFFFF !important;
+}
+
+/*
+ * Form styles
+ * -------------------------------------
+*/
+
+textarea.description {
+	height: 100px;
+	resize: none;
 }

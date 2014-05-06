@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="@Url.Content("~/Images/logos/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <title>Report a Bug</title>
+    @Html.Partial("PartialViews/_Styles")
+    @RenderSection("styles", false)
+	@Styles.Render("~/Content/Bug.css")
+</head>
+
+<body>
+    @RenderBody()
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

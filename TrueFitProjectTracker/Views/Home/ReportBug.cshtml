@@ -1,52 +1,43 @@
 ﻿@model TrueFitProjectTracker.Models.BugModel
 
-@section styles{
-       @Styles.Render("~/Content/Bug.css")
+@{
+    Layout = "~/Views/Shared/_BugLayout.cshtml";
 }
-@Html.Partial("PartialViews/_Styles")
-@{Layout = "";}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(onsubmit).click(function () {
-            @Url.Action("_ReportBug", "Home");
 
+@section scripts {
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-en.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"></script>
 
-        });
-    });
-        </script>
+	<script>
+		$(function() {
+			$('form').validationEngine({
+				autoHideDelay : 3000,
+				autoHidePrompt : true,
+				promptPosition : 'bottomLeft'
+			})
+		})
+	</script>
+}
+
+@section styles {
+	<link href="//cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" rel="stylesheet" />
+}
+
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+	@Html.HiddenFor(model => model.ProjectKey, new { isHidden = true })
 
-    <fieldset>
-        <legend>Issue</legend>
+	<div class="form-group">
+		 @Html.LabelFor(model => model.Summary)
+		 @Html.TextBoxFor(model => model.Summary, new { @class = "form-control validate[required]" })
+	</div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Summary)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Summary)
-            @Html.ValidationMessageFor(model => model.Summary)
-        </div>
-        	
-          @Html.HiddenFor(model => model.ProjectKey, new { isHidden = true })
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-        <br />
-        <input id="filMyFile" type="file" runat="server">
-        <br />
-        <p>
-            <input type="submit" class="btn btn-default" value="Create" />
-        </p>
-    </fieldset>
+	<div class="form-group">
+		 @Html.LabelFor(model => model.Description)
+		 @Html.TextAreaFor(model => model.Description, new { @class = "description form-control validate[required]" })
+	</div>
+
+    <div class="form-group">
+		<label for="attachment">Attach a File (Optional)</label>
+		<input name="attachment" type="file">
+	</div>
 }
-@*}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@

@@ -98,46 +98,6 @@ section#start nav.main-breadcrumb ul li a.logo:hover {
     opacity: 0.5;
 }
 
-section#start nav.links {
-    height: 36px;
-    position: absolute;
-    right: 10%;
-    top: 48px;
-}
-
-section#start nav.links ul {
-    height: 36px;
-	list-style: none;
-	margin: 0px;
-}
-
-section#start nav.links ul li {
-    display: inline-block;
-	height: 36px;
-	padding-left: 30px;
-}
-
-section#start nav.links ul li a {
-    -moz-transition: all .25s ease-in-out;
-    -ms-transition: all .25s ease-in-out;
-    -o-transition: all .25s ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out;
-	
-    color: #666666;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 11px 0px;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-section#start nav.links ul li a:hover {
-	color: #444444;
-}
-
 @media screen and (max-width: 750px) {
     section#start {
         padding: 30px;
@@ -160,10 +120,6 @@ section#start nav.links ul li a:hover {
         background-size: 326%;
         height: 35px;
         width: 52px;
-    }
-
-    section#start nav.links {
-        display: none;
     }
 }
 

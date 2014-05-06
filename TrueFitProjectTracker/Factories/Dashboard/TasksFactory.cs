@@ -31,7 +31,6 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 	/// </summary>
 		private FieldFactory Fields;
 
-
 	/// <summary>
 	/// This object will contain the raw data returned from Jira, which can 
 	/// be accessed from another function or child class again, if needed
@@ -160,6 +159,11 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 		//Fetch all of the tasks for a particular project
 			Issues = Jira.RPC(API_ISSUES_LIST + HttpUtility.UrlEncode("\"" + projectKey + "\""));
 			Dictionary<String, Object> parent = Issues as Dictionary<String, Object>;
+
+		//Check to see if the project exists
+			if (!parent.ContainsKey("issues")) {
+				throw new InvalidOperationException("This project does not exist.");
+			}
 
 		//Iterate over all of the issues
 			IEnumerable<Object> issueList = parent["issues"] as IEnumerable<Object>;

@@ -22,7 +22,12 @@ namespace TrueFitProjectTracker.Controllers {
         }
 
         public ActionResult Project(string id) {
-			return View(new ProjectFactory(id));
+			try {
+				return View(new ProjectFactory(id));
+			} catch (InvalidOperationException e) {
+				Response.Redirect("/");
+				return View();
+			}
         }
 
         [HttpGet]

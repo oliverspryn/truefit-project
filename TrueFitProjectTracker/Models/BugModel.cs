@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Atlassian.Jira;
 using TrueFitProjectTracker.ViewModels;
+using System.Web.Mvc;
 
 namespace TrueFitProjectTracker.Models
 {
