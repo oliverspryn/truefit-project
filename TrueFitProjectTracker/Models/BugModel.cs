@@ -5,6 +5,7 @@ using System.Text;
 using Atlassian.Jira;
 using TrueFitProjectTracker.ViewModels;
 using System.Web.Mvc;
+using System.Web;
 
 namespace TrueFitProjectTracker.Models
 {
@@ -23,7 +24,7 @@ namespace TrueFitProjectTracker.Models
         public string Summary { get; set; }
         public string Description { get; set; }
         public string ProjectKey { get; set; }
-
+        public HttpPostedFileBase attachment { get; set; }
 
     }
 }

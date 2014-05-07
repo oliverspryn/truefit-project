@@ -8,6 +8,7 @@ using TrueFitProjectTracker.Models;
 using Atlassian.Jira;
 using TrueFitProjectTracker.Factories.Dashboard;
 using TrueFitProjectTracker.Factories;
+using System.IO;
 
 namespace TrueFitProjectTracker.Controllers {
     public class HomeController : Controller {
@@ -39,14 +40,26 @@ namespace TrueFitProjectTracker.Controllers {
         }
 
         [HttpPost]
-        public ActionResult ReportBug(BugModel model) {
+        public ActionResult ReportBug(BugModel model, HttpPostedFileBase attachment)
+        {
+            
 			JiraAuth jira = new JiraAuth();
             Issue issue = jira.CreateIssue(model.ProjectKey);
             issue.Description = model.Description;
             issue.Summary = model.Summary;
             issue.Type = "Bug";
+
             
             issue.SaveChanges();
+            if(attachment != null){
+                model.attachment = attachment;
+            }
+            if (model.attachment != null && model.attachment.ContentLength > 0){
+                MemoryStream target = new MemoryStream();
+                model.attachment.InputStream.CopyTo(target);
+                byte[] data = target.ToArray();
+                issue.AddAttachment(Uri.EscapeDataString(model.attachment.FileName), data);
+            }
             return RedirectToAction("_ReportBug");
         }
 
