@@ -190,6 +190,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jQuery\jquery.locker.js" />
     <Content Include="Scripts\jQuery\jquery.burndown.js" />
+    <Content Include="Scripts\jQuery\jquery.progress.js" />
     <Content Include="Scripts\jQuery\jquery.recent.js" />
     <Content Include="Scripts\jQuery\jquery.rotary.js" />
     <Content Include="Scripts\jQuery\jquery.narrow.js" />
