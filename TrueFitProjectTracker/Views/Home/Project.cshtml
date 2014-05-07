@@ -4,27 +4,19 @@
 	int counter = 0;
 	double percent = Math.Round(((double)Model.Bugs.Remaining / (double)(Model.Bugs.Remaining + Model.Tasks.Remaining)) * 100.0);
 	DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
-	TrueFitProjectTracker.Factories.Dashboard.TasksFactory tasks = ViewBag.Tasks;
 	ViewBag.Title = @Model.Name;
 }
 
-@section breadcrumb {
-    <li>
-        <a href="#">@Model.Name</a>
-    </li>
-}
-
 @section headerSection {
-    <div class="header-progress row">
-        <div class="col-md-8 col-md-offset-2">
-            <h2>@Model.Name</h2>
+    <div class="hero">
+		<h2>@Model.Name</h2>
 
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.Percent" role="progressbar" style="width: @Model.Percent%">
-                    <span>@Model.Percent%</span>
-                </div>
-            </div>
-        </div>
+		<ul>
+			<li class="birds-eye"><a href="#birds-eye-view">@Model.Percent% Complete</a></li>
+			<li class="tasks"><a href="#story-details">@Model.Tasks.Remaining Open @(Model.Tasks.Remaining == 1 ? "Story" : "Stories")</a></li>
+			<li class="bugs"><a href="#software-bugs">@Model.Bugs.Remaining Open @(Model.Bugs.Remaining == 1 ? "Bug" : "Bugs")</a></li>
+			<li class="sprints"><a href="#sprints">Squirrelz!!!!</a></li>
+		</ul>
     </div>
 }
 
@@ -200,7 +192,7 @@
 
 			<div class="col-md-12">
 				<div class="recent row">
-					<h3>Sprints Completed this Past Week</h3>
+					<h3>Stories Completed this Past Week</h3>
 
 					<div class="col-md-12 recent-chart" id="task-recent-chart"></div>
 				</div>

@@ -13,6 +13,7 @@
         </div>
     </div>
 }
+
 @section scripts {
 	@Scripts.Render("~/Scripts/jQuery/jquery.narrow.js")
 	<script>$(function() { $('input#search-box').narrow('ul#projects-list') })</script>
@@ -23,9 +24,13 @@
 }
 
 <section class="container">
-	<ul id="projects-list">
-	@foreach (TrueFitProjectTracker.Models.ProjectEntry entry in Model.projectsList) {
-		<li><a href="@Url.Content("~/project/" + entry.ClientName)"><h3>@(entry.Name)</h3></a></li>
-    }
-	</ul>
+	@if (Model.projectsList.Count >= 0) {
+		<ul id="projects-list">
+		@foreach (TrueFitProjectTracker.Models.ProjectEntry entry in Model.projectsList) {
+			<li><a href="@Url.Content("~/project/" + entry.ClientName)"><h3>@(entry.Name)</h3></a></li>
+		}
+		</ul>
+	} else {
+		<section class="empty"><h3>There are no active projects at this time.</h3></section>
+	}
 </section>
