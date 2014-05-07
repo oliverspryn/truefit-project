@@ -23,7 +23,8 @@
 	<link href="//cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" rel="stylesheet" />
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("ReportBug", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 	@Html.HiddenFor(model => model.ProjectKey, new { isHidden = true })
 
 	<div class="form-group">
@@ -37,7 +38,29 @@
 	</div>
 
     <div class="form-group">
-		<label for="attachment">Attach a File (Optional)</label>
+		<label for="attachment">Attach a File (Optional, Max 2 MB)</label>
 		<input name="attachment" type="file">
 	</div>
+    
+    <button class="btn btn-info" style="
+        background-image: linear-gradient(to bottom,#5bc0de 0,#2aabd2 100%);
+        background-repeat: repeat-x;
+        border-color: #28a4c9;
+        color: #fff;
+        background-color: #5bc0de;
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        border-radius: 4px;
+        -webkit-user-select: none;" 
+        data-dismiss="modal" type="submit">Create</button>
+    
 }
