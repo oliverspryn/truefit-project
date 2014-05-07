@@ -6,7 +6,7 @@
 section#start h2 {
 	font-size: 50px;
     font-weight: 100;
-    margin-top: 70px;
+    margin-top: 40px;
     text-align: center;
 }
 
@@ -44,15 +44,31 @@ section#start div.hero ul li.bugs {
 }
 
 section#start div.hero ul li.sprints {
-	background-position-y: -605px;
+	background-position-y: -971px;
 }
 
-section#start div.hero ul li span {
-	display: block;
+section#start div.hero ul li a {
+	-moz-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+
+	background: rgba(255, 255, 255, 0);
+	color: #FFFFFF;
+	display: inline-block;
 	font-size: 20px;
 	font-weight: 300;
-	padding-top: 100px;
-	width: 100%;
+	padding: 100px 20px 15px 20px;
+	text-decoration: none;
+}
+
+section#start div.hero ul li a:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+@media screen and (max-width: 970px) {
+	
 }
 
 /*
@@ -170,7 +186,7 @@ article.content.center p, section.content.center p {
 	text-align: center;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 970px) {
 	article.content, section.content {
 		padding: 15px 10% 15px 10%;
 	}

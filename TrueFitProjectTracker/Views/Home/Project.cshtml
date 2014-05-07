@@ -7,19 +7,15 @@
 	ViewBag.Title = @Model.Name;
 }
 
-@section breadcrumb {
-    <li><span>@Model.Name</span></li>
-}
-
 @section headerSection {
     <div class="hero">
 		<h2>@Model.Name</h2>
 
 		<ul>
-			<li class="birds-eye"><span>@Model.Percent% Complete</span></li>
-			<li class="tasks"><span>@Model.Tasks.Remaining Open @(Model.Tasks.Remaining == 1 ? "Task" : "Tasks")</span></li>
-			<li class="bugs"><span>@Model.Bugs.Remaining Open @(Model.Bugs.Remaining == 1 ? "Bug" : "Bugs")</span></li>
-			<li class="sprints"><span>Squirrelz!!!!</span></li>
+			<li class="birds-eye"><a href="#birds-eye-view">@Model.Percent% Complete</a></li>
+			<li class="tasks"><a href="#story-details">@Model.Tasks.Remaining Open @(Model.Tasks.Remaining == 1 ? "Story" : "Stories")</a></li>
+			<li class="bugs"><a href="#software-bugs">@Model.Bugs.Remaining Open @(Model.Bugs.Remaining == 1 ? "Bug" : "Bugs")</a></li>
+			<li class="sprints"><a href="#sprints">Squirrelz!!!!</a></li>
 		</ul>
     </div>
 }
@@ -196,7 +192,7 @@
 
 			<div class="col-md-12">
 				<div class="recent row">
-					<h3>Sprints Completed this Past Week</h3>
+					<h3>Stories Completed this Past Week</h3>
 
 					<div class="col-md-12 recent-chart" id="task-recent-chart"></div>
 				</div>
