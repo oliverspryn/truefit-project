@@ -2,8 +2,8 @@
 
 @{
 	int counter = 0;
-	double percent = Math.Round(((double)Model.Bugs.Remaining / (double)(Model.Bugs.Remaining + Model.Tasks.Remaining)) * 100.0);
 	DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); // Unix epoch
+	int sprintCount = @Model.List.Where(x => x.State == "ACTIVE" || x.State == "FUTURE").Count();
 	ViewBag.Title = @Model.Name;
 }
 
@@ -15,7 +15,9 @@
 			<li class="birds-eye"><a href="#birds-eye-view">@Model.Percent% Complete</a></li>
 			<li class="tasks"><a href="#story-details">@Model.Tasks.Remaining Open @(Model.Tasks.Remaining == 1 ? "Story" : "Stories")</a></li>
 			<li class="bugs"><a href="#software-bugs">@Model.Bugs.Remaining Open @(Model.Bugs.Remaining == 1 ? "Bug" : "Bugs")</a></li>
-			<li class="sprints"><a href="#sprints">Squirrelz!!!!</a></li>
+			@if(Model.List.Count > 0) {
+				<li class="sprints"><a href="#sprints">@sprintCount @(sprintCount == 1 ? "Sprint Remains" : "Sprints Remain")</a></li>
+			}
 		</ul>
     </div>
 }
@@ -26,9 +28,24 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.0.1/modules/solid-gauge.js"></script>
 	@Scripts.Render("~/Scripts/jQuery/jquery.burndown.js")
 	@Scripts.Render("~/Scripts/jQuery/jquery.locker.js")
-	@Scripts.Render("~/Scripts/jQuery/jquery.compare.js")
 	@Scripts.Render("~/Scripts/jQuery/jquery.recent.js")
+	@Scripts.Render("~/Scripts/jQuery/jquery.progress.js")
 	@Scripts.Render("~/Scripts/jQuery/jquery.rotary.js")
+
+	<script>
+		$(function() {
+			$('button#bug-submit').click(function() {
+				var frame = document.getElementById('bug-form');
+				var content = frame.contentWindow || frame.contentDocument;
+				if (content.document) content = content.document;
+				
+				if (frame.contentWindow.$('form').validationEngine('validate')) {
+					var forms = content.getElementsByTagName('form');
+					forms[0].submit();
+				}
+			});
+		});
+	</script>
 
     <script>
     	$(function() {
@@ -46,7 +63,7 @@
     		var taskDetailDays = getDayNamesFromDayOfWeek(@((int)DateTime.Now.DayOfWeek));
 
 		//Build the charts
-    		$('#compare-chart').compare(@Model.Tasks.Remaining, '#77E38C', @Model.Bugs.Remaining, '#00D2FF');
+    		$('#compare-chart').progress(@Model.Percent);
         	$('#task-progress').rotary(@Model.Tasks.Percent, '#77E38C');
     		$('#bug-progress').rotary(@Model.Bugs.Percent, '#00D2FF');
 
@@ -96,7 +113,9 @@
 			<li><a href="#birds-eye-view">Bird's Eye View</a></li>
 			<li><a href="#story-details">Stories</a></li>
 			<li><a href="#software-bugs">Bugs</a></li>
-			<li><a href="#sprints">Sprints</a></li>
+			@if(Model.List.Count > 0) {
+				<li><a href="#sprints">Sprints</a></li>
+			}
 		</ul>
 	</nav>
 </section>
@@ -111,13 +130,13 @@
 
 			<div class="col-md-6">
 				<section class="compare panel panel-default">
-					<div class="panel-heading">Number of Stories vs. Bugs</div>
+					<div class="panel-heading">Project Completion Status</div>
 
 					<div class="panel-body">
 						<div class="chart" id="compare-chart"></div>
 						<div class="compare-details details">
-							<h3>@percent<span>%</span></h3>
-							<h4>of our to-do list involves fixing bugs</h4>
+							<h3>@Model.Percent<span>%</span></h3>
+							<h4>of this project has been completed</h4>
 						</div>
 					</div>
 				</section>
@@ -158,6 +177,7 @@
 				<h2>Story Details</h2>
 			</div>
 
+			@if(Model.Tasks.Total > 0) {
 			<div class="col-md-9">
 				<section class="panel panel-default task-burndown">
 					<header>
@@ -197,6 +217,9 @@
 					<div class="col-md-12 recent-chart" id="task-recent-chart"></div>
 				</div>
 			</div>
+			} else {
+			<div class="empty"><h3>There aren't any tasks currently associated with this project.</h3></div>
+			}
 		</div>
 		
 		<div class="bugs content-area row">
@@ -205,6 +228,7 @@
 				<h2>Software Bugs</h2>
 			</div>
 
+			@if (Model.Bugs.Total > 0) {
 			<div class="col-md-9">
 				<section class="bug-burndown panel panel-default">
 					<header>
@@ -246,6 +270,9 @@
                     <div class="col-md-12 recent-chart" id="bug-recent-chart"></div>
                 </div>
             </div>
+			} else {
+			<div class="empty"><h3>There aren't any bugs currently associated with this project.</h3></div>
+			}
 		</div>
     </section>
 
@@ -375,12 +402,6 @@
         </div>
     </section>
 
-    <!-- Button trigger modal -->
-    <button class="bug-floater" data-target="#myModal" data-toggle="modal">
-        Report<br />
-        Bug
-    </button>
-
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -391,11 +412,11 @@
                 </div>
 
                 <div class="modal-body">
-                    <iframe frameborder="0" src="@Url.Action("ReportBug", "Home", new {Key = Model.Key})"></iframe>
+                    <iframe id="bug-form" src="@Url.Action("ReportBug", "Home", new {Key = Model.Key})"></iframe>
                 </div>
 
                 <div class="modal-footer">
-					<button class="btn btn-info" data-dismiss="modal" type="button">Create</button>
+					<button class="btn btn-info" id="bug-submit" type="button">Create</button>
                     <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                 </div>
             </div>

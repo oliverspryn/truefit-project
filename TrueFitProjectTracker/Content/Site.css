@@ -12,9 +12,11 @@ body {
 }
 
 .empty {
+	float: left;
 	height: 250px;
 	padding-top: 50px;
 	text-align: center;
+	width: 100%;
 }
 
 .empty h3 {

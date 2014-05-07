@@ -28,7 +28,7 @@
 
 	<div class="form-group">
 		 @Html.LabelFor(model => model.Summary)
-		 @Html.TextBoxFor(model => model.Summary, new { @class = "form-control validate[required]" })
+		 @Html.TextBoxFor(model => model.Summary, new { autocomplete = "off",  @class = "form-control validate[required]" })
 	</div>
 
 	<div class="form-group">

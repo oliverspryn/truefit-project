@@ -17,6 +17,38 @@
 			credits: { enabled: false },
 			exporting: { enabled: false },
 			legend: { enabled: false },
+			plotOptions: {
+				column: {
+					animation: false,
+					borderColor: 'transparent',
+					borderWidth: 0,
+					stacking: 'normal',
+					states: { hover: { enabled: false } }
+				}
+			},
+			series: [{
+				color: '#F2F3F5',
+				data: function() {
+					var subElements = [];
+
+					for (var i = 0; i < data.length; ++i) {
+						subElements[i] = max - data[i];
+					}
+
+					return subElements;
+				}(),
+				dataLabels: {
+					color: '#313B47',
+					enabled: true,
+					formatter: function() { return (this.y == max) ? '0' : (max - this.y); },
+					style: { 'font-size': '12px' },
+					verticalAlign: 'top',
+					y: 10
+				}
+			}, {
+				color: color,
+				data: data
+			}],
 			title: { text: null },
 			tooltip: { enabled: false },
 			xAxis: {
@@ -27,7 +59,9 @@
 				labels: {
 					style: {
 						'color': '#313B47',
-						'font-size': '12px'
+						'font-size': '12px',
+						'font-weight': 'bold'
+
 					},
 					y: 20
 				},
@@ -39,31 +73,7 @@
 				lineWidth: 0,
 				minorGridLineWidth: 0,
 				title: { text: null }
-			},
-			plotOptions: {
-				column: {
-					animation: false,
-					borderColor: 'transparent',
-					borderWidth: 0,
-					stacking: 'normal',
-					states: { hover: { enabled: false } }
-				}
-			},
-			series: [{
-				color: [ '#F2F3F5' ],
-				data: function() {
-					var subElements = [];
-
-					for (var i = 0; i < data.length; ++i) {
-						subElements[i] = max - data[i];
-					}
-
-					return subElements;
-				}()
-			}, {
-				color: [ color ],
-				data: data
-			}]
+			}
 		});
 	}
 })(jQuery);

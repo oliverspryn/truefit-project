@@ -1,4 +1,14 @@
 ﻿/*
+ * General styles
+ * -------------------------------------------
+*/
+
+.empty {
+	height: 175px;
+	padding-top: 0px;
+}
+
+/*
  * Jumbotron
  * -------------------------------------
 */
@@ -68,7 +78,23 @@ section#start div.hero ul li a:hover {
 }
 
 @media screen and (max-width: 970px) {
-	
+	section#start div.hero ul li {
+		width: 32%;
+	}
+
+	section#start div.hero ul li.sprints {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	section#start h2 {
+		font-size: 36px;
+	}
+
+	section#start div.hero ul {
+		display: none;
+	}
 }
 
 /*
@@ -370,6 +396,37 @@ div.tasks div.recent div.recent-chart {
 	height: 200px;
 }
 
+@media screen and (max-width: 970px) {
+	div.tasks section.task-totals {
+		background: none;
+		box-shadow: none;
+	}
+
+	div.tasks section.task-totals div.panel-heading {
+		display: none;
+	}
+
+	div.tasks section.task-totals div.panel-body {
+		background: none;
+	}
+
+	div.tasks section.task-totals div.panel-body div.col-md-12 {
+		background: none;
+		border-bottom: none !important;
+		border-right: 1px solid #757678;
+		display: inline-block;
+		width: 49%;
+	}
+
+	div.tasks section.task-totals div.panel-body div.col-md-12:last-child {
+		border-right: none;
+	}
+
+	div.tasks section.task-totals div.panel-body div.col-md-12 h4 {
+		font-size: 40px;
+	}
+}
+
 /*
  * Bug details
  * -------------------------------------
@@ -433,6 +490,37 @@ div.bugs div.recent h3 {
 
 div.bugs div.recent div.recent-chart {
 	height: 200px;
+}
+
+@media screen and (max-width: 970px) {
+	div.bugs section.bug-totals {
+		background: none;
+		box-shadow: none;
+	}
+
+	div.bugs section.bug-totals div.panel-heading {
+		display: none;
+	}
+
+	div.bugs section.bug-totals div.panel-body {
+		background: none;
+	}
+
+	div.bugs section.bug-totals div.panel-body div.col-md-12 {
+		background: none;
+		border-bottom: none !important;
+		border-right: 1px solid #757678;
+		display: inline-block;
+		width: 49%;
+	}
+
+	div.bugs section.bug-totals div.panel-body div.col-md-12:last-child {
+		border-right: none;
+	}
+
+	div.bugs section.bug-totals div.panel-body div.col-md-12 h4 {
+		font-size: 40px;
+	}
 }
 
 /*
@@ -691,6 +779,7 @@ button.bug-floater:hover {
 */
 
 div#myModal div.modal-body iframe {
+	border: none;
 	height: 276px;
 	overflow: hidden;
 	width: 100%;

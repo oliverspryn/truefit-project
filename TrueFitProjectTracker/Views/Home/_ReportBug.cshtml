@@ -1,21 +1,28 @@
 ﻿@model TrueFitProjectTracker.ViewModels.BugViewModel
-
-@{
-    Layout = "";
-}
-
-@section styles{
-       @Styles.Render("~/Content/Bug.css")
-}
+@{ Layout = ""; }
 
 <!DOCTYPE html> 
 <html lang="en-us">
-   
 <head>
-    <title>Your issue has been submitted!</title>
-    </head>
-    <body>
-    <p>Thank you for your input.</p>
-    </body>
+<title>Bug Successfully Submitted</title>
+<link href="//fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+@Styles.Render("~/Content/Site.css")
 
-    </html>
+<script>
+	window.onload = function() {
+		setTimeout(function() {
+		//Hide the containing modal dialog
+			window.parent.$('#myModal').modal('hide');
+
+		//Reset back to the bug entry page
+			var frame = window.parent.document.getElementById('bug-form');
+			frame.src = frame.src;
+		}, 2000);
+	}
+</script>
+</head>
+
+<body style="background-color: #FFFFFF !important; overflow: hidden;">
+<section class="empty"><h3>Thank you for your input.</h3></section>
+</body>
+</html>

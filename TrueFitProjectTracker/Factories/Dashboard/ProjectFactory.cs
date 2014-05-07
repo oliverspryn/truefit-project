@@ -149,7 +149,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 					Tasks.Burndown.End = end;
 					Tasks.Burndown.Start = start;
 					Tasks.Completed = completedCount;
-					Tasks.Percent = progress;
+					Tasks.Percent = progress < 0 ? 0 : progress;
 					Tasks.Recent = recentCompletedCount;
 					Tasks.RecentComplete = recentTasksData;
 					Tasks.Remaining = remainingCount;
@@ -158,14 +158,18 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 					Bugs.Burndown.End = end;
 					Bugs.Burndown.Start = start;
 					Bugs.Completed = completedCount;
-					Bugs.Percent = progress;
+					Bugs.Percent = progress < 0 ? 0 : progress;
 					Bugs.Recent = recentCompletedCount;
 					Bugs.RecentComplete = recentTasksData;
 					Bugs.Remaining = remainingCount;
 				}
 			}
 
-			Percent = (int)((double)(Bugs.Completed + Tasks.Completed) / (Bugs.Total + Tasks.Total) * 100);
+			if (Bugs.Total + Tasks.Total > 0) {
+				Percent = (int)((double)(Bugs.Completed + Tasks.Completed) / (Bugs.Total + Tasks.Total) * 100);
+			} else {
+				Percent = 0;
+			}
 
 			// </jeff>
 			

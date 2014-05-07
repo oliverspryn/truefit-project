@@ -1,8 +1,5 @@
 ﻿(function($) {
-	$.fn.compare = function(taskCount, taskColor, bugCount, bugColor) {
-		var total = bugCount + taskCount;
-		var taskPercent = (taskCount / total) * 100;
-    
+	$.fn.progress = function(percent) {
 		$(this).highcharts({
 			chart: { type: 'solidgauge' },
 			credits: { enabled: false },
@@ -20,11 +17,11 @@
 			},
 			series: [{
 				data: [{
-					color: '#77E38C',
+					color: '#F2F3F5',
 					y: 100
 				}, {
-					color: '#14B9D6',
-					y: 100 - taskPercent
+					color: '#A48AD4',
+					y: percent
 				}]
 			}],
 			title: { text: null },
