@@ -4,13 +4,55 @@
 */
 
 section#start h2 {
+	font-size: 50px;
     font-weight: 100;
     margin-top: 70px;
     text-align: center;
 }
 
-section#start div.row div.progress {
+section#start div.hero {
     margin-top: 20px;
+}
+
+section#start div.hero ul {
+	list-style: none;
+	margin: 50px 0px 0px 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+section#start div.hero ul li {
+	background-image: url('../Images/sprites/title-indicators.png');
+	background-position-x: center;
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 135px;
+	vertical-align: top;
+	width: 24%;
+}
+
+section#start div.hero ul li.birds-eye {
+	background-position-y: -611px;
+}
+
+section#start div.hero ul li.tasks {
+	background-position-y: -731px;
+}
+
+section#start div.hero ul li.bugs {
+	background-position-y: -851px;
+}
+
+section#start div.hero ul li.sprints {
+	background-position-y: -605px;
+}
+
+section#start div.hero ul li span {
+	display: block;
+	font-size: 20px;
+	font-weight: 300;
+	padding-top: 100px;
+	width: 100%;
 }
 
 /*
