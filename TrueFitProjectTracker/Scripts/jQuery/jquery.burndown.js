@@ -16,7 +16,18 @@
 					return '<b>' + this.y + '</b> ' + (this.y == 1.0 ? 'hour' : 'hours') + ' remaining for <b>' + this.x + '</b>';
 				}
 			},
-			series: [ { data: data } ],
+			series: [{ name: "Projected Burndown", data: data }
+			        ,{ name: "Ideal Burndown", 
+			        data: [{ x: 0, y: data[0] }, { x: data.length - 1, y: data[data.length - 1] }]
+                        //function () {
+			            //arr = [];
+			            //for (var i in data) {
+			            //}
+			            //return arr;}()
+                        ,
+			        dashStyle: 'dash'
+			        }
+			],
 			xAxis: {
 				categories: months,
 				labels: {
