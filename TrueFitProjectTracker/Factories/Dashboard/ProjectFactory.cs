@@ -5,6 +5,15 @@ using System.Web;
 using TrueFitProjectTracker.Models.Dashboard;
 
 namespace TrueFitProjectTracker.Factories.Dashboard {
+/// <summary>
+/// The <c>ProjectFactory</c> class is designed to commnicate
+/// with a Jira server, fetch, then aggregate all of the data
+/// fetched from the server. A C# model will be made available
+/// with the data pre-populated, as a high-level representation
+/// of the data which was recieved.
+/// 
+/// This data is intended to display on a project dashboard.
+/// </summary>
 	public class ProjectFactory : TasksFactory {
 	/// <summary>
 	/// A high level summary of the bugs associated with a project.
@@ -12,10 +21,15 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 		public SummaryModel Bugs { get; set; }
 
 	/// <summary>
-	/// The name and key of this project.
+	/// The name friendly name of a project.
 	/// </summary>
 		public string Name { get; set; }
+
+	/// <summary>
+	/// The Jira "primary key" associated with a project.
+	/// </summary>
         public string Key { get; set; }
+
 	/// <summary>
 	/// The project's overall completion percentage.
 	/// </summary>
@@ -31,6 +45,13 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 	/// </summary>
 		public SummaryModel Tasks { get; set; }
 
+	/// <summary>
+	/// The constructor will require a project key, and will then 
+	/// commence to fetch and aggregate the set of data recieved
+	/// from the Jira server.
+	/// </summary>
+	/// 
+	/// <param name="key">The Jira project key for which to fetch data</param>
 		public ProjectFactory(string key) : base(key) {
 		//Set up the Bug and Task data structures
 			Bugs = new SummaryModel();
@@ -175,6 +196,16 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			
 		}
 
+	/// <summary>
+	/// A friendly project name is associated with each project key.
+	/// This name either hidden in a set of data which has already been
+	/// retrieved, or if no data was returned, can be obtained by making
+	/// a seperate call to the server to specifically request the friendly
+	/// project name.
+	/// </summary>
+	/// 
+	/// <param name="key">The Jira project key for which to fetch the friendly name</param>
+	/// <returns>The friendly project name</returns>
 		private string projectName(string key) {
 		//Fetching the list of issues will include the project name in each issue, don't ask for it again
 			if (List.Count > 0) {

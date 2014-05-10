@@ -164,8 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Home.css" />
+    <Content Include="Content\Home.min.css" />
     <Content Include="Content\Project.css" />
     <Content Include="Content\Bug.css" />
+    <Content Include="Content\Bug.min.css" />
+    <Content Include="Content\Project.min.css" />
+    <Content Include="Content\Site.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="App_Data\fields.dat" />
@@ -188,8 +192,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jQuery\jquery.locker.js" />
+    <Content Include="Scripts\jQuery\dashboard.superpackage.min.js" />
+    <Content Include="Scripts\jQuery\jquery.lib.js" />
     <Content Include="Scripts\jQuery\jquery.burndown.js" />
+    <Content Include="Scripts\jQuery\jquery.narrow.min.js" />
     <Content Include="Scripts\jQuery\jquery.progress.js" />
     <Content Include="Scripts\jQuery\jquery.recent.js" />
     <Content Include="Scripts\jQuery\jquery.rotary.js" />
@@ -214,7 +220,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ProjectsList.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Styles.cshtml" />
     <Content Include="Views\Shared\PartialViews\_Scripts.cshtml" />

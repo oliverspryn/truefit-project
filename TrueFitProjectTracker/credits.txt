@@ -13,5 +13,15 @@ Bug icon: Courtesy of Visual Pharm [http://icons8.com] from the Windows 8 Metro 
 Calendar icon: Courtesy of Designmodo [http://designmodo.com] from the Lineicons Free Icon Pack, CC Attribution 3.0 Unported
 Checkmark icon: Courtesy of Designmodo [http://designmodo.com/flat-free] from the Flat UI Free Icon Pack, CC BY 3.0
 Eagle silhouette: Courtesy of Tarah Haack from the Bird Silhouettes Icon Pack, unknown license
+Flag icons: Courtesy of Visual Pharm [http://icons8.com] from the Windows 8 Metro Style Icon Pack, free for commerical use
 Hourglass icon: Courtesy of Webalys [http://www.webalys.com/minicons] from the Minicons Free Vector Icons Pack, CC BY 3.0
+Percent icon: Courtesty of Custom Icon Design [http://www.customicondesign.com] from the Free pretty office Icons part 5 Icon Pack, free for personal use only
+Question mark: Courtesy of Custom Icon Design [http://www.customicondesign.com] from the Free pretty office Icons part 2 Icon Pack, free for non commerical use
 Sprinter icon: Courtesy of Fun and Fit [http://www.funandfit.ae/jumeirah-open-beach-1/], Author and License unknown
+X icon: Courtesy of Ionicons [http://ionicons.com] fromt the Ionicons Icon Pack, MIT License
+
+------------------------------
+ICONS:
+------------------------------
+
+Charting library: Highcharts [http://www.highcharts.com], free for non-commercial use

@@ -6,6 +6,12 @@ using TrueFitProjectTracker.Models.Cache;
 using TrueFitProjectTracker.Models.Dashboard;
 
 namespace TrueFitProjectTracker.Factories.Dashboard {
+/// <summary>
+/// The <c>TaskFactory</c> class is designed to fetch all of the
+/// tasks associated with a particular project and aggregate all
+/// of them together into a C# model, containing the most useful
+/// bit of information regarding project tasks.
+/// </summary>
     public class TasksFactory : JiraFactory {
 	/// <summary>
 	/// The path in the Jira API to the listing of all issues associated
@@ -68,6 +74,12 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 	/// </summary>
 		protected List<TaskModel> Tasks;
 
+	/// <summary>
+	/// The constructor will take a project key, fetch all of the tasks
+	/// associated with said project, and aggregate them inside of a C#
+	/// model.
+	/// </summary>
+	/// <param name="projectKey">The Jira project key for which to fetch data.</param>
 		public TasksFactory(string projectKey) : base() {
 			Fields = new FieldFactory(Jira);
 			Sprints = new Dictionary<string, SprintModel>();
@@ -77,8 +89,17 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			fetchTasks(projectKey);
 		}
 
+	/// <summary>
+	/// Add a task to a sprint. First, check if a given sprint already 
+	/// exists inside of the List<SprintModel> List. If a given sprint
+	/// already exists, then add the task, otherwise create the sprint,
+	/// then add the task.
+	/// </summary>
+	/// 
+	/// <param name="sprintData">The name of the sprint in which to add the task.</param>
+	/// <param name="tm">The task to add to the sprint.</param>
 		private void addToSprint(string sprintData, TaskModel tm) {
-			string name = sprintData == null ? "Unassigned" : getSprintName(sprintData);
+			string name = sprintData == null ? "Unassigned Tasks" : getSprintName(sprintData);
 
 		//A new sprint may need to be created
 			if (sprintData == null && !Sprints.ContainsKey(name)) {
@@ -95,6 +116,13 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 
 			Sprints[name].Tasks.Add(tm);
 		}
+
+	/// <summary>
+	/// Create a new SprintModel object by parsing a CSV string.
+	/// </summary>
+	/// 
+	/// <param name="sprintData">A CSV containing data to set up the sprint.</param>
+	/// <returns>A SprintModel object corresponding to the input string.</returns>
 
 		private SprintModel createSprint(string sprintData) {
 			SprintModel sm = new SprintModel();
@@ -144,6 +172,12 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 			return sm;
 		}
 
+	/// <summary>
+	/// Fetch the task list from Jira and aggregate the results into a
+	/// C# model.
+	/// </summary>
+	/// 
+	/// <param name="projectKey">The Jira project key for which to fetch data.</param>
 		private void fetchTasks(string projectKey) {
 		//Find the Epic and Sprint field IDs
 			string epicField, sprintField;
@@ -268,7 +302,36 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				sm.Tasks.Sort((x, y) => x.Created.CompareTo(y.Created));
 				Tasks.Sort((x, y) => x.Created.CompareTo(y.Created));
 			}
+
+		//Use the sprint's associated tasks to generate the (presumed) start and end dates
+			DateTime now = DateTime.Now;
+
+			foreach(SprintModel sprint in List) {
+				if (sprint.StartDate.CompareTo(Epoch) == 0) {
+					sprint.StartDate = sprint.Tasks.Min(record => record.Created);
+				}
+
+				if (sprint.EndDate.CompareTo(Epoch) == 0) {
+					sprint.EndDate = sprint.Tasks.Max(record => record.DueDate);
+				}
+
+			//Ensure the sprint state is consistent with these new values
+				if (DateTime.Compare(sprint.StartDate, now) > 0) {
+					sprint.State = "FUTURE";
+				} else if (DateTime.Compare(sprint.StartDate, now) < 0 && DateTime.Compare(sprint.EndDate, now) > 0) {
+					sprint.State = "ACTIVE";
+				} else {
+					sprint.State = "CLOSED";
+				}
+			}
 		}
+
+	/// <summary>
+	/// Parse a CSV string to fetch the name of the associated sprint.
+	/// </summary>
+	/// 
+	/// <param name="sprintData">A CSV string containing a sprint name.</param>
+	/// <returns>The associated sprint name.</returns>
 
 		private string getSprintName(string sprintData) {
 		//This is a comma delimited list

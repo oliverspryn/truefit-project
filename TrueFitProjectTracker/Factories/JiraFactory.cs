@@ -81,10 +81,14 @@ namespace TrueFitProjectTracker.Factories {
 		private void getCredentials() {
 			string path = HostingEnvironment.ApplicationPhysicalPath + CONFIG_FILE;
 
-			using (StreamReader sr = new StreamReader(path)) {
-				URL = sr.ReadLine();
-				UserName = sr.ReadLine();
-				Password = sr.ReadLine();
+			try {
+				using (StreamReader sr = new StreamReader(path)) {
+					URL = sr.ReadLine();
+					UserName = sr.ReadLine();
+					Password = sr.ReadLine();
+				}
+			} catch(FileNotFoundException e) {
+				throw new FileNotFoundException("The system's configuration file was not found. Refer to the application documentation to setup and configure this file.");
 			}
 		}
 	}

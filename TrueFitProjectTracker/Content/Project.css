@@ -528,249 +528,236 @@ div.bugs div.recent div.recent-chart {
  * -------------------------------------
 */
 
-section.tasks {
-	padding: 0px;
-}
-
-section.tasks > h2 {
+div.tasks > h2 {
 	display: none;
 }
 
-section.tasks div.carousel div.carousel-inner div.item > header {
-    background-color: #181818;
-    padding: 50px 17%;
-	position: relative;
-}
-
-section.tasks div.carousel header h3 {
-	background: url('../Images/sprites/tasks.png') no-repeat;
-	background-position: -23px 0px;
-    color: #FFFFFF;
-    font-size: 24px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    margin: 0px;
-    padding: 3px 0px 14px 35px;
-    text-transform: uppercase;
-}
-
-section.tasks div.carousel header h4 {
-    color: #666666;
-    font-size: 18px;
-    margin: 0px;
-}
-
-section.tasks div.carousel header ul {
-	background: url('../Images/sprites/tasks.png') no-repeat;
-	background-position: -24px -59px;
-	color: #666666;
-	list-style: none;
-	margin: 0px;
-	padding: 3px 0px 3px 33px;
-	position: absolute;
-	right: 200px;
-	top: 50px;
-}
-
-section.tasks div.carousel header ul li {
+div.tasks div.carousel header h3 {
+	background: url('../Images/sprites/title-indicators.png') no-repeat;
+	background-position: 3px -987px;
+	color: #F5772D;
 	display: inline-block;
+	font-size: 24px !important;
+	font-weight: 300;
+	margin: 0px auto 20px auto;
+	padding: 22px 0px 22px 89px;
 }
 
-section.tasks div.carousel div.sprint-body {
-	display: table;
-	padding: 50px 17% 75px 17%;
-	width: 100%;
+div.tasks div.carousel header ul {
+	list-style: none;
+	margin: 0px 0px 30px 0px;
+	padding: 7px 0px;
 }
 
-section.tasks div.carousel div.sprint-body div.row {
-	display: table-row;
-	height: 100%;
+div.tasks div.carousel header ul li {
+	background: url('../Images/sprites/tasks.png') no-repeat;
+	display: inline-block;
+	margin: 0px 50px;
+	padding: 7px 0px 7px 45px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div {
-	border-top: 5px solid #181818;
-	display: table-cell;
-	float: none;
-	margin: 0px 5px;
+div.tasks div.carousel header ul li.active {
+	background-position: left -61px;
+}
+
+div.tasks div.carousel header ul li.closed {
+	background-position: left -126px;
+}
+
+div.tasks div.carousel header ul li.future {
+	background-position: left 4px;
+}
+
+div.tasks div.carousel header ul li.from {
+	background-position: left -193px;
+}
+
+div.tasks div.carousel header ul li.to {
+	background-position: left -288px;
+}
+
+div.tasks div.carousel ul.task-list {
+	list-style: none;
+	margin: 0px 75px;
 	padding: 0px;
-	text-align: center;
 	vertical-align: top;
 }
 
-section.tasks div.carousel div.sprint-body div.row div:hover {
-	border-top: 5px solid #585858;
-}
-
-section.tasks div.carousel div.sprint-body div.row div.empty {
-	border: none;
-	text-align: center;
-	vertical-align: middle;
-}
-
-section.tasks div.carousel div.sprint-body div.row div.complete.empty {
-	color: #00B22D;
-}
-
-section.tasks div.carousel div.sprint-body div.row div.started.empty {
-	color: #B2B200;
-}
-
-section.tasks div.carousel div.sprint-body div.row div.later.empty {
-	color: #B20000;
-}
-
-section.tasks div.carousel div.sprint-body div.row div h5 {
-	background: url('../Images/sprites/tasks.png') no-repeat;
+div.tasks div.carousel ul.task-list li {
+	cursor: pointer;
 	display: inline-block;
-	padding: 3px 0px 3px 33px;
-	font-size: 20px;
-	text-align: center;
+	height: 107px;
+	margin: 7px 0px;
+	padding: 0px 7px 7px 7px;
+	position: relative;
+	vertical-align: top;
+	width: 32%
 }
 
-section.tasks div.carousel div.sprint-body div.row div.complete h5 {
-	background-position: -27px -115px;
-	color: #00B22D;
+div.tasks div.carousel ul.task-list li div {
+	background: #EEEEEE;
+	height: 100%;
+	padding-top: 7px;
+	width: 100%;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.started h5 {
-	background-position: -27px -171px;
-	color: #B2B200;
+div.tasks div.carousel ul.task-list li div.complete {
+	background: #CBF4D3 url('../Images/sprites/tasks.png') no-repeat;
+	background-position: -39px -451px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.later h5 {
-	background-position: -27px -229px;
-	color: #B20000;
+div.tasks div.carousel ul.task-list li div.in-progress {
+	background: #EEEEEE url('../Images/sprites/tasks.png') no-repeat;
+	background-position: -4px -488px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.empty h5 {
-	padding: 91px 0px 0px 0px;
+div.tasks div.carousel ul.task-list li div.open {
+	-moz-box-shadow: 0px 0px 30px #888888;
+	-ms-box-shadow: 0px 0px 30px #888888;
+	-o-box-shadow: 0px 0px 30px #888888;
+	-webkit-box-shadow: 0px 0px 30px #888888;
+	box-shadow: 0px 0px 30px #888888;
+	
+	cursor: default;
+	height: auto;
+	left: 7px;
+	overflow: visible;
+	position: absolute;
+	right: 7px;
+	top: 0px;
+	width: auto;
+	z-index: 50;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.complete.empty h5 {
-	background-position: center -338px;
+div.tasks div.carousel ul.task-list li div h4 {
+	max-height: 40px;
+	padding: 0px 7px;
+	overflow: hidden;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.started.empty h5 {
-	background-position: center -475px;
+div.tasks div.carousel ul.task-list li div.open h4 {
+	max-height: none;
 }
 
-section.tasks div.carousel div.sprint-body div.row div.later.empty h5 {
-	background-position: center -611px;
+div.tasks div.carousel ul.task-list li div p {
+	display: none;
+	padding: 0px 7px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div ul {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
+div.tasks div.carousel ul.task-list li div p.due, div.tasks div.carousel ul.task-list li div p.status {
+	margin: 7px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div ul li {
-	background: #F7F7F7;
-	border-bottom: 1px solid #E9E9E9;
-	padding: 11px;
+div.tasks div.carousel ul.task-list li div.open p {
+	display: block;
 }
 
-section.tasks div.carousel div.sprint-body div.row div ul li:hover {
-	background-color: #F0F0F0;
+div.tasks div.carousel ul.task-list li div button {
+	border-radius: 0px;
+	display: none;
+	padding: 7px;
 }
 
-section.tasks div.carousel div.sprint-body div.row div ul li:last-child {
-	border-bottom: none;
+div.tasks div.carousel ul.task-list li div.open button {
+	display: block;
 }
 
-section.tasks div.carousel ol li {
+div.tasks div.carousel ul.task-list li div span.more {
+	bottom: 67px;
+	color: #CCCCCC;
+	font-size: 79px;
+	font-weight: 100;
+	height: 10px;
+	left: 50%;
+	line-height: 0.01;
+	margin: -26px;
+	position: absolute;
+}
+
+div.tasks div.carousel ul.task-list li:hover div span.more {
+	color: #333333;
+}
+
+div.tasks div.carousel ul.task-list li div.open span.more {
+	display: none;
+}
+
+div.tasks div.carousel ol li {
 	border: 1px solid #000000;
 }
 
-section.tasks div.carousel ol li.active {
+div.tasks div.carousel ol li.active {
 	background-color: #000000;
 }
 
-section.tasks div.carousel a.carousel-control {
-	margin-top: 162px;
+div.tasks div.carousel a.carousel-control {
+	background: none;
+	margin-top: 175px;
+	width: 75px;
+}
+
+div.tasks div.carousel a.carousel-control span {
+	background: #313B47;
+	border: 6px solid #000000;
+	border-radius: 100%;
+	height: 54px;
+	width: 55px;
+}
+
+div.tasks div.carousel a.carousel-control span.glyphicon-chevron-left {
+	margin: -29px 0px 0px -28px;
+	padding: 6px 5px 0px 0px;
+}
+
+div.tasks div.carousel a.carousel-control span.glyphicon-chevron-right {
+	margin: -29px -27px 0px 0px;
+	padding: 6px 2px 0px 0px;
+}
+
+div.tasks div.carousel ol.carousel-indicators {
+	bottom: -35px;
 }
 
 @media screen and (max-width: 970px) {
-	section.tasks div.carousel div.carousel-inner div.item > header {
-		padding: 30px;
+	div.tasks div.carousel ul.task-list li {
+		width: 49%
 	}
+}
 
-	section.tasks div.carousel header h3 {
-		background-image: none;
+@media screen and (max-width: 825px) {
+	div.tasks div.carousel header ul li.active {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	div.tasks div.carousel a.carousel-control span {
+		height: 46px;
+		width: 47px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	div.tasks div.carousel ul.task-list li {
+		border-bottom: 1px solid #CCCCCC;
+		margin: 0px;
 		padding: 0px;
-		text-align: center;
+		width: 100%
 	}
 
-	section.tasks div.carousel header h4 {
-		display: none;
-	}
-
-	section.tasks div.carousel header ul {
-		background-image: none;
-		padding: 15px 0px 0px 0px;
-		position: static;
-		text-align: center;
-	}
-
-	section.tasks div.carousel div.sprint-body {
-		padding: 10px 20% 40px 20%;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div {
-		border: none;
-		display: block;
-		padding: 20px 0px;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div.empty h5 {
-		padding: 3px 0px 3px 33px;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div.complete.empty h5 {
-		background-position: -27px -115px;
-		color: #00B22D;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div.started.empty h5 {
-		background-position: -27px -171px;
-		color: #B2B200;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div.later.empty h5 {
-		background-position: -27px -229px;
-		color: #B20000;
-	}
-
-	section.tasks div.carousel div.sprint-body div.row div.empty h6 {
-		display: none;
-	}
-
-	section.tasks div.carousel a.carousel-control {
-		margin-top: 86px;
+	div.tasks div.carousel ol.carousel-indicators {
+		bottom: -45px;
 	}
 }
 
-/*
- * Floating bug link
- * -------------------------------------
-*/
+@media screen and (max-width: 550px) {
+	div.tasks div.carousel header ul {
+		margin-bottom: 15px;
+	}
 
-button.bug-floater {
-	background-image: linear-gradient(to bottom,#5bc0de 0,#31b0d5 100%);
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	bottom: -1px;
-	border: 1px solid #008C8C;
-	color: #FFFFFF;
-	padding: 15px;
-	position: fixed;
-	right: 20px;
-	text-align: center;
-}
-
-button.bug-floater:hover {
-	border: 1px solid #004040;
-	text-decoration: none;
+	div.tasks div.carousel header ul li.from {
+		padding-bottom: 20px;
+	}
 }
 
 /*

@@ -15,6 +15,7 @@ namespace TrueFitProjectTracker.Models.Dashboard {
 		}
 
 		public Burndown Burndown { get; set; }
+
 		public int Completed {
 			get {
 				return completed;
@@ -24,9 +25,11 @@ namespace TrueFitProjectTracker.Models.Dashboard {
 				Total = (Total == -1) ? value : (Total + value);
 			}
 		}
+
 		public int Percent { get; set; }
 		public int Recent { get; set; }
 		public List<int> RecentComplete { get; set; }
+
 		public int Remaining {
 			get {
 				return remaining;
@@ -36,6 +39,7 @@ namespace TrueFitProjectTracker.Models.Dashboard {
 				Total = (Total == -1) ? value : (Total + value);
 			}
 		}
+
 		public int Total {
 			get { return total; }
 			set { total = value; }
