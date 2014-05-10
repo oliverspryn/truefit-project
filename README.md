@@ -1,4 +1,4 @@
-\TrueFit Project Tracker
+TrueFit Project Tracker
 ===============
 
 Installation or Transfer Instructions
