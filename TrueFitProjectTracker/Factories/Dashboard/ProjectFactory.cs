@@ -161,7 +161,7 @@ namespace TrueFitProjectTracker.Factories.Dashboard {
 				int completedCount = tasksList.Count(task => task.ResolutionDate != new DateTime(1970, 1, 1));
 				int remainingCount = tasksList.Count() - completedCount;
 
-                int progress = (int)Math.Round((double)(completedCount) / ((remainingCount + completedCount) == 0 ? (remainingCount + completedCount) * 100 : 1), 0); // percent
+                int progress = (int)Math.Round((double)(completedCount) / ((remainingCount + completedCount) == 0 ? 1 : (remainingCount + completedCount)) * 100, 0); // percent
 
 				// now handle our project model based on if we're doing tasks or bugs
 
