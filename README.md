@@ -27,4 +27,4 @@ System Requirements to Build Application
 - Microsoft .NET Framework version 4.5.0 or newer
 
 
-[1]: https://github.com/ffiadmin/truefit-project/releases
+[1]: https://github.com/oliverspryn/truefit-project/releases
